@@ -1,0 +1,2359 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://somik123.github.io/site/Proxmox/proxmox-with-one-public-ip/">
+      
+      
+        <link rel="prev" href="../proxmox-disable-subscription-invalid-message/">
+      
+      
+        <link rel="next" href="../../SSH%20%26%20Users/ubuntu-add-sudo-user/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Proxmox with one Public IP - Somik's Linux Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Somik&#39;s Linux Notes" class="md-header__button md-logo" aria-label="Somik's Linux Notes" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Somik's Linux Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Proxmox with one Public IP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Somik&#39;s Linux Notes" class="md-nav__button md-logo" aria-label="Somik's Linux Notes" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Somik's Linux Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Apache
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Apache/ubuntu-install-apachephp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu Install Apache+PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aria2c
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Aria2c
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Aria2c/ubuntu-install-aria2c-for-downloads-with-webui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu Install Aria2c for Downloads with WebUI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESP32
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    ESP32
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ESP32/esp-ota-code-upload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ESP OTA code upload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lighttpd
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lighttpd
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lighttpd/ubuntu-install-lighttpdphp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu Install Lighttpd+PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Lighttpd/ubuntu-install-llmp-stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu Install LLMP stack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/persistent-reverse-tunnel-using-autossh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistent Reverse Tunnel using AutoSSH
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/ubuntu-install-pi-hole-with-pivpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu Install Pi-Hole with PiVPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/ubuntu-tailscale-vpn-subnet-router/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu Tailscale VPN + Subnet router
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Nginx
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Nginx/nginx-php-continious-output/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx + PHP continious output
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Nginx/nginx-ssl-site-config/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx SSL Site Config
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Nginx/php-fpm-restart-upon-crash/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PHP-FPM Restart Upon Crash
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Nginx/semi-automatic-nginx-reverse-proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Semi-Automatic Nginx Reverse Proxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Nginx/ubuntu-nginxphp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu Nginx+PHP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PHP
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    PHP
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PHP/php-ip-to-country-script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PHP IP to Country Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxmox
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Proxmox
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../proxmox-disable-subscription-invalid-message/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxmox disable subscription invalid message
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxmox with one Public IP
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Proxmox with one Public IP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-ufw-firewall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring UFW firewall
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internal-network-setup-vmbr1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Network setup (VMBR1)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-ip-setup-for-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed IP setup for virtual machines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-forwarding-to-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Port forwarding to virtual machines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSH & Users
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    SSH & Users
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SSH%20%26%20Users/ubuntu-add-sudo-user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu Add Sudo User
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SSH%20%26%20Users/ubuntu-enable-ssh-for-root-user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu enable SSH for root user
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SSH%20%26%20Users/ubuntu-ssh-totp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu SSH + TOTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Samba
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Samba/ubuntu-install-samba/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubuntu Install Samba
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transmission
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Transmission
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Transmission/install-transmission-2-03/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Install Transmission 2.03
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-ufw-firewall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring UFW firewall
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internal-network-setup-vmbr1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Network setup (VMBR1)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixed-ip-setup-for-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixed IP setup for virtual machines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#port-forwarding-to-virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Port forwarding to virtual machines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Proxmox with one Public IP</h1>
+
+<p>The goal of this guide is to set up a Proxmox at a hoster who gives you only one public IP (V4 and / or V6) on a dedicated server.<br />
+The goal is that all virtual machines have Internet and that you can forward port to them.</p>
+<h3 id="overview">Overview</h3>
+<p>The external network (VMBR0) has a public IPv4 and a public IPv6 available:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>IPv4<span class="w"> </span>network:<span class="w"> </span><span class="m">123</span>.45.67.89/24
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>IPv6<span class="w"> </span>network:<span class="w"> </span><span class="m">1234</span>:5678:9abc:de::1/128
+</code></pre></div></td></tr></table></div>
+<p>Before starting, we need to create a private network.</p>
+<p>In this guide, the internal network (VMBR1) will have IPv4 and IPv6:</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>IPv4<span class="w"> </span>network:<span class="w"> </span><span class="m">10</span>.0.0.1/24
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>IPv6<span class="w"> </span>network:<span class="w"> </span>fd12:34:56:78::1/64
+</code></pre></div></td></tr></table></div>
+The communication will behave like this: <strong>VMBR0 &lt;-&gt; VMBR1 &lt;-&gt; Virtual machines</strong>.</p>
+<p>The virtual machines will have address on the internal network (VMBR1), here is an example for a virtual machine:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>iface<span class="w"> </span>ens18<span class="w"> </span>inet<span class="w"> </span>static
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">        </span>address<span class="w"> </span><span class="m">10</span>.0.0.104/24
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">        </span>gateway<span class="w"> </span><span class="m">10</span>.0.0.1
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">        </span>dns-nameservers<span class="w"> </span><span class="m">1</span>.1.1.1<span class="w"> </span><span class="m">1</span>.0.0.1
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>iface<span class="w"> </span>ens18<span class="w"> </span>inet6<span class="w"> </span>static
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">        </span>address<span class="w"> </span>fd12:34:56:78::104/64
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">        </span>gateway<span class="w"> </span>fd12:34:56:78::1
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">        </span>dns-nameservers<span class="w"> </span><span class="m">2606</span>:4700:4700::1111<span class="w"> </span><span class="m">2606</span>:4700:4700::1001
+</code></pre></div></td></tr></table></div>
+<p>The Proxmox will manage the NAT.</p>
+<h3 id="configuring-ufw-firewall">Configuring UFW firewall</h3>
+<p>To protect Proxmox, we will install UFW (this is not mandatory, but do it anyway).</p>
+<p>Install UFW:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>apt<span class="w"> </span>install<span class="w"> </span>ufw<span class="w"> </span>-y
+</code></pre></div></td></tr></table></div>
+<p>Open the default config file:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>nano<span class="w"> </span>/etc/default/ufw
+</code></pre></div></td></tr></table></div>
+<p>Configure the following options:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nv">IPV6</span><span class="o">=</span>yes
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="nv">DEFAULT_FORWARD_POLICY</span><span class="o">=</span><span class="s2">&quot;ACCEPT&quot;</span>
+</code></pre></div></td></tr></table></div>
+<p>Then open this configuration file:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>nano<span class="w"> </span>/etc/ufw/sysctl.conf
+</code></pre></div></td></tr></table></div>
+<p>And configure the following lines:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>net/ipv4/ip_forward<span class="o">=</span><span class="m">1</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>net/ipv6/conf/default/forwarding<span class="o">=</span><span class="m">1</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>net/ipv6/conf/all/forwarding<span class="o">=</span><span class="m">1</span>
+</code></pre></div></td></tr></table></div>
+<p>Disable the firewall:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>ufw<span class="w"> </span>disable
+</code></pre></div></td></tr></table></div>
+<p>Allow all outside connections and deny all incoming connections:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>ufw<span class="w"> </span>default<span class="w"> </span>deny<span class="w"> </span>incoming
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>ufw<span class="w"> </span>default<span class="w"> </span>allow<span class="w"> </span>outgoing
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="k">in</span><span class="w"> </span>on<span class="w"> </span>vmbr1<span class="w"> </span>to<span class="w"> </span>any
+</code></pre></div></td></tr></table></div>
+<p>If you have a fixed IP address at home, you can allow all connections from it:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>ufw<span class="w"> </span>allow<span class="w"> </span>from<span class="w"> </span><span class="m">45</span>.23.28.24
+</code></pre></div></td></tr></table></div>
+<p>If you don't have fixed ip, allow all connections, but to selected ports to SSH and Proxmox:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">22</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">8006</span>
+</code></pre></div></td></tr></table></div>
+<p>Finally, enable the firewall:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>ufw<span class="w"> </span><span class="nb">enable</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="internal-network-setup-vmbr1">Internal Network setup (VMBR1)</h3>
+<p>Open the Proxmox web interface and create the new interface from here (<strong>System</strong> -&gt; <strong>Network</strong> -&gt; <strong>Create</strong> -&gt; <strong>Linux Bridge</strong>):</p>
+<p><img alt="" src="../images/create-bridge.png" /></p>
+<p>Configure the interface like this with the private networks we've seen before:</p>
+<p><img alt="" src="../images/edit-bridge.png" /></p>
+<p>You will seen that I don't put a <strong>Bridge port</strong>.<br />
+If you put a virtual machine or virtual switch on <strong>VMBR0</strong> without additional IP, it is possible than your network port will be shutdown at the datacenter.</p>
+<h3 id="routing-configuration">Routing configuration</h3>
+<p>We will configure <strong>MASQUERADE</strong> under Linux.<br />
+To be easy, <strong>MASQUERADE</strong> is a <strong>1-to-many NAT type</strong>.</p>
+<p>Behind that rude explanation is hidden the most common NAT type that you have behind your provider router and behind any firewall.<br />
+All the computers from the internal network can go to the Internet with only one public IP address.</p>
+<p>Open your interfaces' configuration:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>nano<span class="w"> </span>/etc/network/interfaces
+</code></pre></div></td></tr></table></div>
+<p>Add the following lines to <strong>VMBR1</strong> in <strong>IPv4</strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>post-up<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>post-up<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">10</span>.0.0.0/24<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a>post-down<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-D<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">10</span>.0.0.0/24<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+</code></pre></div></td></tr></table></div>
+<p>Add the following lines to <strong>VMBR1</strong> in <strong>IPv6</strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span>
+<span class="normal"><a href="#__codelineno-15-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>post-up<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv6/conf/all/forwarding
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>post-up<span class="w"> </span>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span>fd12:34:56:78::1/64<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a>post-down<span class="w"> </span>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-D<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span>fd12:34:56:78::1/64<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+</code></pre></div></td></tr></table></div>
+<p>In a meaningful way, your full interface config should look just like this:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-16-10">10</a></span>
+<span class="normal"><a href="#__codelineno-16-11">11</a></span>
+<span class="normal"><a href="#__codelineno-16-12">12</a></span>
+<span class="normal"><a href="#__codelineno-16-13">13</a></span>
+<span class="normal"><a href="#__codelineno-16-14">14</a></span>
+<span class="normal"><a href="#__codelineno-16-15">15</a></span>
+<span class="normal"><a href="#__codelineno-16-16">16</a></span>
+<span class="normal"><a href="#__codelineno-16-17">17</a></span>
+<span class="normal"><a href="#__codelineno-16-18">18</a></span>
+<span class="normal"><a href="#__codelineno-16-19">19</a></span>
+<span class="normal"><a href="#__codelineno-16-20">20</a></span>
+<span class="normal"><a href="#__codelineno-16-21">21</a></span>
+<span class="normal"><a href="#__codelineno-16-22">22</a></span>
+<span class="normal"><a href="#__codelineno-16-23">23</a></span>
+<span class="normal"><a href="#__codelineno-16-24">24</a></span>
+<span class="normal"><a href="#__codelineno-16-25">25</a></span>
+<span class="normal"><a href="#__codelineno-16-26">26</a></span>
+<span class="normal"><a href="#__codelineno-16-27">27</a></span>
+<span class="normal"><a href="#__codelineno-16-28">28</a></span>
+<span class="normal"><a href="#__codelineno-16-29">29</a></span>
+<span class="normal"><a href="#__codelineno-16-30">30</a></span>
+<span class="normal"><a href="#__codelineno-16-31">31</a></span>
+<span class="normal"><a href="#__codelineno-16-32">32</a></span>
+<span class="normal"><a href="#__codelineno-16-33">33</a></span>
+<span class="normal"><a href="#__codelineno-16-34">34</a></span>
+<span class="normal"><a href="#__codelineno-16-35">35</a></span>
+<span class="normal"><a href="#__codelineno-16-36">36</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>auto<span class="w"> </span>lo
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet<span class="w"> </span>loopback
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4"></a>iface<span class="w"> </span>eno1<span class="w"> </span>inet<span class="w"> </span>manual
+<a id="__codelineno-16-5" name="__codelineno-16-5"></a>
+<a id="__codelineno-16-6" name="__codelineno-16-6"></a>iface<span class="w"> </span>eno2<span class="w"> </span>inet<span class="w"> </span>manual
+<a id="__codelineno-16-7" name="__codelineno-16-7"></a>
+<a id="__codelineno-16-8" name="__codelineno-16-8"></a>auto<span class="w"> </span>vmbr0
+<a id="__codelineno-16-9" name="__codelineno-16-9"></a>iface<span class="w"> </span>vmbr0<span class="w"> </span>inet<span class="w"> </span>static
+<a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">        </span>address<span class="w"> </span><span class="m">123</span>.45.67.89/24
+<a id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="w">        </span>gateway<span class="w"> </span><span class="m">123</span>.45.67.90
+<a id="__codelineno-16-12" name="__codelineno-16-12"></a><span class="w">        </span>bridge-ports<span class="w"> </span>eno1
+<a id="__codelineno-16-13" name="__codelineno-16-13"></a><span class="w">        </span>bridge-stp<span class="w"> </span>off
+<a id="__codelineno-16-14" name="__codelineno-16-14"></a><span class="w">        </span>bridge-fd<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15"></a><span class="w">        </span>hwaddress<span class="w"> </span>0C:C4:7A:47:DA:4C
+<a id="__codelineno-16-16" name="__codelineno-16-16"></a>
+<a id="__codelineno-16-17" name="__codelineno-16-17"></a>iface<span class="w"> </span>vmbr0<span class="w"> </span>inet6<span class="w"> </span>static
+<a id="__codelineno-16-18" name="__codelineno-16-18"></a><span class="w">        </span>address<span class="w"> </span><span class="m">2001</span>:41d0:a:53d7::1/128
+<a id="__codelineno-16-19" name="__codelineno-16-19"></a><span class="w">        </span>gateway<span class="w"> </span><span class="m">2001</span>:41d0:000a:53ff:00ff:00ff:00ff:00ff
+<a id="__codelineno-16-20" name="__codelineno-16-20"></a>
+<a id="__codelineno-16-21" name="__codelineno-16-21"></a>auto<span class="w"> </span>vmbr1
+<a id="__codelineno-16-22" name="__codelineno-16-22"></a>iface<span class="w"> </span>vmbr1<span class="w"> </span>inet<span class="w"> </span>static
+<a id="__codelineno-16-23" name="__codelineno-16-23"></a><span class="w">        </span>address<span class="w"> </span><span class="m">10</span>.0.0.1/24
+<a id="__codelineno-16-24" name="__codelineno-16-24"></a><span class="w">        </span>bridge-ports<span class="w"> </span>none
+<a id="__codelineno-16-25" name="__codelineno-16-25"></a><span class="w">        </span>bridge-stp<span class="w"> </span>off
+<a id="__codelineno-16-26" name="__codelineno-16-26"></a><span class="w">        </span>bridge-fd<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-16-27" name="__codelineno-16-27"></a><span class="w">        </span>post-up<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
+<a id="__codelineno-16-28" name="__codelineno-16-28"></a><span class="w">        </span>post-up<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">10</span>.0.0.0/24<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+<a id="__codelineno-16-29" name="__codelineno-16-29"></a><span class="w">        </span><span class="c1"># post-up /root/dnat.sh</span>
+<a id="__codelineno-16-30" name="__codelineno-16-30"></a><span class="w">        </span>post-down<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-D<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">10</span>.0.0.0/24<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+<a id="__codelineno-16-31" name="__codelineno-16-31"></a>
+<a id="__codelineno-16-32" name="__codelineno-16-32"></a>iface<span class="w"> </span>vmbr1<span class="w"> </span>inet6<span class="w"> </span>static
+<a id="__codelineno-16-33" name="__codelineno-16-33"></a><span class="w">        </span>address<span class="w"> </span>fd12:34:56:78::1/64
+<a id="__codelineno-16-34" name="__codelineno-16-34"></a><span class="w">        </span>post-up<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv6/conf/all/forwarding
+<a id="__codelineno-16-35" name="__codelineno-16-35"></a><span class="w">        </span>post-up<span class="w"> </span>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span>fd12:34:56:78::1/64<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+<a id="__codelineno-16-36" name="__codelineno-16-36"></a><span class="w">        </span>post-down<span class="w"> </span>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-D<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span>fd12:34:56:78::1/64<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+</code></pre></div></td></tr></table></div>
+<blockquote>
+<p><strong>Note:</strong> the <code>-o vmbr0</code> is because my proxmox server's external connection is on <code>-o vmbr0</code> so if your main interface is, lets say <code>eth0</code>, use <code>-o eth0</code> instead.</p>
+</blockquote>
+<p>From here, <strong>restart</strong> your Proxmox and your virtual machines will have internet if you put fixed IP address on their network cards.</p>
+<h3 id="fixed-ip-setup-for-virtual-machines">Fixed IP setup for virtual machines</h3>
+<p>Here, we will take the case of a virtual machine under Debian 11 with the virtual network card on the <strong>VMBR1</strong> virtual switch:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-17-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-17-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-17-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-17-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-17-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-17-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-17-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-17-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-17-10">10</a></span>
+<span class="normal"><a href="#__codelineno-17-11">11</a></span>
+<span class="normal"><a href="#__codelineno-17-12">12</a></span>
+<span class="normal"><a href="#__codelineno-17-13">13</a></span>
+<span class="normal"><a href="#__codelineno-17-14">14</a></span>
+<span class="normal"><a href="#__codelineno-17-15">15</a></span>
+<span class="normal"><a href="#__codelineno-17-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="c1"># The loopback network interface</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>auto<span class="w"> </span>lo
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet<span class="w"> </span>loopback
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a>
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="c1"># The primary network interface</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6"></a>allow-hotplug<span class="w"> </span>ens18
+<a id="__codelineno-17-7" name="__codelineno-17-7"></a>iface<span class="w"> </span>ens18<span class="w"> </span>inet<span class="w"> </span>static
+<a id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="w">        </span>address<span class="w"> </span><span class="m">10</span>.0.0.104/24
+<a id="__codelineno-17-9" name="__codelineno-17-9"></a><span class="w">        </span>gateway<span class="w"> </span><span class="m">10</span>.0.0.1
+<a id="__codelineno-17-10" name="__codelineno-17-10"></a><span class="w">        </span>dns-nameservers<span class="w"> </span><span class="m">1</span>.1.1.1<span class="w"> </span><span class="m">1</span>.0.0.1
+<a id="__codelineno-17-11" name="__codelineno-17-11"></a>
+<a id="__codelineno-17-12" name="__codelineno-17-12"></a>
+<a id="__codelineno-17-13" name="__codelineno-17-13"></a>iface<span class="w"> </span>ens18<span class="w"> </span>inet6<span class="w"> </span>static
+<a id="__codelineno-17-14" name="__codelineno-17-14"></a><span class="w">        </span>address<span class="w"> </span>fd12:34:56:78::104/64
+<a id="__codelineno-17-15" name="__codelineno-17-15"></a><span class="w">        </span>gateway<span class="w"> </span>fd12:34:56:78::1
+<a id="__codelineno-17-16" name="__codelineno-17-16"></a><span class="w">        </span>dns-nameservers<span class="w"> </span><span class="m">2606</span>:4700:4700::1111<span class="w"> </span><span class="m">2606</span>:4700:4700::1001
+</code></pre></div></td></tr></table></div>
+<h3 id="port-forwarding-to-virtual-machines">Port forwarding to virtual machines</h3>
+<p>Here we will create a script to open ports needed on the VMs.<br />
+The port 80 will be open in both IPv4 and IPv6 by redirecting to the IP <strong>.104</strong>.</p>
+<p>Create this script for your configuration:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>nano<span class="w"> </span>/root/dnat.sh
+</code></pre></div></td></tr></table></div>
+<p>Here, open the port 80 on the virtual machine <strong>.104</strong> in both IPv4 and IPv6:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span>
+<span class="normal"><a href="#__codelineno-19-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>sleep<span class="w"> </span><span class="m">60</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">80</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.104:80
+<a id="__codelineno-19-3" name="__codelineno-19-3"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>-m<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">80</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::104<span class="o">]</span>:80
+</code></pre></div></td></tr></table></div>
+<p><strong>iptables</strong> manage NAT rules in <strong>IPv4</strong>.<br />
+<strong>ip6tables</strong> manage NAT rules in <strong>IPv6</strong>.</p>
+<p>Remember to chmod the file so it has execute permissions:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>/root/dnat.sh
+</code></pre></div></td></tr></table></div>
+<p>Beware, if you configured UFW you also need to allow the port in the firewall:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">80</span>
+</code></pre></div></td></tr></table></div>
+<p>Then, you need to set up the script in the interfaces' config file:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>nano<span class="w"> </span>/etc/network/interfaces
+</code></pre></div></td></tr></table></div>
+<p>Add the following lines to VMBR1 in IPv4:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span>
+<span class="normal"><a href="#__codelineno-23-3">3</a></span>
+<span class="normal"><a href="#__codelineno-23-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>post-up<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a>post-up<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">10</span>.0.0.0/24<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a>post-up<span class="w"> </span>/root/dnat.sh
+<a id="__codelineno-23-4" name="__codelineno-23-4"></a>post-down<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-D<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">10</span>.0.0.0/24<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+</code></pre></div></td></tr></table></div>
+<p>Like this, the NAT will be applied at each restart.</p>
+<h3 id="summary">Summary</h3>
+<p>Here is the <strong>/root/dnat.sh</strong> file that I personally use:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-24-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-24-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-24-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-24-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-24-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-24-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-24-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-24-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-24-10">10</a></span>
+<span class="normal"><a href="#__codelineno-24-11">11</a></span>
+<span class="normal"><a href="#__codelineno-24-12">12</a></span>
+<span class="normal"><a href="#__codelineno-24-13">13</a></span>
+<span class="normal"><a href="#__codelineno-24-14">14</a></span>
+<span class="normal"><a href="#__codelineno-24-15">15</a></span>
+<span class="normal"><a href="#__codelineno-24-16">16</a></span>
+<span class="normal"><a href="#__codelineno-24-17">17</a></span>
+<span class="normal"><a href="#__codelineno-24-18">18</a></span>
+<span class="normal"><a href="#__codelineno-24-19">19</a></span>
+<span class="normal"><a href="#__codelineno-24-20">20</a></span>
+<span class="normal"><a href="#__codelineno-24-21">21</a></span>
+<span class="normal"><a href="#__codelineno-24-22">22</a></span>
+<span class="normal"><a href="#__codelineno-24-23">23</a></span>
+<span class="normal"><a href="#__codelineno-24-24">24</a></span>
+<span class="normal"><a href="#__codelineno-24-25">25</a></span>
+<span class="normal"><a href="#__codelineno-24-26">26</a></span>
+<span class="normal"><a href="#__codelineno-24-27">27</a></span>
+<span class="normal"><a href="#__codelineno-24-28">28</a></span>
+<span class="normal"><a href="#__codelineno-24-29">29</a></span>
+<span class="normal"><a href="#__codelineno-24-30">30</a></span>
+<span class="normal"><a href="#__codelineno-24-31">31</a></span>
+<span class="normal"><a href="#__codelineno-24-32">32</a></span>
+<span class="normal"><a href="#__codelineno-24-33">33</a></span>
+<span class="normal"><a href="#__codelineno-24-34">34</a></span>
+<span class="normal"><a href="#__codelineno-24-35">35</a></span>
+<span class="normal"><a href="#__codelineno-24-36">36</a></span>
+<span class="normal"><a href="#__codelineno-24-37">37</a></span>
+<span class="normal"><a href="#__codelineno-24-38">38</a></span>
+<span class="normal"><a href="#__codelineno-24-39">39</a></span>
+<span class="normal"><a href="#__codelineno-24-40">40</a></span>
+<span class="normal"><a href="#__codelineno-24-41">41</a></span>
+<span class="normal"><a href="#__codelineno-24-42">42</a></span>
+<span class="normal"><a href="#__codelineno-24-43">43</a></span>
+<span class="normal"><a href="#__codelineno-24-44">44</a></span>
+<span class="normal"><a href="#__codelineno-24-45">45</a></span>
+<span class="normal"><a href="#__codelineno-24-46">46</a></span>
+<span class="normal"><a href="#__codelineno-24-47">47</a></span>
+<span class="normal"><a href="#__codelineno-24-48">48</a></span>
+<span class="normal"><a href="#__codelineno-24-49">49</a></span>
+<span class="normal"><a href="#__codelineno-24-50">50</a></span>
+<span class="normal"><a href="#__codelineno-24-51">51</a></span>
+<span class="normal"><a href="#__codelineno-24-52">52</a></span>
+<span class="normal"><a href="#__codelineno-24-53">53</a></span>
+<span class="normal"><a href="#__codelineno-24-54">54</a></span>
+<span class="normal"><a href="#__codelineno-24-55">55</a></span>
+<span class="normal"><a href="#__codelineno-24-56">56</a></span>
+<span class="normal"><a href="#__codelineno-24-57">57</a></span>
+<span class="normal"><a href="#__codelineno-24-58">58</a></span>
+<span class="normal"><a href="#__codelineno-24-59">59</a></span>
+<span class="normal"><a href="#__codelineno-24-60">60</a></span>
+<span class="normal"><a href="#__codelineno-24-61">61</a></span>
+<span class="normal"><a href="#__codelineno-24-62">62</a></span>
+<span class="normal"><a href="#__codelineno-24-63">63</a></span>
+<span class="normal"><a href="#__codelineno-24-64">64</a></span>
+<span class="normal"><a href="#__codelineno-24-65">65</a></span>
+<span class="normal"><a href="#__codelineno-24-66">66</a></span>
+<span class="normal"><a href="#__codelineno-24-67">67</a></span>
+<span class="normal"><a href="#__codelineno-24-68">68</a></span>
+<span class="normal"><a href="#__codelineno-24-69">69</a></span>
+<span class="normal"><a href="#__codelineno-24-70">70</a></span>
+<span class="normal"><a href="#__codelineno-24-71">71</a></span>
+<span class="normal"><a href="#__codelineno-24-72">72</a></span>
+<span class="normal"><a href="#__codelineno-24-73">73</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>sleep<span class="w"> </span><span class="m">60</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="c1"># SSH IPv4</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10122</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.101:22
+<a id="__codelineno-24-5" name="__codelineno-24-5"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10222</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.102:22
+<a id="__codelineno-24-6" name="__codelineno-24-6"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10322</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.103:22
+<a id="__codelineno-24-7" name="__codelineno-24-7"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10422</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.104:22
+<a id="__codelineno-24-8" name="__codelineno-24-8"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10522</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.105:22
+<a id="__codelineno-24-9" name="__codelineno-24-9"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10622</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.106:22
+<a id="__codelineno-24-10" name="__codelineno-24-10"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10722</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.107:22
+<a id="__codelineno-24-11" name="__codelineno-24-11"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10822</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.108:22
+<a id="__codelineno-24-12" name="__codelineno-24-12"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10922</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.109:22
+<a id="__codelineno-24-13" name="__codelineno-24-13"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">11022</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.110:22
+<a id="__codelineno-24-14" name="__codelineno-24-14"></a>
+<a id="__codelineno-24-15" name="__codelineno-24-15"></a><span class="c1"># SSH IPv6</span>
+<a id="__codelineno-24-16" name="__codelineno-24-16"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10122</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::101<span class="o">]</span>:22
+<a id="__codelineno-24-17" name="__codelineno-24-17"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10222</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::102<span class="o">]</span>:22
+<a id="__codelineno-24-18" name="__codelineno-24-18"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10322</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::103<span class="o">]</span>:22
+<a id="__codelineno-24-19" name="__codelineno-24-19"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10422</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::104<span class="o">]</span>:22
+<a id="__codelineno-24-20" name="__codelineno-24-20"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10522</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::105<span class="o">]</span>:22
+<a id="__codelineno-24-21" name="__codelineno-24-21"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10622</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::106<span class="o">]</span>:22
+<a id="__codelineno-24-22" name="__codelineno-24-22"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10722</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::107<span class="o">]</span>:22
+<a id="__codelineno-24-23" name="__codelineno-24-23"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10822</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::108<span class="o">]</span>:22
+<a id="__codelineno-24-24" name="__codelineno-24-24"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10922</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::109<span class="o">]</span>:22
+<a id="__codelineno-24-25" name="__codelineno-24-25"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">11022</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::110<span class="o">]</span>:22
+<a id="__codelineno-24-26" name="__codelineno-24-26"></a>
+<a id="__codelineno-24-27" name="__codelineno-24-27"></a>
+<a id="__codelineno-24-28" name="__codelineno-24-28"></a>
+<a id="__codelineno-24-29" name="__codelineno-24-29"></a><span class="c1"># Reverse proxy</span>
+<a id="__codelineno-24-30" name="__codelineno-24-30"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">80</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.101:80
+<a id="__codelineno-24-31" name="__codelineno-24-31"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">81</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.101:81
+<a id="__codelineno-24-32" name="__codelineno-24-32"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">443</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.101:443
+<a id="__codelineno-24-33" name="__codelineno-24-33"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>-m<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">80</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::101<span class="o">]</span>:80
+<a id="__codelineno-24-34" name="__codelineno-24-34"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>-m<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">81</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::101<span class="o">]</span>:81
+<a id="__codelineno-24-35" name="__codelineno-24-35"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>-m<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">443</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::101<span class="o">]</span>:443
+<a id="__codelineno-24-36" name="__codelineno-24-36"></a>
+<a id="__codelineno-24-37" name="__codelineno-24-37"></a>
+<a id="__codelineno-24-38" name="__codelineno-24-38"></a>
+<a id="__codelineno-24-39" name="__codelineno-24-39"></a><span class="c1"># Portainer</span>
+<a id="__codelineno-24-40" name="__codelineno-24-40"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">9443</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.101:9443
+<a id="__codelineno-24-41" name="__codelineno-24-41"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>-m<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">9443</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::101<span class="o">]</span>:9443
+<a id="__codelineno-24-42" name="__codelineno-24-42"></a>
+<a id="__codelineno-24-43" name="__codelineno-24-43"></a>
+<a id="__codelineno-24-44" name="__codelineno-24-44"></a>
+<a id="__codelineno-24-45" name="__codelineno-24-45"></a><span class="c1"># IPv4 Webhost + Mailserver + DNS + Virtualmin + Webmin</span>
+<a id="__codelineno-24-46" name="__codelineno-24-46"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">25</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.102:25<span class="w"> </span><span class="c1"># SMTP</span>
+<a id="__codelineno-24-47" name="__codelineno-24-47"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">53</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.102:53<span class="w"> </span><span class="c1"># DNS</span>
+<a id="__codelineno-24-48" name="__codelineno-24-48"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">143</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.102:143<span class="w"> </span><span class="c1"># IMAP</span>
+<a id="__codelineno-24-49" name="__codelineno-24-49"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">465</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.102:465<span class="w"> </span><span class="c1"># SMTP over SSL</span>
+<a id="__codelineno-24-50" name="__codelineno-24-50"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">587</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.102:587<span class="w"> </span><span class="c1"># SMTP submission</span>
+<a id="__codelineno-24-51" name="__codelineno-24-51"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">853</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.102:853<span class="w"> </span><span class="c1"># DNS over TLS</span>
+<a id="__codelineno-24-52" name="__codelineno-24-52"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">993</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.102:993<span class="w"> </span><span class="c1"># IMAP over SSL</span>
+<a id="__codelineno-24-53" name="__codelineno-24-53"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">995</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.102:995<span class="w"> </span><span class="c1"># POP3 over SSL</span>
+<a id="__codelineno-24-54" name="__codelineno-24-54"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10000</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.102:10000<span class="w"> </span><span class="c1"># Virtualmin</span>
+<a id="__codelineno-24-55" name="__codelineno-24-55"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">20000</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.102:20000<span class="w"> </span><span class="c1"># Webmin</span>
+<a id="__codelineno-24-56" name="__codelineno-24-56"></a>
+<a id="__codelineno-24-57" name="__codelineno-24-57"></a><span class="c1"># IPv6 Webhost + Mailserver + DNS + Virtualmin + Webmin</span>
+<a id="__codelineno-24-58" name="__codelineno-24-58"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">25</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::102<span class="o">]</span>:25<span class="w"> </span><span class="c1"># SMTP</span>
+<a id="__codelineno-24-59" name="__codelineno-24-59"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">53</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::102<span class="o">]</span>:53<span class="w"> </span><span class="c1"># DNS</span>
+<a id="__codelineno-24-60" name="__codelineno-24-60"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">143</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::102<span class="o">]</span>:143<span class="w"> </span><span class="c1"># IMAP</span>
+<a id="__codelineno-24-61" name="__codelineno-24-61"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">465</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::102<span class="o">]</span>:465<span class="w"> </span><span class="c1"># SMTP over SSL</span>
+<a id="__codelineno-24-62" name="__codelineno-24-62"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">587</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::102<span class="o">]</span>:587<span class="w"> </span><span class="c1"># SMTP submission</span>
+<a id="__codelineno-24-63" name="__codelineno-24-63"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">853</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::102<span class="o">]</span>:853<span class="w"> </span><span class="c1"># DNS over TLS</span>
+<a id="__codelineno-24-64" name="__codelineno-24-64"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">993</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::102<span class="o">]</span>:993<span class="w"> </span><span class="c1"># IMAP over SSL</span>
+<a id="__codelineno-24-65" name="__codelineno-24-65"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">995</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::102<span class="o">]</span>:995<span class="w"> </span><span class="c1"># POP3 over SSL</span>
+<a id="__codelineno-24-66" name="__codelineno-24-66"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">10000</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::102<span class="o">]</span>:10000<span class="w"> </span><span class="c1"># Virtualmin</span>
+<a id="__codelineno-24-67" name="__codelineno-24-67"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>tcp<span class="w"> </span>--dport<span class="w"> </span><span class="m">20000</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::102<span class="o">]</span>:20000<span class="w"> </span><span class="c1"># Webmin</span>
+<a id="__codelineno-24-68" name="__codelineno-24-68"></a>
+<a id="__codelineno-24-69" name="__codelineno-24-69"></a>
+<a id="__codelineno-24-70" name="__codelineno-24-70"></a>
+<a id="__codelineno-24-71" name="__codelineno-24-71"></a><span class="c1"># VPN</span>
+<a id="__codelineno-24-72" name="__codelineno-24-72"></a>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>udp<span class="w"> </span>--dport<span class="w"> </span><span class="m">2194</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="m">10</span>.0.0.103:2194
+<a id="__codelineno-24-73" name="__codelineno-24-73"></a>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>PREROUTING<span class="w"> </span>-i<span class="w"> </span>vmbr0<span class="w"> </span>-p<span class="w"> </span>udp<span class="w"> </span>-m<span class="w"> </span>udp<span class="w"> </span>--dport<span class="w"> </span><span class="m">2194</span><span class="w"> </span>-j<span class="w"> </span>DNAT<span class="w"> </span>--to-destination<span class="w"> </span><span class="o">[</span>fd12:34:56:78::103<span class="o">]</span>:2194
+</code></pre></div></td></tr></table></div>
+<p>The complete proxmox host interface file looks like this:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-25-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-25-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-25-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-25-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-25-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-25-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-25-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-25-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-25-10">10</a></span>
+<span class="normal"><a href="#__codelineno-25-11">11</a></span>
+<span class="normal"><a href="#__codelineno-25-12">12</a></span>
+<span class="normal"><a href="#__codelineno-25-13">13</a></span>
+<span class="normal"><a href="#__codelineno-25-14">14</a></span>
+<span class="normal"><a href="#__codelineno-25-15">15</a></span>
+<span class="normal"><a href="#__codelineno-25-16">16</a></span>
+<span class="normal"><a href="#__codelineno-25-17">17</a></span>
+<span class="normal"><a href="#__codelineno-25-18">18</a></span>
+<span class="normal"><a href="#__codelineno-25-19">19</a></span>
+<span class="normal"><a href="#__codelineno-25-20">20</a></span>
+<span class="normal"><a href="#__codelineno-25-21">21</a></span>
+<span class="normal"><a href="#__codelineno-25-22">22</a></span>
+<span class="normal"><a href="#__codelineno-25-23">23</a></span>
+<span class="normal"><a href="#__codelineno-25-24">24</a></span>
+<span class="normal"><a href="#__codelineno-25-25">25</a></span>
+<span class="normal"><a href="#__codelineno-25-26">26</a></span>
+<span class="normal"><a href="#__codelineno-25-27">27</a></span>
+<span class="normal"><a href="#__codelineno-25-28">28</a></span>
+<span class="normal"><a href="#__codelineno-25-29">29</a></span>
+<span class="normal"><a href="#__codelineno-25-30">30</a></span>
+<span class="normal"><a href="#__codelineno-25-31">31</a></span>
+<span class="normal"><a href="#__codelineno-25-32">32</a></span>
+<span class="normal"><a href="#__codelineno-25-33">33</a></span>
+<span class="normal"><a href="#__codelineno-25-34">34</a></span>
+<span class="normal"><a href="#__codelineno-25-35">35</a></span>
+<span class="normal"><a href="#__codelineno-25-36">36</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a>auto<span class="w"> </span>lo
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a>iface<span class="w"> </span>lo<span class="w"> </span>inet<span class="w"> </span>loopback
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a>
+<a id="__codelineno-25-4" name="__codelineno-25-4"></a>iface<span class="w"> </span>eno1<span class="w"> </span>inet<span class="w"> </span>manual
+<a id="__codelineno-25-5" name="__codelineno-25-5"></a>
+<a id="__codelineno-25-6" name="__codelineno-25-6"></a>iface<span class="w"> </span>eno2<span class="w"> </span>inet<span class="w"> </span>manual
+<a id="__codelineno-25-7" name="__codelineno-25-7"></a>
+<a id="__codelineno-25-8" name="__codelineno-25-8"></a>auto<span class="w"> </span>vmbr0
+<a id="__codelineno-25-9" name="__codelineno-25-9"></a>iface<span class="w"> </span>vmbr0<span class="w"> </span>inet<span class="w"> </span>static
+<a id="__codelineno-25-10" name="__codelineno-25-10"></a><span class="w">        </span>address<span class="w"> </span><span class="m">123</span>.45.67.89/24
+<a id="__codelineno-25-11" name="__codelineno-25-11"></a><span class="w">        </span>gateway<span class="w"> </span><span class="m">123</span>.45.67.90
+<a id="__codelineno-25-12" name="__codelineno-25-12"></a><span class="w">        </span>bridge-ports<span class="w"> </span>eno1
+<a id="__codelineno-25-13" name="__codelineno-25-13"></a><span class="w">        </span>bridge-stp<span class="w"> </span>off
+<a id="__codelineno-25-14" name="__codelineno-25-14"></a><span class="w">        </span>bridge-fd<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-25-15" name="__codelineno-25-15"></a><span class="w">        </span>hwaddress<span class="w"> </span>0C:C4:7A:47:DA:4C
+<a id="__codelineno-25-16" name="__codelineno-25-16"></a>
+<a id="__codelineno-25-17" name="__codelineno-25-17"></a>iface<span class="w"> </span>vmbr0<span class="w"> </span>inet6<span class="w"> </span>static
+<a id="__codelineno-25-18" name="__codelineno-25-18"></a><span class="w">        </span>address<span class="w"> </span><span class="m">2001</span>:41d0:a:53d7::1/128
+<a id="__codelineno-25-19" name="__codelineno-25-19"></a><span class="w">        </span>gateway<span class="w"> </span><span class="m">2001</span>:41d0:000a:53ff:00ff:00ff:00ff:00ff
+<a id="__codelineno-25-20" name="__codelineno-25-20"></a>
+<a id="__codelineno-25-21" name="__codelineno-25-21"></a>auto<span class="w"> </span>vmbr1
+<a id="__codelineno-25-22" name="__codelineno-25-22"></a>iface<span class="w"> </span>vmbr1<span class="w"> </span>inet<span class="w"> </span>static
+<a id="__codelineno-25-23" name="__codelineno-25-23"></a><span class="w">        </span>address<span class="w"> </span><span class="m">10</span>.0.0.1/24
+<a id="__codelineno-25-24" name="__codelineno-25-24"></a><span class="w">        </span>bridge-ports<span class="w"> </span>none
+<a id="__codelineno-25-25" name="__codelineno-25-25"></a><span class="w">        </span>bridge-stp<span class="w"> </span>off
+<a id="__codelineno-25-26" name="__codelineno-25-26"></a><span class="w">        </span>bridge-fd<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-25-27" name="__codelineno-25-27"></a><span class="w">        </span>post-up<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
+<a id="__codelineno-25-28" name="__codelineno-25-28"></a><span class="w">        </span>post-up<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">10</span>.0.0.0/24<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+<a id="__codelineno-25-29" name="__codelineno-25-29"></a><span class="w">        </span>post-up<span class="w"> </span>/root/dnat.sh
+<a id="__codelineno-25-30" name="__codelineno-25-30"></a><span class="w">        </span>post-down<span class="w"> </span>iptables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-D<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span><span class="m">10</span>.0.0.0/24<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+<a id="__codelineno-25-31" name="__codelineno-25-31"></a>
+<a id="__codelineno-25-32" name="__codelineno-25-32"></a>iface<span class="w"> </span>vmbr1<span class="w"> </span>inet6<span class="w"> </span>static
+<a id="__codelineno-25-33" name="__codelineno-25-33"></a><span class="w">        </span>address<span class="w"> </span>fd12:34:56:78::1/64
+<a id="__codelineno-25-34" name="__codelineno-25-34"></a><span class="w">        </span>post-up<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/net/ipv6/conf/all/forwarding
+<a id="__codelineno-25-35" name="__codelineno-25-35"></a><span class="w">        </span>post-up<span class="w"> </span>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-A<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span>fd12:34:56:78::1/64<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+<a id="__codelineno-25-36" name="__codelineno-25-36"></a><span class="w">        </span>post-down<span class="w"> </span>ip6tables<span class="w"> </span>-t<span class="w"> </span>nat<span class="w"> </span>-D<span class="w"> </span>POSTROUTING<span class="w"> </span>-s<span class="w"> </span>fd12:34:56:78::1/64<span class="w"> </span>-o<span class="w"> </span>vmbr0<span class="w"> </span>-j<span class="w"> </span>MASQUERADE
+</code></pre></div></td></tr></table></div>
+<p>This is what the UFW was configured with:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-26-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-26-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-26-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-26-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-26-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-26-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-26-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-26-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-26-10">10</a></span>
+<span class="normal"><a href="#__codelineno-26-11">11</a></span>
+<span class="normal"><a href="#__codelineno-26-12">12</a></span>
+<span class="normal"><a href="#__codelineno-26-13">13</a></span>
+<span class="normal"><a href="#__codelineno-26-14">14</a></span>
+<span class="normal"><a href="#__codelineno-26-15">15</a></span>
+<span class="normal"><a href="#__codelineno-26-16">16</a></span>
+<span class="normal"><a href="#__codelineno-26-17">17</a></span>
+<span class="normal"><a href="#__codelineno-26-18">18</a></span>
+<span class="normal"><a href="#__codelineno-26-19">19</a></span>
+<span class="normal"><a href="#__codelineno-26-20">20</a></span>
+<span class="normal"><a href="#__codelineno-26-21">21</a></span>
+<span class="normal"><a href="#__codelineno-26-22">22</a></span>
+<span class="normal"><a href="#__codelineno-26-23">23</a></span>
+<span class="normal"><a href="#__codelineno-26-24">24</a></span>
+<span class="normal"><a href="#__codelineno-26-25">25</a></span>
+<span class="normal"><a href="#__codelineno-26-26">26</a></span>
+<span class="normal"><a href="#__codelineno-26-27">27</a></span>
+<span class="normal"><a href="#__codelineno-26-28">28</a></span>
+<span class="normal"><a href="#__codelineno-26-29">29</a></span>
+<span class="normal"><a href="#__codelineno-26-30">30</a></span>
+<span class="normal"><a href="#__codelineno-26-31">31</a></span>
+<span class="normal"><a href="#__codelineno-26-32">32</a></span>
+<span class="normal"><a href="#__codelineno-26-33">33</a></span>
+<span class="normal"><a href="#__codelineno-26-34">34</a></span>
+<span class="normal"><a href="#__codelineno-26-35">35</a></span>
+<span class="normal"><a href="#__codelineno-26-36">36</a></span>
+<span class="normal"><a href="#__codelineno-26-37">37</a></span>
+<span class="normal"><a href="#__codelineno-26-38">38</a></span>
+<span class="normal"><a href="#__codelineno-26-39">39</a></span>
+<span class="normal"><a href="#__codelineno-26-40">40</a></span>
+<span class="normal"><a href="#__codelineno-26-41">41</a></span>
+<span class="normal"><a href="#__codelineno-26-42">42</a></span>
+<span class="normal"><a href="#__codelineno-26-43">43</a></span>
+<span class="normal"><a href="#__codelineno-26-44">44</a></span>
+<span class="normal"><a href="#__codelineno-26-45">45</a></span>
+<span class="normal"><a href="#__codelineno-26-46">46</a></span>
+<span class="normal"><a href="#__codelineno-26-47">47</a></span>
+<span class="normal"><a href="#__codelineno-26-48">48</a></span>
+<span class="normal"><a href="#__codelineno-26-49">49</a></span>
+<span class="normal"><a href="#__codelineno-26-50">50</a></span>
+<span class="normal"><a href="#__codelineno-26-51">51</a></span>
+<span class="normal"><a href="#__codelineno-26-52">52</a></span>
+<span class="normal"><a href="#__codelineno-26-53">53</a></span>
+<span class="normal"><a href="#__codelineno-26-54">54</a></span>
+<span class="normal"><a href="#__codelineno-26-55">55</a></span>
+<span class="normal"><a href="#__codelineno-26-56">56</a></span>
+<span class="normal"><a href="#__codelineno-26-57">57</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="ch">#!/usr/bin/env bash</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a><span class="nb">set</span><span class="w"> </span>-euo<span class="w"> </span>pipefail
+<a id="__codelineno-26-3" name="__codelineno-26-3"></a>
+<a id="__codelineno-26-4" name="__codelineno-26-4"></a><span class="c1"># =========================</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5"></a><span class="c1"># UFW Base Setup</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6"></a><span class="c1"># =========================</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7"></a>
+<a id="__codelineno-26-8" name="__codelineno-26-8"></a><span class="c1"># Enable IPv6 support in UFW (important for auto-mirroring rules)</span>
+<a id="__codelineno-26-9" name="__codelineno-26-9"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/^IPV6=.*/IPV6=yes/&#39;</span><span class="w"> </span>/etc/default/ufw
+<a id="__codelineno-26-10" name="__codelineno-26-10"></a>
+<a id="__codelineno-26-11" name="__codelineno-26-11"></a><span class="c1"># Reset UFW (optional but recommended for clean state)</span>
+<a id="__codelineno-26-12" name="__codelineno-26-12"></a>ufw<span class="w"> </span>--force<span class="w"> </span>reset
+<a id="__codelineno-26-13" name="__codelineno-26-13"></a>
+<a id="__codelineno-26-14" name="__codelineno-26-14"></a><span class="c1"># Default policies</span>
+<a id="__codelineno-26-15" name="__codelineno-26-15"></a>ufw<span class="w"> </span>default<span class="w"> </span>deny<span class="w"> </span>incoming
+<a id="__codelineno-26-16" name="__codelineno-26-16"></a>ufw<span class="w"> </span>default<span class="w"> </span>allow<span class="w"> </span>outgoing
+<a id="__codelineno-26-17" name="__codelineno-26-17"></a>
+<a id="__codelineno-26-18" name="__codelineno-26-18"></a><span class="c1"># =========================</span>
+<a id="__codelineno-26-19" name="__codelineno-26-19"></a><span class="c1"># Interface rule</span>
+<a id="__codelineno-26-20" name="__codelineno-26-20"></a><span class="c1"># =========================</span>
+<a id="__codelineno-26-21" name="__codelineno-26-21"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="k">in</span><span class="w"> </span>on<span class="w"> </span>vmbr1
+<a id="__codelineno-26-22" name="__codelineno-26-22"></a>
+<a id="__codelineno-26-23" name="__codelineno-26-23"></a><span class="c1"># =========================</span>
+<a id="__codelineno-26-24" name="__codelineno-26-24"></a><span class="c1"># TCP ports / ranges</span>
+<a id="__codelineno-26-25" name="__codelineno-26-25"></a><span class="c1"># =========================</span>
+<a id="__codelineno-26-26" name="__codelineno-26-26"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">2112</span>
+<a id="__codelineno-26-27" name="__codelineno-26-27"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">8006</span>
+<a id="__codelineno-26-28" name="__codelineno-26-28"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">80</span>
+<a id="__codelineno-26-29" name="__codelineno-26-29"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">443</span>
+<a id="__codelineno-26-30" name="__codelineno-26-30"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">81</span>
+<a id="__codelineno-26-31" name="__codelineno-26-31"></a>
+<a id="__codelineno-26-32" name="__codelineno-26-32"></a><span class="c1"># Port range (TCP)</span>
+<a id="__codelineno-26-33" name="__codelineno-26-33"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">2201</span>:2210/tcp
+<a id="__codelineno-26-34" name="__codelineno-26-34"></a>
+<a id="__codelineno-26-35" name="__codelineno-26-35"></a><span class="c1"># Mail ports (TCP)</span>
+<a id="__codelineno-26-36" name="__codelineno-26-36"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">25</span>
+<a id="__codelineno-26-37" name="__codelineno-26-37"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">143</span>,465,587,993/tcp
+<a id="__codelineno-26-38" name="__codelineno-26-38"></a>
+<a id="__codelineno-26-39" name="__codelineno-26-39"></a><span class="c1"># DNS TCP+UDP mix (split for clarity)</span>
+<a id="__codelineno-26-40" name="__codelineno-26-40"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">53</span>
+<a id="__codelineno-26-41" name="__codelineno-26-41"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">53</span>,853/udp
+<a id="__codelineno-26-42" name="__codelineno-26-42"></a>
+<a id="__codelineno-26-43" name="__codelineno-26-43"></a><span class="c1"># Other TCP ports</span>
+<a id="__codelineno-26-44" name="__codelineno-26-44"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">995</span>
+<a id="__codelineno-26-45" name="__codelineno-26-45"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">10000</span>,20000/tcp
+<a id="__codelineno-26-46" name="__codelineno-26-46"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">9443</span>
+<a id="__codelineno-26-47" name="__codelineno-26-47"></a>
+<a id="__codelineno-26-48" name="__codelineno-26-48"></a><span class="c1"># UDP port</span>
+<a id="__codelineno-26-49" name="__codelineno-26-49"></a>ufw<span class="w"> </span>allow<span class="w"> </span><span class="m">2194</span>/udp
+<a id="__codelineno-26-50" name="__codelineno-26-50"></a>
+<a id="__codelineno-26-51" name="__codelineno-26-51"></a><span class="c1"># =========================</span>
+<a id="__codelineno-26-52" name="__codelineno-26-52"></a><span class="c1"># Enable UFW</span>
+<a id="__codelineno-26-53" name="__codelineno-26-53"></a><span class="c1"># =========================</span>
+<a id="__codelineno-26-54" name="__codelineno-26-54"></a>ufw<span class="w"> </span>--force<span class="w"> </span><span class="nb">enable</span>
+<a id="__codelineno-26-55" name="__codelineno-26-55"></a>
+<a id="__codelineno-26-56" name="__codelineno-26-56"></a><span class="c1"># Show status</span>
+<a id="__codelineno-26-57" name="__codelineno-26-57"></a>ufw<span class="w"> </span>status<span class="w"> </span>numbered
+</code></pre></div></td></tr></table></div>
+<p>This is a mirrored post with some modifications from Nicolas Simond. Original post:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a>https://wiki.abyssproject.net/en/proxmox/proxmox-with-one-public-ip
+</code></pre></div></td></tr></table></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
