@@ -1,0 +1,36 @@
+site_name: "Somik's Linux Notes"
+site_url: https://somik123.github.io/site/
+
+theme:
+  name: material
+
+  favicon: assets/favicon.png
+  logo: assets/logo.png
+
+  features:
+    - content.code.copy
+
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums: true
+  - pymdownx.inlinehilite
+  - admonition
+  - pymdownx.details
+
+plugins:
+  - search
