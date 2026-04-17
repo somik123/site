@@ -1,0 +1,114 @@
+/* =========================
+   Base layout fixes
+========================= */
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Slightly larger readability */
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Ensure main layout never overflows */
+.md-container,
+.md-main,
+.md-content {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* =========================
+   Links
+========================= */
+
+a {
+  color: #bd93f9;
+  word-break: break-word;
+}
+
+a:hover {
+  color: #ff79c6;
+}
+
+/* =========================
+   Code blocks (IMPORTANT FIXES)
+========================= */
+
+/* IMPORTANT: Dracula + Pygments wrapper fix */
+.highlight,
+.highlighttable {
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+/* Code + pre handling */
+pre, code {
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+/* Prevent ugly forced wrapping conflicts */
+pre {
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Inline code should NOT behave like blocks */
+code {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Fix line-number table layout (your earlier issue) */
+.linenos {
+  user-select: none;
+  color: #6272a4;
+}
+
+/* =========================
+   Tables (Dracula overflow fix)
+========================= */
+
+table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-radius: 6px;
+}
+
+/* Prevent table cells forcing overflow */
+th, td {
+  word-break: break-word;
+}
+
+/* =========================
+   Sidebar cleanup
+========================= */
+
+.md-nav__item {
+  padding: 2px 0;
+}
+
+/* Prevent nav from causing horizontal scroll */
+.md-sidebar {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* =========================
+   Images (often overlooked)
+========================= */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+footer{
+    position: relative;
+}
