@@ -484,7 +484,7 @@ ufw allow in on vmbr1
 # =========================
 # TCP ports / ranges
 # =========================
-ufw allow 2112
+ufw allow 22
 ufw allow 8006
 ufw allow 80
 ufw allow 443
