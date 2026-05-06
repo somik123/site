@@ -1663,160 +1663,160 @@
 <p>Download from github: <a href="https://github.com/transmission/transmission-releases/raw/refs/heads/master/transmission-2.03.tar.bz2">transmission-2.03.tar.bz2</a></p>
 <h3 id="install-build-prerequisite">Install build prerequisite</h3>
 <p>For ubuntu:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gettext<span class="w"> </span>gcc<span class="w"> </span>make<span class="w"> </span>intltool<span class="w"> </span>curl<span class="w"> </span>m4<span class="w"> </span>automake<span class="w"> </span>libtool<span class="w"> </span>libssl-dev<span class="w"> </span>libssl1.0.0<span class="w"> </span>build-essential<span class="w"> </span>libcurl4-gnutls-dev<span class="w"> </span>pkg-config<span class="w"> </span>libevent1-dev
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>gettext<span class="w"> </span>gcc<span class="w"> </span>make<span class="w"> </span>intltool<span class="w"> </span>curl<span class="w"> </span>m4<span class="w"> </span>automake<span class="w"> </span>libtool<span class="w"> </span>libssl-dev<span class="w"> </span>libssl1.0.0<span class="w"> </span>build-essential<span class="w"> </span>libcurl4-gnutls-dev<span class="w"> </span>pkg-config<span class="w"> </span>libevent1-dev
 </code></pre></div></td></tr></table></div>
 <p>For Centos 7:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>yum<span class="w"> </span>update<span class="w"> </span>-y
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>yum<span class="w"> </span>install<span class="w"> </span>gettext<span class="w"> </span>gcc<span class="w"> </span>make<span class="w"> </span>intltool<span class="w"> </span>libevent2<span class="w"> </span>libevent2-devel<span class="w"> </span>curl-devel<span class="w"> </span>gcc-c++<span class="w"> </span>m4<span class="w"> </span>automake<span class="w"> </span>libtool<span class="w"> </span>openssl-devel<span class="w"> </span>libssl1.0-dev
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>yum<span class="w"> </span>update<span class="w"> </span>-y
+yum<span class="w"> </span>install<span class="w"> </span>gettext<span class="w"> </span>gcc<span class="w"> </span>make<span class="w"> </span>intltool<span class="w"> </span>libevent2<span class="w"> </span>libevent2-devel<span class="w"> </span>curl-devel<span class="w"> </span>gcc-c++<span class="w"> </span>m4<span class="w"> </span>automake<span class="w"> </span>libtool<span class="w"> </span>openssl-devel<span class="w"> </span>libssl1.0-dev
 </code></pre></div></td></tr></table></div>
 <h3 id="build-transmission">Build transmission</h3>
 <p>Now lets extract and compile transmission from source, enable daemon and disable gui:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>tar<span class="w"> </span>xf<span class="w"> </span>transmission-2.03.tar.bz2<span class="w"> </span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>transmission-2.03
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>./configure<span class="w"> </span>--enable-daemon<span class="w"> </span>--disable-gtk
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>make
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a>make<span class="w"> </span>install
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>tar<span class="w"> </span>xf<span class="w"> </span>transmission-2.03.tar.bz2<span class="w"> </span>
+<span class="nb">cd</span><span class="w"> </span>transmission-2.03
+./configure<span class="w"> </span>--enable-daemon<span class="w"> </span>--disable-gtk
+make
+make<span class="w"> </span>install
 </code></pre></div></td></tr></table></div>
 <h3 id="configure">Configure</h3>
 <p>Add the configuration file and downloads folder for transmission:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/www/html/Downloads
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/home/somik/tr_config/
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>nano<span class="w"> </span>/home/somik/tr_config/settings.json
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/www/html/Downloads
+mkdir<span class="w"> </span>-p<span class="w"> </span>/home/somik/tr_config/
+nano<span class="w"> </span>/home/somik/tr_config/settings.json
 </code></pre></div></td></tr></table></div>
 <p>And add to the settings file:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span>
-<span class="normal"><a href="#__codelineno-4-21">21</a></span>
-<span class="normal"><a href="#__codelineno-4-22">22</a></span>
-<span class="normal"><a href="#__codelineno-4-23">23</a></span>
-<span class="normal"><a href="#__codelineno-4-24">24</a></span>
-<span class="normal"><a href="#__codelineno-4-25">25</a></span>
-<span class="normal"><a href="#__codelineno-4-26">26</a></span>
-<span class="normal"><a href="#__codelineno-4-27">27</a></span>
-<span class="normal"><a href="#__codelineno-4-28">28</a></span>
-<span class="normal"><a href="#__codelineno-4-29">29</a></span>
-<span class="normal"><a href="#__codelineno-4-30">30</a></span>
-<span class="normal"><a href="#__codelineno-4-31">31</a></span>
-<span class="normal"><a href="#__codelineno-4-32">32</a></span>
-<span class="normal"><a href="#__codelineno-4-33">33</a></span>
-<span class="normal"><a href="#__codelineno-4-34">34</a></span>
-<span class="normal"><a href="#__codelineno-4-35">35</a></span>
-<span class="normal"><a href="#__codelineno-4-36">36</a></span>
-<span class="normal"><a href="#__codelineno-4-37">37</a></span>
-<span class="normal"><a href="#__codelineno-4-38">38</a></span>
-<span class="normal"><a href="#__codelineno-4-39">39</a></span>
-<span class="normal"><a href="#__codelineno-4-40">40</a></span>
-<span class="normal"><a href="#__codelineno-4-41">41</a></span>
-<span class="normal"><a href="#__codelineno-4-42">42</a></span>
-<span class="normal"><a href="#__codelineno-4-43">43</a></span>
-<span class="normal"><a href="#__codelineno-4-44">44</a></span>
-<span class="normal"><a href="#__codelineno-4-45">45</a></span>
-<span class="normal"><a href="#__codelineno-4-46">46</a></span>
-<span class="normal"><a href="#__codelineno-4-47">47</a></span>
-<span class="normal"><a href="#__codelineno-4-48">48</a></span>
-<span class="normal"><a href="#__codelineno-4-49">49</a></span>
-<span class="normal"><a href="#__codelineno-4-50">50</a></span>
-<span class="normal"><a href="#__codelineno-4-51">51</a></span>
-<span class="normal"><a href="#__codelineno-4-52">52</a></span>
-<span class="normal"><a href="#__codelineno-4-53">53</a></span>
-<span class="normal"><a href="#__codelineno-4-54">54</a></span>
-<span class="normal"><a href="#__codelineno-4-55">55</a></span>
-<span class="normal"><a href="#__codelineno-4-56">56</a></span>
-<span class="normal"><a href="#__codelineno-4-57">57</a></span>
-<span class="normal"><a href="#__codelineno-4-58">58</a></span>
-<span class="normal"><a href="#__codelineno-4-59">59</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="p">{</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">    </span><span class="nt">&quot;alt-speed-down&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="nt">&quot;alt-speed-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="nt">&quot;alt-speed-time-begin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">540</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="nt">&quot;alt-speed-time-day&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">127</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">    </span><span class="nt">&quot;alt-speed-time-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">    </span><span class="nt">&quot;alt-speed-time-end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1020</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">    </span><span class="nt">&quot;alt-speed-up&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">    </span><span class="nt">&quot;bind-address-ipv4&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">    </span><span class="nt">&quot;bind-address-ipv6&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;::&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">    </span><span class="nt">&quot;blocklist-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="w">    </span><span class="nt">&quot;dht-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">    </span><span class="nt">&quot;download-dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/www/html/Downloads&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">    </span><span class="nt">&quot;encryption&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">    </span><span class="nt">&quot;incomplete-dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/www/html/Downloads&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">    </span><span class="nt">&quot;incomplete-dir-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">    </span><span class="nt">&quot;lazy-bitfield-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="w">    </span><span class="nt">&quot;lpd-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">    </span><span class="nt">&quot;message-level&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">    </span><span class="nt">&quot;open-file-limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="w">    </span><span class="nt">&quot;peer-limit-global&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">240</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="w">    </span><span class="nt">&quot;peer-limit-per-torrent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="w">    </span><span class="nt">&quot;peer-port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">54476</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="w">    </span><span class="nt">&quot;peer-port-random-high&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">65535</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="w">    </span><span class="nt">&quot;peer-port-random-low&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">49152</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="w">    </span><span class="nt">&quot;peer-port-random-on-start&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="w">    </span><span class="nt">&quot;peer-socket-tos&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="w">    </span><span class="nt">&quot;pex-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-29" name="__codelineno-4-29"></a><span class="w">    </span><span class="nt">&quot;port-forwarding-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-30" name="__codelineno-4-30"></a><span class="w">    </span><span class="nt">&quot;preallocation&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-31" name="__codelineno-4-31"></a><span class="w">    </span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-32" name="__codelineno-4-32"></a><span class="w">    </span><span class="nt">&quot;proxy-auth-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-33" name="__codelineno-4-33"></a><span class="w">    </span><span class="nt">&quot;proxy-auth-password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-34" name="__codelineno-4-34"></a><span class="w">    </span><span class="nt">&quot;proxy-auth-username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-35" name="__codelineno-4-35"></a><span class="w">    </span><span class="nt">&quot;proxy-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-36" name="__codelineno-4-36"></a><span class="w">    </span><span class="nt">&quot;proxy-port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-37" name="__codelineno-4-37"></a><span class="w">    </span><span class="nt">&quot;proxy-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-38" name="__codelineno-4-38"></a><span class="w">    </span><span class="nt">&quot;ratio-limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.0000</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-39" name="__codelineno-4-39"></a><span class="w">    </span><span class="nt">&quot;ratio-limit-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-40" name="__codelineno-4-40"></a><span class="w">    </span><span class="nt">&quot;rename-partial-files&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-41" name="__codelineno-4-41"></a><span class="w">    </span><span class="nt">&quot;rpc-authentication-required&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-42" name="__codelineno-4-42"></a><span class="w">    </span><span class="nt">&quot;rpc-bind-address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-43" name="__codelineno-4-43"></a><span class="w">    </span><span class="nt">&quot;rpc-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-44" name="__codelineno-4-44"></a><span class="w">    </span><span class="nt">&quot;rpc-password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AUTOGENERATED_ON_START-UP&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-45" name="__codelineno-4-45"></a><span class="w">    </span><span class="nt">&quot;rpc-port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8080</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-46" name="__codelineno-4-46"></a><span class="w">    </span><span class="nt">&quot;rpc-username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AUTOGENERATED_ON_START-UP&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-47" name="__codelineno-4-47"></a><span class="w">    </span><span class="nt">&quot;rpc-whitelist&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1,*.*.*.*&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-48" name="__codelineno-4-48"></a><span class="w">    </span><span class="nt">&quot;rpc-whitelist-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-49" name="__codelineno-4-49"></a><span class="w">    </span><span class="nt">&quot;script-torrent-done-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-50" name="__codelineno-4-50"></a><span class="w">    </span><span class="nt">&quot;script-torrent-done-filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-51" name="__codelineno-4-51"></a><span class="w">    </span><span class="nt">&quot;speed-limit-down&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-52" name="__codelineno-4-52"></a><span class="w">    </span><span class="nt">&quot;speed-limit-down-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-53" name="__codelineno-4-53"></a><span class="w">    </span><span class="nt">&quot;speed-limit-up&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-54" name="__codelineno-4-54"></a><span class="w">    </span><span class="nt">&quot;speed-limit-up-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-55" name="__codelineno-4-55"></a><span class="w">    </span><span class="nt">&quot;start-added-torrents&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-56" name="__codelineno-4-56"></a><span class="w">    </span><span class="nt">&quot;trash-original-torrent-files&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-57" name="__codelineno-4-57"></a><span class="w">    </span><span class="nt">&quot;umask&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w"> </span>
-<a id="__codelineno-4-58" name="__codelineno-4-58"></a><span class="w">    </span><span class="nt">&quot;upload-slots-per-torrent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span>
-<a id="__codelineno-4-59" name="__codelineno-4-59"></a><span class="p">}</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;alt-speed-down&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;alt-speed-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;alt-speed-time-begin&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">540</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;alt-speed-time-day&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">127</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;alt-speed-time-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;alt-speed-time-end&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1020</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;alt-speed-up&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;bind-address-ipv4&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;bind-address-ipv6&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;::&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;blocklist-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;dht-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;download-dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/www/html/Downloads&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;encryption&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;incomplete-dir&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/var/www/html/Downloads&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;incomplete-dir-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;lazy-bitfield-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;lpd-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;message-level&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;open-file-limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;peer-limit-global&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">240</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;peer-limit-per-torrent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;peer-port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">54476</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;peer-port-random-high&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">65535</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;peer-port-random-low&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">49152</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;peer-port-random-on-start&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;peer-socket-tos&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;pex-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;port-forwarding-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;preallocation&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;proxy&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;proxy-auth-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;proxy-auth-password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;proxy-auth-username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;proxy-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;proxy-port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;proxy-type&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;ratio-limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">2.0000</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;ratio-limit-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;rename-partial-files&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;rpc-authentication-required&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;rpc-bind-address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;rpc-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;rpc-password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AUTOGENERATED_ON_START-UP&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;rpc-port&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8080</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;rpc-username&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AUTOGENERATED_ON_START-UP&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;rpc-whitelist&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1,*.*.*.*&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;rpc-whitelist-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;script-torrent-done-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;script-torrent-done-filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;speed-limit-down&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;speed-limit-down-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;speed-limit-up&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;speed-limit-up-enabled&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;start-added-torrents&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;trash-original-torrent-files&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;umask&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">18</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="nt">&quot;upload-slots-per-torrent&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14</span>
+<span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 <p>The above line <em>"rpc-whitelist": "127.0.0.1,</em>.<em>.</em>.<em>",</em> allows everyone on the internet to connect to your transmission, and it is over an unencrypted network so ensure it is either behind a firewall or it is changed to <em>"rpc-whitelist": "127.0.0.1,YOUR.IP.ADDRESS.HERE"</em>, for security reasons.</p>
 <p>Finally, provide it with the settings for it to run:</p>
 <h3 id="run-transmission">Run transmission</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>/usr/local/bin/transmission-daemon -a 127.0.0.1,*.*.*.* -g &quot;/home/somik/tr_config/&quot; -w &quot;/var/www/html/Downloads&quot; -p 8080 -P 12345 -t -u &quot;USERNAME&quot; -v &quot;PASSWORD&quot;
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>/usr/local/bin/transmission-daemon -a 127.0.0.1,*.*.*.* -g &quot;/home/somik/tr_config/&quot; -w &quot;/var/www/html/Downloads&quot; -p 8080 -P 12345 -t -u &quot;USERNAME&quot; -v &quot;PASSWORD&quot;
 </code></pre></div></td></tr></table></div>
 
 

@@ -1640,15 +1640,15 @@
 <p>This will transform your server into a network wide ad-blocker as well as allowing you to use this ad-blocker from outside your network using the private VPN of PiVPN. These software are originally meant to be installed on a Raspberry Pi, but since you got a space on your server, why not install it? This is the easiest way to get OpenVPN server installed on your server. Did I mention that it'll also block ads?</p>
 <p>Do take note that some of the commands will be used without "sudo" while some are using it.</p>
 <p>So as always, start by updating your server and installing required components:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>curl<span class="w"> </span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>curl<span class="w"> </span>
 </code></pre></div></td></tr></table></div>
 <p>You can install either Pi-Hole or PiVPN first since we are going to install both and configure it in a way that will make them talk to each-other. On this occation, we'll install PiVPN first.</p>
 <h2 id="install-pivpn">Install PiVPN</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>curl<span class="w"> </span>-L<span class="w"> </span>https://install.pivpn.io<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>curl<span class="w"> </span>-L<span class="w"> </span>https://install.pivpn.io<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
 </code></pre></div></td></tr></table></div>
 <p>The OS is untested? No issues, it'll work fine. Click <strong>Yes</strong>.</p>
 <p>Installer starting, click <strong>OK</strong> followed by <strong>OK</strong>, <strong>OK</strong>, <strong>OK</strong> until you arrive at the user selection screen.</p>
@@ -1668,7 +1668,7 @@
 <p>Choose <strong>Yes</strong> followed by <strong>Ok</strong> to reboot.</p>
 <p>Now it is time to install Pi-Hole.</p>
 <h2 id="install-pi-hole">Install Pi-Hole</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>curl<span class="w"> </span>-sSL<span class="w"> </span>https://install.pi-hole.net<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>curl<span class="w"> </span>-sSL<span class="w"> </span>https://install.pi-hole.net<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash
 </code></pre></div></td></tr></table></div>
 <p>Start the installer with <strong>Ok</strong>, <strong>Ok</strong>, and <strong>Ok</strong> again.</p>
 <p>Time to choose an interface. Choose the first one that is NOT <em>tun0</em>. We'll add it later in settings.</p>
@@ -1682,182 +1682,182 @@
 <p><strong>Show everything</strong>, including passed and blocked domains and IPs that requested it? <strong>Yes</strong>.</p>
 <p>Now let the installer do it's thing before the completed screen with the confusing <strong>password</strong> appears.</p>
 <p>First thing to do, change admin password...</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>pihole<span class="w"> </span>-a<span class="w"> </span>-p
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pihole<span class="w"> </span>-a<span class="w"> </span>-p
 </code></pre></div></td></tr></table></div>
 <p>Now you can access pi-hole admin interface on your IP or domain to check by going to http://192.168.xx.xxx/admin/ or http://myserver.example.com/admin/</p>
 <p>Now lets make them talk to eachother...</p>
 <h2 id="pi-hole-pivpn-configuration">Pi-Hole &amp; PiVPN configuration</h2>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/openvpn/server.conf
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/openvpn/server.conf
 </code></pre></div></td></tr></table></div>
 <p>Find the lines with your DNS provider IP address (1.1.1.1 and 1.0.0.1 in our case since we went with Cloudflare).</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>...
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="c1"># Set your primary domain name server address for clients</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a>push<span class="w"> </span><span class="s2">&quot;dhcp-option DNS 1.1.1.1&quot;</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a>push<span class="w"> </span><span class="s2">&quot;dhcp-option DNS 1.0.0.1&quot;</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a>...
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>...
+<span class="c1"># Set your primary domain name server address for clients</span>
+push<span class="w"> </span><span class="s2">&quot;dhcp-option DNS 1.1.1.1&quot;</span>
+push<span class="w"> </span><span class="s2">&quot;dhcp-option DNS 1.0.0.1&quot;</span>
+...
 </code></pre></div></td></tr></table></div>
 <p>and replace with</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>...
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="c1"># Set your primary domain name server address for clients</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>push<span class="w"> </span><span class="s2">&quot;dhcp-option DNS 10.8.0.1&quot;</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a>...
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>...
+<span class="c1"># Set your primary domain name server address for clients</span>
+push<span class="w"> </span><span class="s2">&quot;dhcp-option DNS 10.8.0.1&quot;</span>
+...
 </code></pre></div></td></tr></table></div>
 <p>Then save and exit with <strong>Ctrl+x</strong> the <strong>Y</strong> then <strong>Enter</strong>.</p>
 <p>Next edit the Pi-Hole configuration files:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/pihole/setupVars.conf
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/pihole/setupVars.conf
 </code></pre></div></td></tr></table></div>
 <p>And add the line "<em>PIHOLE_INTERFACE=tun0</em>" bellow the existing "<em>PIHOLE_INTERFACE=</em>" line. Make sure it looks something similar to this.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span>
-<span class="normal"><a href="#__codelineno-8-3">3</a></span>
-<span class="normal"><a href="#__codelineno-8-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nv">PIHOLE_INTERFACE</span><span class="o">=</span>ens18
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="nv">PIHOLE_INTERFACE</span><span class="o">=</span>tun0
-<a id="__codelineno-8-3" name="__codelineno-8-3"></a>...
-<a id="__codelineno-8-4" name="__codelineno-8-4"></a>...
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">PIHOLE_INTERFACE</span><span class="o">=</span>ens18
+<span class="nv">PIHOLE_INTERFACE</span><span class="o">=</span>tun0
+...
+...
 </code></pre></div></td></tr></table></div>
 <p>The <em>ens18</em> can be <em>eth0</em> or something else depending on what your ethernet module is called. The tun0 must be added after that.</p>
 <p>Then save and exit with <strong>Ctrl+x</strong> the <strong>Y</strong> then <strong>Enter</strong>.</p>
 <p>Finally create a new file under dnsmasq to add the openvpn interface.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dnsmasq.d/02-ovpn.conf
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dnsmasq.d/02-ovpn.conf
 </code></pre></div></td></tr></table></div>
 <p>Add:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="nv">interface</span><span class="o">=</span>tun0
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">interface</span><span class="o">=</span>tun0
 </code></pre></div></td></tr></table></div>
 <p>Then save and exit with <strong>Ctrl+x</strong> the <strong>Y</strong> then <strong>Enter</strong>. </p>
 <p>Wait, you needed to add local domains to Pi-Hole? Lets do it now.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/hosts.mydomain
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dnsmasq.d/02-ovpn.conf
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/hosts.mydomain
+sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dnsmasq.d/02-ovpn.conf
 </code></pre></div></td></tr></table></div>
 <p>Append:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
-<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>...
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a>addn-hosts<span class="o">=</span>/etc/hosts.mydomain
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>...
+addn-hosts<span class="o">=</span>/etc/hosts.mydomain
 </code></pre></div></td></tr></table></div>
 <p>Then save and exit with <strong>Ctrl+x</strong> the <strong>Y</strong> then <strong>Enter</strong>.</p>
 <p>Now go back and edit the hosts file we created:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hosts.mydomain
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hosts.mydomain
 </code></pre></div></td></tr></table></div>
 <p>And add your domains, one per line, IP followed by domain name like so:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
-<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="m">192</span>.168.1.10<span class="w"> </span>mydomain.com
-<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="m">192</span>.168.1.11<span class="w"> </span>private.example.com
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="m">192</span>.168.1.10<span class="w"> </span>mydomain.com
+<span class="m">192</span>.168.1.11<span class="w"> </span>private.example.com
 </code></pre></div></td></tr></table></div>
 <p>Finally reboot your server:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>sudo<span class="w"> </span>reboot
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>reboot
 </code></pre></div></td></tr></table></div>
 <h2 id="final-configurations">Final configurations</h2>
 <p>If you want to add users to your PiVPN, you can use the command:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>pivpn<span class="w"> </span>add
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pivpn<span class="w"> </span>add
 </code></pre></div></td></tr></table></div>
 <p>All of your new OpenVPN configuration files will be saved at /home/username/ovpns/ directory.</p>
 <p>You may want to configure additional blocklists for Pi-Hole:</p>
 <p><a href="https://discourse.pi-hole.net/t/update-the-best-blocking-lists-for-the-pi-hole-alternative-dns-servers-2019/13620">https://discourse.pi-hole.net/t/update-the-best-blocking-lists-for-the-pi-hole-alternative-dns-servers-2019/13620</a></p>
 <p>Start by changing to pihole directory and editing the adlist file:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/pihole/adlists.list
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/pihole/adlists.list
 </code></pre></div></td></tr></table></div>
 <p>Edit it to make it look like so (be sure to remove any tabs or spaces from the links)</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-18-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-18-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-18-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-18-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-18-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-18-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-18-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-18-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-18-10">10</a></span>
-<span class="normal"><a href="#__codelineno-18-11">11</a></span>
-<span class="normal"><a href="#__codelineno-18-12">12</a></span>
-<span class="normal"><a href="#__codelineno-18-13">13</a></span>
-<span class="normal"><a href="#__codelineno-18-14">14</a></span>
-<span class="normal"><a href="#__codelineno-18-15">15</a></span>
-<span class="normal"><a href="#__codelineno-18-16">16</a></span>
-<span class="normal"><a href="#__codelineno-18-17">17</a></span>
-<span class="normal"><a href="#__codelineno-18-18">18</a></span>
-<span class="normal"><a href="#__codelineno-18-19">19</a></span>
-<span class="normal"><a href="#__codelineno-18-20">20</a></span>
-<span class="normal"><a href="#__codelineno-18-21">21</a></span>
-<span class="normal"><a href="#__codelineno-18-22">22</a></span>
-<span class="normal"><a href="#__codelineno-18-23">23</a></span>
-<span class="normal"><a href="#__codelineno-18-24">24</a></span>
-<span class="normal"><a href="#__codelineno-18-25">25</a></span>
-<span class="normal"><a href="#__codelineno-18-26">26</a></span>
-<span class="normal"><a href="#__codelineno-18-27">27</a></span>
-<span class="normal"><a href="#__codelineno-18-28">28</a></span>
-<span class="normal"><a href="#__codelineno-18-29">29</a></span>
-<span class="normal"><a href="#__codelineno-18-30">30</a></span>
-<span class="normal"><a href="#__codelineno-18-31">31</a></span>
-<span class="normal"><a href="#__codelineno-18-32">32</a></span>
-<span class="normal"><a href="#__codelineno-18-33">33</a></span>
-<span class="normal"><a href="#__codelineno-18-34">34</a></span>
-<span class="normal"><a href="#__codelineno-18-35">35</a></span>
-<span class="normal"><a href="#__codelineno-18-36">36</a></span>
-<span class="normal"><a href="#__codelineno-18-37">37</a></span>
-<span class="normal"><a href="#__codelineno-18-38">38</a></span>
-<span class="normal"><a href="#__codelineno-18-39">39</a></span>
-<span class="normal"><a href="#__codelineno-18-40">40</a></span>
-<span class="normal"><a href="#__codelineno-18-41">41</a></span>
-<span class="normal"><a href="#__codelineno-18-42">42</a></span>
-<span class="normal"><a href="#__codelineno-18-43">43</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
-<a id="__codelineno-18-2" name="__codelineno-18-2"></a>https://mirror1.malwaredomains.com/files/justdomains
-<a id="__codelineno-18-3" name="__codelineno-18-3"></a>http://sysctl.org/cameleon/hosts
-<a id="__codelineno-18-4" name="__codelineno-18-4"></a>https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
-<a id="__codelineno-18-5" name="__codelineno-18-5"></a>https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
-<a id="__codelineno-18-6" name="__codelineno-18-6"></a>
-<a id="__codelineno-18-7" name="__codelineno-18-7"></a>
-<a id="__codelineno-18-8" name="__codelineno-18-8"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/adaway.org/list.txt
-<a id="__codelineno-18-9" name="__codelineno-18-9"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/adblock-nocoin-list/list.txt
-<a id="__codelineno-18-10" name="__codelineno-18-10"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt
-<a id="__codelineno-18-11" name="__codelineno-18-11"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/anudeepnd-adservers/list.txt
-<a id="__codelineno-18-12" name="__codelineno-18-12"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-ad/list.txt
-<a id="__codelineno-18-13" name="__codelineno-18-13"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-malvertising/list.txt
-<a id="__codelineno-18-14" name="__codelineno-18-14"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-malware/list.txt
-<a id="__codelineno-18-15" name="__codelineno-18-15"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-tracking/list.txt
-<a id="__codelineno-18-16" name="__codelineno-18-16"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/easylist/list.txt
-<a id="__codelineno-18-17" name="__codelineno-18-17"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/easyprivacy/list.txt
-<a id="__codelineno-18-18" name="__codelineno-18-18"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/eth-phishing-detect/list.txt
-<a id="__codelineno-18-19" name="__codelineno-18-19"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/fademind-add.2o7net/list.txt
-<a id="__codelineno-18-20" name="__codelineno-18-20"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/fademind-add.dead/list.txt
-<a id="__codelineno-18-21" name="__codelineno-18-21"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/fademind-add.risk/list.txt
-<a id="__codelineno-18-22" name="__codelineno-18-22"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/fademind-add.spam/list.txt
-<a id="__codelineno-18-23" name="__codelineno-18-23"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/kadhosts/list.txt
-<a id="__codelineno-18-24" name="__codelineno-18-24"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomainlist.com/list.txt
-<a id="__codelineno-18-25" name="__codelineno-18-25"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-immortaldomains/list.txt
-<a id="__codelineno-18-26" name="__codelineno-18-26"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-justdomains/list.txt
-<a id="__codelineno-18-27" name="__codelineno-18-27"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/matomo.org-spammers/list.txt
-<a id="__codelineno-18-28" name="__codelineno-18-28"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/mitchellkrogza-badd-boyz-hosts/list.txt
-<a id="__codelineno-18-29" name="__codelineno-18-29"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/pgl.yoyo.org/list.txt
-<a id="__codelineno-18-30" name="__codelineno-18-30"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/ransomwaretracker.abuse.ch/list.txt
-<a id="__codelineno-18-31" name="__codelineno-18-31"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/someonewhocares.org/list.txt
-<a id="__codelineno-18-32" name="__codelineno-18-32"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/spam404.com/list.txt
-<a id="__codelineno-18-33" name="__codelineno-18-33"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/stevenblack/list.txt
-<a id="__codelineno-18-34" name="__codelineno-18-34"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/winhelp2002.mvps.org/list.txt
-<a id="__codelineno-18-35" name="__codelineno-18-35"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/zerodot1-coinblockerlists-browser/list.txt
-<a id="__codelineno-18-36" name="__codelineno-18-36"></a>https://raw.githubusercontent.com/hectorm/hmirror/master/data/zeustracker.abuse.ch/list.txt
-<a id="__codelineno-18-37" name="__codelineno-18-37"></a>https://raw.githubusercontent.com/CHEF-KOCH/Audio-fingerprint-pages/master/AudioFp.txt
-<a id="__codelineno-18-38" name="__codelineno-18-38"></a>https://raw.githubusercontent.com/CHEF-KOCH/Canvas-fingerprinting-pages/master/Canvas.txt
-<a id="__codelineno-18-39" name="__codelineno-18-39"></a>https://raw.githubusercontent.com/CHEF-KOCH/WebRTC-tracking/master/WebRTC.txt
-<a id="__codelineno-18-40" name="__codelineno-18-40"></a>https://raw.githubusercontent.com/CHEF-KOCH/CKs-FilterList/master/Anti-Corp/hosts/NSABlocklist.txt
-<a id="__codelineno-18-41" name="__codelineno-18-41"></a>https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
-<a id="__codelineno-18-42" name="__codelineno-18-42"></a>https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt
-<a id="__codelineno-18-43" name="__codelineno-18-43"></a>https://www.stopforumspam.com/downloads/toxic_domains_whole.txt
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span></pre></div></td><td class="code"><div><pre><span></span><code>https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+https://mirror1.malwaredomains.com/files/justdomains
+http://sysctl.org/cameleon/hosts
+https://s3.amazonaws.com/lists.disconnect.me/simple_tracking.txt
+https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+
+
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/adaway.org/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/adblock-nocoin-list/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/adguard-simplified/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/anudeepnd-adservers/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-ad/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-malvertising/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-malware/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/disconnect.me-tracking/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/easylist/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/easyprivacy/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/eth-phishing-detect/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/fademind-add.2o7net/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/fademind-add.dead/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/fademind-add.risk/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/fademind-add.spam/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/kadhosts/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomainlist.com/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-immortaldomains/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/malwaredomains.com-justdomains/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/matomo.org-spammers/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/mitchellkrogza-badd-boyz-hosts/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/pgl.yoyo.org/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/ransomwaretracker.abuse.ch/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/someonewhocares.org/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/spam404.com/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/stevenblack/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/winhelp2002.mvps.org/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/zerodot1-coinblockerlists-browser/list.txt
+https://raw.githubusercontent.com/hectorm/hmirror/master/data/zeustracker.abuse.ch/list.txt
+https://raw.githubusercontent.com/CHEF-KOCH/Audio-fingerprint-pages/master/AudioFp.txt
+https://raw.githubusercontent.com/CHEF-KOCH/Canvas-fingerprinting-pages/master/Canvas.txt
+https://raw.githubusercontent.com/CHEF-KOCH/WebRTC-tracking/master/WebRTC.txt
+https://raw.githubusercontent.com/CHEF-KOCH/CKs-FilterList/master/Anti-Corp/hosts/NSABlocklist.txt
+https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
+https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt
+https://www.stopforumspam.com/downloads/toxic_domains_whole.txt
 </code></pre></div></td></tr></table></div>
 <p>Then save and exit with <strong>Ctrl+x</strong> the <strong>Y</strong> then <strong>Enter</strong>.</p>
 <p>Also download the whitelist to this folder.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
-<span class="normal"><a href="#__codelineno-19-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>wget<span class="w"> </span>https://raw.githubusercontent.com/raghavdua1995/DNSlock-PiHole-whitelist/master/whitelist.list
-<a id="__codelineno-19-2" name="__codelineno-19-2"></a>sudo<span class="w"> </span>cp<span class="w"> </span>whitelist.list<span class="w"> </span>/etc/pihole/whitelist.txt
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>wget<span class="w"> </span>https://raw.githubusercontent.com/raghavdua1995/DNSlock-PiHole-whitelist/master/whitelist.list
+sudo<span class="w"> </span>cp<span class="w"> </span>whitelist.list<span class="w"> </span>/etc/pihole/whitelist.txt
 </code></pre></div></td></tr></table></div>
 <p>Then update gravity.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>pihole<span class="w"> </span>-g
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pihole<span class="w"> </span>-g
 </code></pre></div></td></tr></table></div>
 <p>Ensure everything is OK by looking at the green ticks.</p>
 <p>Finally change your DNS to PiHole IP or start using PiVPN.</p>

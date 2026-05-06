@@ -1504,179 +1504,179 @@
 <p>With the new MariaDB 10+ they have disabled performance_schema, which means your database will consume minimum amount of memory and you can run Lighttpd, PHP and MariaDB on only 256 MB RAM! So here's how to do it.</p>
 <p>We'll also install phpMyAdmin for easy configuration of our mysql server and set it up securely to the best of our abilities.</p>
 <p>Lets start by updating and installing Lighttpd and MariaDB as well as a few others.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>wget<span class="w"> </span>nano<span class="w"> </span>openssh-server<span class="w"> </span>unzip
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ssh
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>reboot
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>wget<span class="w"> </span>nano<span class="w"> </span>openssh-server<span class="w"> </span>unzip
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>ssh
+reboot
 </code></pre></div></td></tr></table></div>
 <p>After reboot:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>lighttpd<span class="w"> </span>mariadb-server
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>lighttpd.service
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>lighttpd.service
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>lighttpd<span class="w"> </span>mariadb-server
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>lighttpd.service
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>lighttpd.service
 </code></pre></div></td></tr></table></div>
 <p>Now install PHP</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>php-cgi<span class="w"> </span>php-cli<span class="w"> </span>php-mysql<span class="w"> </span>php-gd<span class="w"> </span>php-imagick<span class="w"> </span>php-recode<span class="w"> </span>php-tidy<span class="w"> </span>php-xmlrpc<span class="w"> </span>php-pdo<span class="w"> </span>php-sqlite3<span class="w"> </span>php-curl<span class="w"> </span>php-xml<span class="w"> </span>libterm-readline-gnu-perl<span class="w"> </span>php-mbstring
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>php-cgi<span class="w"> </span>php-cli<span class="w"> </span>php-mysql<span class="w"> </span>php-gd<span class="w"> </span>php-imagick<span class="w"> </span>php-recode<span class="w"> </span>php-tidy<span class="w"> </span>php-xmlrpc<span class="w"> </span>php-pdo<span class="w"> </span>php-sqlite3<span class="w"> </span>php-curl<span class="w"> </span>php-xml<span class="w"> </span>libterm-readline-gnu-perl<span class="w"> </span>php-mbstring
 </code></pre></div></td></tr></table></div>
 <p>And enable it in Lighttpd:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>lighttpd-enable-mod<span class="w"> </span>fastcgi
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>sudo<span class="w"> </span>lighttpd-enable-mod<span class="w"> </span>fastcgi-php
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>lighttpd-enable-mod<span class="w"> </span>fastcgi
+sudo<span class="w"> </span>lighttpd-enable-mod<span class="w"> </span>fastcgi-php
 </code></pre></div></td></tr></table></div>
 <p>Now lets edit the PHP ini file:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/php/7.*/cgi/php.ini
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/php/7.*/cgi/php.ini
 </code></pre></div></td></tr></table></div>
 <p>And append these at the bottom of the file:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span>
-<span class="normal"><a href="#__codelineno-5-6">6</a></span>
-<span class="normal"><a href="#__codelineno-5-7">7</a></span>
-<span class="normal"><a href="#__codelineno-5-8">8</a></span>
-<span class="normal"><a href="#__codelineno-5-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nv">short_open_tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>On
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="nv">display_errors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>on
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="nv">error_reporting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>E_ALL<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_NOTICE<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_STRICT<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_DEPRECATED
-<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="nv">error_log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>error_log
-<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="nv">output_buffering</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Off
-<a id="__codelineno-5-6" name="__codelineno-5-6"></a>date.timezone<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Asia/Singapore&quot;</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="nv">upload_max_filesize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>50M
-<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="nv">post_max_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>50M
-<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="nv">memory_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>128M
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">short_open_tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>On
+<span class="nv">display_errors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>on
+<span class="nv">error_reporting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>E_ALL<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_NOTICE<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_STRICT<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_DEPRECATED
+<span class="nv">error_log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>error_log
+<span class="nv">output_buffering</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Off
+date.timezone<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Asia/Singapore&quot;</span>
+<span class="nv">upload_max_filesize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>50M
+<span class="nv">post_max_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>50M
+<span class="nv">memory_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>128M
 </code></pre></div></td></tr></table></div>
 <p>Now check what user Lighttpd is running as, as well as checking that the PHP was added:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/lighttpd/lighttpd.conf
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/lighttpd/lighttpd.conf
 </code></pre></div></td></tr></table></div>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-7-10">10</a></span>
-<span class="normal"><a href="#__codelineno-7-11">11</a></span>
-<span class="normal"><a href="#__codelineno-7-12">12</a></span>
-<span class="normal"><a href="#__codelineno-7-13">13</a></span>
-<span class="normal"><a href="#__codelineno-7-14">14</a></span>
-<span class="normal"><a href="#__codelineno-7-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>...
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>...
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a>server.document-root<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/var/www/html&quot;</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4"></a>...
-<a id="__codelineno-7-5" name="__codelineno-7-5"></a>...
-<a id="__codelineno-7-6" name="__codelineno-7-6"></a>server.username<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;www-data&quot;</span>
-<a id="__codelineno-7-7" name="__codelineno-7-7"></a>server.groupname<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;www-data&quot;</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8"></a>server.port<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">80</span>
-<a id="__codelineno-7-9" name="__codelineno-7-9"></a>
-<a id="__codelineno-7-10" name="__codelineno-7-10"></a>
-<a id="__codelineno-7-11" name="__codelineno-7-11"></a>index-file.names<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="s2">&quot;index.php&quot;</span>,<span class="w"> </span><span class="s2">&quot;index.html&quot;</span>,<span class="w"> </span><span class="s2">&quot;index.lighttpd.html&quot;</span><span class="w"> </span><span class="o">)</span>
-<a id="__codelineno-7-12" name="__codelineno-7-12"></a>...
-<a id="__codelineno-7-13" name="__codelineno-7-13"></a>static-file.exclude-extensions<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="s2">&quot;.php&quot;</span>,<span class="w"> </span><span class="s2">&quot;.pl&quot;</span>,<span class="w"> </span><span class="s2">&quot;.fcgi&quot;</span><span class="w"> </span><span class="o">)</span>
-<a id="__codelineno-7-14" name="__codelineno-7-14"></a>...
-<a id="__codelineno-7-15" name="__codelineno-7-15"></a>...
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code>...
+...
+server.document-root<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/var/www/html&quot;</span>
+...
+...
+server.username<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;www-data&quot;</span>
+server.groupname<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;www-data&quot;</span>
+server.port<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">80</span>
+
+
+index-file.names<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="s2">&quot;index.php&quot;</span>,<span class="w"> </span><span class="s2">&quot;index.html&quot;</span>,<span class="w"> </span><span class="s2">&quot;index.lighttpd.html&quot;</span><span class="w"> </span><span class="o">)</span>
+...
+static-file.exclude-extensions<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="w"> </span><span class="s2">&quot;.php&quot;</span>,<span class="w"> </span><span class="s2">&quot;.pl&quot;</span>,<span class="w"> </span><span class="s2">&quot;.fcgi&quot;</span><span class="w"> </span><span class="o">)</span>
+...
+...
 </code></pre></div></td></tr></table></div>
 <p>Restart lighttpd to load new configs and enable PHP</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>lighttpd.service
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>lighttpd.service
 </code></pre></div></td></tr></table></div>
 <p>Create a PHP test script to test your new configuration:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>sudo<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;&lt;?php phpinfo(); ?&gt;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/var/www/html/info.php
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;&lt;?php phpinfo(); ?&gt;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>/var/www/html/info.php
 </code></pre></div></td></tr></table></div>
 <p>If everything is working fine until here, lets setup phpMyAdmin and MariaDB.</p>
 <p>First lets startup and enable MariaDB</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mariadb
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mariadb
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mariadb
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mariadb
 </code></pre></div></td></tr></table></div>
 <p>Now lets get phpMyAdmin, latest version, from their website <a href="https://www.phpmyadmin.net/">https://www.phpmyadmin.net/</a> and extract it.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span>
-<span class="normal"><a href="#__codelineno-11-3">3</a></span>
-<span class="normal"><a href="#__codelineno-11-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="nb">cd</span><span class="w"> </span>/var/www/html/
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a>sudo<span class="w"> </span>wget<span class="w"> </span>https://files.phpmyadmin.net/phpMyAdmin/4.9.1/phpMyAdmin-4.9.1-all-languages.zip
-<a id="__codelineno-11-3" name="__codelineno-11-3"></a>sudo<span class="w"> </span>unzip<span class="w"> </span>phpMyAdmin-*.zip
-<a id="__codelineno-11-4" name="__codelineno-11-4"></a>sudo<span class="w"> </span>mv<span class="w"> </span>phpMyAdmin-*<span class="w"> </span>phpMyAdmin
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/var/www/html/
+sudo<span class="w"> </span>wget<span class="w"> </span>https://files.phpmyadmin.net/phpMyAdmin/4.9.1/phpMyAdmin-4.9.1-all-languages.zip
+sudo<span class="w"> </span>unzip<span class="w"> </span>phpMyAdmin-*.zip
+sudo<span class="w"> </span>mv<span class="w"> </span>phpMyAdmin-*<span class="w"> </span>phpMyAdmin
 </code></pre></div></td></tr></table></div>
 <p>Now we need to edit the config file:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
-<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>sudo<span class="w"> </span>cp<span class="w"> </span>/var/www/html/phpMyAdmin/config.sample.inc.php<span class="w"> </span>/var/www/html/phpMyAdmin/config.inc.php
-<a id="__codelineno-12-2" name="__codelineno-12-2"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/var/www/html/phpMyAdmin/config.inc.php
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>cp<span class="w"> </span>/var/www/html/phpMyAdmin/config.sample.inc.php<span class="w"> </span>/var/www/html/phpMyAdmin/config.inc.php
+sudo<span class="w"> </span>nano<span class="w"> </span>/var/www/html/phpMyAdmin/config.inc.php
 </code></pre></div></td></tr></table></div>
 <p>And add some text to the blowfish secret:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
-<span class="normal"><a href="#__codelineno-13-2">2</a></span>
-<span class="normal"><a href="#__codelineno-13-3">3</a></span>
-<span class="normal"><a href="#__codelineno-13-4">4</a></span>
-<span class="normal"><a href="#__codelineno-13-5">5</a></span>
-<span class="normal"><a href="#__codelineno-13-6">6</a></span>
-<span class="normal"><a href="#__codelineno-13-7">7</a></span>
-<span class="normal"><a href="#__codelineno-13-8">8</a></span>
-<span class="normal"><a href="#__codelineno-13-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>...
-<a id="__codelineno-13-2" name="__codelineno-13-2"></a>...
-<a id="__codelineno-13-3" name="__codelineno-13-3"></a>/**
-<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w"> </span>*<span class="w"> </span>This<span class="w"> </span>is<span class="w"> </span>needed<span class="w"> </span><span class="k">for</span><span class="w"> </span>cookie<span class="w"> </span>based<span class="w"> </span>authentication<span class="w"> </span>to<span class="w"> </span>encrypt<span class="w"> </span>password<span class="w"> </span><span class="k">in</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="w"> </span>*<span class="w"> </span>cookie.<span class="w"> </span>Needs<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span><span class="m">32</span><span class="w"> </span>chars<span class="w"> </span>long.
-<a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="w"> </span>*/
-<a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="nv">$cfg</span><span class="o">[</span><span class="s1">&#39;blowfish_secret&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ADD_SOME_$TRING_HERE&#39;</span><span class="p">;</span><span class="w"> </span>/*<span class="w"> </span>YOU<span class="w"> </span>MUST<span class="w"> </span>FILL<span class="w"> </span>IN<span class="w"> </span>THIS<span class="w"> </span>FOR<span class="w"> </span>COOKIE<span class="w"> </span>AUTH!<span class="w"> </span>*/
-<a id="__codelineno-13-8" name="__codelineno-13-8"></a>...
-<a id="__codelineno-13-9" name="__codelineno-13-9"></a>...
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code>...
+...
+/**
+<span class="w"> </span>*<span class="w"> </span>This<span class="w"> </span>is<span class="w"> </span>needed<span class="w"> </span><span class="k">for</span><span class="w"> </span>cookie<span class="w"> </span>based<span class="w"> </span>authentication<span class="w"> </span>to<span class="w"> </span>encrypt<span class="w"> </span>password<span class="w"> </span><span class="k">in</span>
+<span class="w"> </span>*<span class="w"> </span>cookie.<span class="w"> </span>Needs<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span><span class="m">32</span><span class="w"> </span>chars<span class="w"> </span>long.
+<span class="w"> </span>*/
+<span class="nv">$cfg</span><span class="o">[</span><span class="s1">&#39;blowfish_secret&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ADD_SOME_$TRING_HERE&#39;</span><span class="p">;</span><span class="w"> </span>/*<span class="w"> </span>YOU<span class="w"> </span>MUST<span class="w"> </span>FILL<span class="w"> </span>IN<span class="w"> </span>THIS<span class="w"> </span>FOR<span class="w"> </span>COOKIE<span class="w"> </span>AUTH!<span class="w"> </span>*/
+...
+...
 </code></pre></div></td></tr></table></div>
 <p>Then save and exit with <strong>Ctrl+x</strong> then <strong>Y</strong> then <strong>Enter</strong>.</p>
 <p>Remember to set correct user for the folders and files under html:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>sudo<span class="w"> </span>chown<span class="w"> </span>-hR<span class="w"> </span>www-data:www-data<span class="w"> </span>/var/www/html/
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>chown<span class="w"> </span>-hR<span class="w"> </span>www-data:www-data<span class="w"> </span>/var/www/html/
 </code></pre></div></td></tr></table></div>
 <p>Now login to your MariaDB as root from console and add a new user, who will hold the same privileges as root. This is because you can no longer access the root account from phpMyAdmin on ubuntu unless your user has sudo privilages (unsafe).</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>sudo<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>mysql<span class="w"> </span>-u<span class="w"> </span>root
 </code></pre></div></td></tr></table></div>
 <p>Ensure performance_schema is disabled:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>SHOW<span class="w"> </span>ENGINES<span class="p">;</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>SHOW<span class="w"> </span>ENGINES<span class="p">;</span>
 </code></pre></div></td></tr></table></div>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-17-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-17-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-17-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-17-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-17-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-17-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-17-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-17-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-17-10">10</a></span>
-<span class="normal"><a href="#__codelineno-17-11">11</a></span>
-<span class="normal"><a href="#__codelineno-17-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>+--------------------+---------+--------------------------------------------------------------------------------------------------+--------------+------+------------+
-<a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="p">|</span><span class="w"> </span>Engine<span class="w"> </span><span class="p">|</span><span class="w"> </span>Support<span class="w"> </span><span class="p">|</span><span class="w"> </span>Comment<span class="w"> </span><span class="p">|</span><span class="w"> </span>Transactions<span class="w"> </span><span class="p">|</span><span class="w"> </span>XA<span class="w"> </span><span class="p">|</span><span class="w"> </span>Savepoints<span class="w"> </span><span class="p">|</span>
-<a id="__codelineno-17-3" name="__codelineno-17-3"></a>+--------------------+---------+--------------------------------------------------------------------------------------------------+--------------+------+------------+
-<a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="p">|</span><span class="w"> </span>MRG_MyISAM<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Collection<span class="w"> </span>of<span class="w"> </span>identical<span class="w"> </span>MyISAM<span class="w"> </span>tables<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
-<a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="p">|</span><span class="w"> </span>CSV<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Stores<span class="w"> </span>tables<span class="w"> </span>as<span class="w"> </span>CSV<span class="w"> </span>files<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
-<a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="p">|</span><span class="w"> </span>MEMORY<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Hash<span class="w"> </span>based,<span class="w"> </span>stored<span class="w"> </span><span class="k">in</span><span class="w"> </span>memory,<span class="w"> </span>useful<span class="w"> </span><span class="k">for</span><span class="w"> </span>temporary<span class="w"> </span>tables<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
-<a id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="p">|</span><span class="w"> </span>MyISAM<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Non-transactional<span class="w"> </span>engine<span class="w"> </span>with<span class="w"> </span>good<span class="w"> </span>performance<span class="w"> </span>and<span class="w"> </span>small<span class="w"> </span>data<span class="w"> </span>footprint<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
-<a id="__codelineno-17-8" name="__codelineno-17-8"></a><span class="p">|</span><span class="w"> </span>SEQUENCE<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Generated<span class="w"> </span>tables<span class="w"> </span>filled<span class="w"> </span>with<span class="w"> </span>sequential<span class="w"> </span>values<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span>
-<a id="__codelineno-17-9" name="__codelineno-17-9"></a><span class="p">|</span><span class="w"> </span>Aria<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Crash-safe<span class="w"> </span>tables<span class="w"> </span>with<span class="w"> </span>MyISAM<span class="w"> </span>heritage<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
-<a id="__codelineno-17-10" name="__codelineno-17-10"></a><span class="p">|</span><span class="w"> </span>PERFORMANCE_SCHEMA<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Performance<span class="w"> </span>Schema<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
-<a id="__codelineno-17-11" name="__codelineno-17-11"></a><span class="p">|</span><span class="w"> </span>InnoDB<span class="w"> </span><span class="p">|</span><span class="w"> </span>DEFAULT<span class="w"> </span><span class="p">|</span><span class="w"> </span>Percona-XtraDB,<span class="w"> </span>Supports<span class="w"> </span>transactions,<span class="w"> </span>row-level<span class="w"> </span>locking,<span class="w"> </span>foreign<span class="w"> </span>keys<span class="w"> </span>and<span class="w"> </span>encryption<span class="w"> </span><span class="k">for</span><span class="w"> </span>tables<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span>
-<a id="__codelineno-17-12" name="__codelineno-17-12"></a>+--------------------+---------+--------------------------------------------------------------------------------------------------+--------------+------+------------+
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code>+--------------------+---------+--------------------------------------------------------------------------------------------------+--------------+------+------------+
+<span class="p">|</span><span class="w"> </span>Engine<span class="w"> </span><span class="p">|</span><span class="w"> </span>Support<span class="w"> </span><span class="p">|</span><span class="w"> </span>Comment<span class="w"> </span><span class="p">|</span><span class="w"> </span>Transactions<span class="w"> </span><span class="p">|</span><span class="w"> </span>XA<span class="w"> </span><span class="p">|</span><span class="w"> </span>Savepoints<span class="w"> </span><span class="p">|</span>
++--------------------+---------+--------------------------------------------------------------------------------------------------+--------------+------+------------+
+<span class="p">|</span><span class="w"> </span>MRG_MyISAM<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Collection<span class="w"> </span>of<span class="w"> </span>identical<span class="w"> </span>MyISAM<span class="w"> </span>tables<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>CSV<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Stores<span class="w"> </span>tables<span class="w"> </span>as<span class="w"> </span>CSV<span class="w"> </span>files<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>MEMORY<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Hash<span class="w"> </span>based,<span class="w"> </span>stored<span class="w"> </span><span class="k">in</span><span class="w"> </span>memory,<span class="w"> </span>useful<span class="w"> </span><span class="k">for</span><span class="w"> </span>temporary<span class="w"> </span>tables<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>MyISAM<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Non-transactional<span class="w"> </span>engine<span class="w"> </span>with<span class="w"> </span>good<span class="w"> </span>performance<span class="w"> </span>and<span class="w"> </span>small<span class="w"> </span>data<span class="w"> </span>footprint<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>SEQUENCE<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Generated<span class="w"> </span>tables<span class="w"> </span>filled<span class="w"> </span>with<span class="w"> </span>sequential<span class="w"> </span>values<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>Aria<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Crash-safe<span class="w"> </span>tables<span class="w"> </span>with<span class="w"> </span>MyISAM<span class="w"> </span>heritage<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>PERFORMANCE_SCHEMA<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>Performance<span class="w"> </span>Schema<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span><span class="w"> </span>NO<span class="w"> </span><span class="p">|</span>
+<span class="p">|</span><span class="w"> </span>InnoDB<span class="w"> </span><span class="p">|</span><span class="w"> </span>DEFAULT<span class="w"> </span><span class="p">|</span><span class="w"> </span>Percona-XtraDB,<span class="w"> </span>Supports<span class="w"> </span>transactions,<span class="w"> </span>row-level<span class="w"> </span>locking,<span class="w"> </span>foreign<span class="w"> </span>keys<span class="w"> </span>and<span class="w"> </span>encryption<span class="w"> </span><span class="k">for</span><span class="w"> </span>tables<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span><span class="w"> </span>YES<span class="w"> </span><span class="p">|</span>
++--------------------+---------+--------------------------------------------------------------------------------------------------+--------------+------+------------+
 </code></pre></div></td></tr></table></div>
 <p>First column says the Engine name, second column shows if it is supported, 4th column shows if it is disabled or not.</p>
 <p>Ok, now lets create a new user with username "master" and password "secret_password". Remember to replace with your own username and password here:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;master&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;secret_password&#39;</span><span class="p">;</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">USER</span><span class="w"> </span><span class="s1">&#39;master&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;secret_password&#39;</span><span class="p">;</span>
 </code></pre></div></td></tr></table></div>
 <p>Now give it full privileges and flush privileges:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
-<span class="normal"><a href="#__codelineno-19-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;master&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">OPTION</span><span class="p">;</span>
-<a id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">GRANT</span><span class="w"> </span><span class="k">ALL</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="o">*</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="s1">&#39;master&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">OPTION</span><span class="p">;</span>
+<span class="n">FLUSH</span><span class="w"> </span><span class="k">PRIVILEGES</span><span class="p">;</span>
 </code></pre></div></td></tr></table></div>
 <p>Finally restart mariadb for it to take effect</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mariadb
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mariadb
 </code></pre></div></td></tr></table></div>
 <p>At this point, you can try to login with your defined username and password on phpMyAdmin. Everything is mostly done, except that your MariaDB is still unsecure. So lets secure it by running:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>sudo<span class="w"> </span>mysql_secure_installation
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>mysql_secure_installation
 </code></pre></div></td></tr></table></div>
 <p>By default, there is no root password, so press <strong>Enter</strong>.</p>
 <p>Better to set a root password, so <strong>Y</strong>.</p>
@@ -1686,10 +1686,10 @@
 <p>Remove test database, <strong>Y</strong>.</p>
 <p>Reload privilege table means whatever we did will take effect. If you made any mistakes, cancel it. If you feel everything is ok, <strong>Y</strong>.</p>
 <p>Now restart MariaDB again:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mariadb
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>mariadb
 </code></pre></div></td></tr></table></div>
 <p>And reboot your server for good measures. Once it is up, you are done.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>sudo<span class="w"> </span>reboot
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>reboot
 </code></pre></div></td></tr></table></div>
 
 

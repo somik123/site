@@ -1502,9 +1502,9 @@
   <h1>Nginx + PHP continious output</h1>
 
 <p>Some times we requrire the page to display partial content, such as progress while the PHP is still working in background. In apache, disabling output buffering works fine, however for nginx, the following code need to be added on top of any PHP script (before output stats).</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="x">header(&#39;X-Accel-Buffering: no&#39;);</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="x">ob_implicit_flush(1);</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="x">header(&#39;X-Accel-Buffering: no&#39;);</span>
+<span class="x">ob_implicit_flush(1);</span>
 </code></pre></div></td></tr></table></div>
 
 

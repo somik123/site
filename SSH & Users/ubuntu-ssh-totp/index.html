@@ -1619,64 +1619,64 @@
 <p>That is where the TOTP comes in. You still have to carry around a mobile phone, but I think we all do now a days.</p>
 <h3 id="install">Install</h3>
 <p>Install google authenticator</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpam-google-authenticator
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>libpam-google-authenticator
 </code></pre></div></td></tr></table></div>
 <h3 id="enable">Enable</h3>
 <p>and enable it for SSH:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/pam.d/sshd
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/pam.d/sshd
 </code></pre></div></td></tr></table></div>
 <p>Append to the bottom:
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>...
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>auth<span class="w"> </span>required<span class="w"> </span>pam_google_authenticator.so
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>...
+auth<span class="w"> </span>required<span class="w"> </span>pam_google_authenticator.so
 </code></pre></div></td></tr></table></div></p>
 <p>And edit the ssh config file:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/ssh/sshd_config
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/ssh/sshd_config
 </code></pre></div></td></tr></table></div>
 <p>to enable it in SSH config as well as change the SSH port</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span>
-<span class="normal"><a href="#__codelineno-4-4">4</a></span>
-<span class="normal"><a href="#__codelineno-4-5">5</a></span>
-<span class="normal"><a href="#__codelineno-4-6">6</a></span>
-<span class="normal"><a href="#__codelineno-4-7">7</a></span>
-<span class="normal"><a href="#__codelineno-4-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>...
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>Port<span class="w"> </span><span class="m">15491</span><span class="w"> </span><span class="c1"># change this to something random, preferably 5 digits</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>...
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a>...
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="c1"># Change to yes to enable challenge-response passwords (beware issues with</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="c1"># some PAM modules and threads)</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a>ChallengeResponseAuthentication<span class="w"> </span>yes<span class="w"> </span><span class="c1"># CHANGE THIS TO YES</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a>...
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code>...
+Port<span class="w"> </span><span class="m">15491</span><span class="w"> </span><span class="c1"># change this to something random, preferably 5 digits</span>
+...
+...
+<span class="c1"># Change to yes to enable challenge-response passwords (beware issues with</span>
+<span class="c1"># some PAM modules and threads)</span>
+ChallengeResponseAuthentication<span class="w"> </span>yes<span class="w"> </span><span class="c1"># CHANGE THIS TO YES</span>
+...
 </code></pre></div></td></tr></table></div>
 <h3 id="setup-totp-for-user">Setup TOTP for user</h3>
 <p>Now prepare your phone with your favorite TOTP app, like <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">google authenticator</a> and run this command in shell:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>google-authenticator
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>google-authenticator
 </code></pre></div></td></tr></table></div>
 <p>And answer as following:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-6-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>Make<span class="w"> </span>tokens<span class="w"> </span>“time-base”<span class="s2">&quot;: **yes</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="s2">**</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="s2">## SCAN THE QR CODE AT THIS STEP AND SAVE THE OFFLINE KEYS ##</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="s2">Update the .google_authenticator file: **yes</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="s2">**</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="s2">Disallow multiple uses: **yes</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="s2">**</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="s2">Increase the original generation time limit: **no</span>
-<a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="s2">**</span>
-<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="s2">Enable rate-limiting: **yes**</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code>Make<span class="w"> </span>tokens<span class="w"> </span>“time-base”<span class="s2">&quot;: **yes</span>
+<span class="s2">**</span>
+<span class="s2">## SCAN THE QR CODE AT THIS STEP AND SAVE THE OFFLINE KEYS ##</span>
+<span class="s2">Update the .google_authenticator file: **yes</span>
+<span class="s2">**</span>
+<span class="s2">Disallow multiple uses: **yes</span>
+<span class="s2">**</span>
+<span class="s2">Increase the original generation time limit: **no</span>
+<span class="s2">**</span>
+<span class="s2">Enable rate-limiting: **yes**</span>
 </code></pre></div></td></tr></table></div>
 <p>And then just restart ssh for the changes to take effect.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>sshd
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>sshd
 </code></pre></div></td></tr></table></div>
 <p>Now use terminal on linux/mac or putty on windows to login. Do note that BitviseSSH does not work properly with this for some reason...</p>
 

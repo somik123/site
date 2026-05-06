@@ -1504,122 +1504,122 @@
 <p>This will install Nginx and PHP 7.x on Ubuntu or later and perform basic configurations needed to get it up and running. This is used to create servers to serve static content as well as minor PHP scripts that need to run on it.</p>
 <p>After we'll set up SSL using LetsEncrypt and use it to transfer static and dynamic content over HTTPS.</p>
 <p>Start by updating the server and installing Nginx as well as certbot:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>nginx<span class="w"> </span>nano<span class="w"> </span>sqlite3<span class="w"> </span>python3-certbot-nginx
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>nginx<span class="w"> </span>nano<span class="w"> </span>sqlite3<span class="w"> </span>python3-certbot-nginx
 </code></pre></div></td></tr></table></div>
 <p>Then install PHP:</p>
 <p>Only what's required</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>php-sqlite3<span class="w"> </span>php-curl<span class="w"> </span>php-xml<span class="w"> </span>php-mbstring<span class="w"> </span>php-fpm<span class="w"> </span>php-gd<span class="w"> </span>php-imagick
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>php-sqlite3<span class="w"> </span>php-curl<span class="w"> </span>php-xml<span class="w"> </span>php-mbstring<span class="w"> </span>php-fpm<span class="w"> </span>php-gd<span class="w"> </span>php-imagick
 </code></pre></div></td></tr></table></div>
 <p>Or full installation</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>php-cgi<span class="w"> </span>php-cli<span class="w"> </span>php-mysql<span class="w"> </span>php-gd<span class="w"> </span>php-imagick<span class="w"> </span>php-recode<span class="w"> </span>php-tidy<span class="w"> </span>php-xmlrpc<span class="w"> </span>php-sqlite3<span class="w"> </span>php-curl<span class="w"> </span>php-xml<span class="w"> </span>php-mbstring<span class="w"> </span>php-fpm
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>php-cgi<span class="w"> </span>php-cli<span class="w"> </span>php-mysql<span class="w"> </span>php-gd<span class="w"> </span>php-imagick<span class="w"> </span>php-recode<span class="w"> </span>php-tidy<span class="w"> </span>php-xmlrpc<span class="w"> </span>php-sqlite3<span class="w"> </span>php-curl<span class="w"> </span>php-xml<span class="w"> </span>php-mbstring<span class="w"> </span>php-fpm
 </code></pre></div></td></tr></table></div>
 <p>Edit PHP.ini file:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/php/8.*/fpm/php.ini
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/php/8.*/fpm/php.ini
 </code></pre></div></td></tr></table></div>
 <p>And add these at the bottom:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span>
-<span class="normal"><a href="#__codelineno-4-4">4</a></span>
-<span class="normal"><a href="#__codelineno-4-5">5</a></span>
-<span class="normal"><a href="#__codelineno-4-6">6</a></span>
-<span class="normal"><a href="#__codelineno-4-7">7</a></span>
-<span class="normal"><a href="#__codelineno-4-8">8</a></span>
-<span class="normal"><a href="#__codelineno-4-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nv">short_open_tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>On
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nv">display_errors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>on
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nv">error_reporting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>E_ALL<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_NOTICE<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_STRICT<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_DEPRECATED<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_WARNING
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="nv">error_log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>error_log
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="nv">output_buffering</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Off
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a>date.timezone<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Asia/Singapore&quot;</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="nv">upload_max_filesize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>50M
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="nv">post_max_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>50M
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="nv">memory_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>128M
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">short_open_tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>On
+<span class="nv">display_errors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>on
+<span class="nv">error_reporting</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>E_ALL<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_NOTICE<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_STRICT<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_DEPRECATED<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>~E_WARNING
+<span class="nv">error_log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>error_log
+<span class="nv">output_buffering</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Off
+date.timezone<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Asia/Singapore&quot;</span>
+<span class="nv">upload_max_filesize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>50M
+<span class="nv">post_max_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>50M
+<span class="nv">memory_limit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>128M
 </code></pre></div></td></tr></table></div>
 <p>Edit the nginx configuration file:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/nginx/nginx.conf<span class="w"> </span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/nginx/nginx.conf<span class="w"> </span>
 </code></pre></div></td></tr></table></div>
 <p>And add this line to increase file upload size:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span>
-<span class="normal"><a href="#__codelineno-6-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>http<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span><span class="c1">#...</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">  </span>client_max_body_size<span class="w"> </span>50M<span class="p">;</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">  </span><span class="c1">#...</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="o">}</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>http<span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="c1">#...</span>
+<span class="w">  </span>client_max_body_size<span class="w"> </span>50M<span class="p">;</span>
+<span class="w">  </span><span class="c1">#...</span>
+<span class="o">}</span>
 </code></pre></div></td></tr></table></div>
 <p>And enable PHP in Nginx site config files for your domain (where <strong>example.com</strong> is your domain)</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/www/example.com/public_html/
-<a id="__codelineno-7-2" name="__codelineno-7-2"></a>sudo<span class="w"> </span>touch<span class="w"> </span>/etc/nginx/sites-available/example.com.conf
-<a id="__codelineno-7-3" name="__codelineno-7-3"></a>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/nginx/sites-available/example.com.conf<span class="w"> </span>/etc/nginx/sites-enabled/example.com.conf<span class="w"> </span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/www/example.com/public_html/
+sudo<span class="w"> </span>touch<span class="w"> </span>/etc/nginx/sites-available/example.com.conf
+sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/nginx/sites-available/example.com.conf<span class="w"> </span>/etc/nginx/sites-enabled/example.com.conf<span class="w"> </span>
 </code></pre></div></td></tr></table></div>
 <p>Edit the example.com.conf file created in last step</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/nginx/sites-available/example.com.conf
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/nginx/sites-available/example.com.conf
 </code></pre></div></td></tr></table></div>
 <p>And edit it to make it look like this:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-9-10">10</a></span>
-<span class="normal"><a href="#__codelineno-9-11">11</a></span>
-<span class="normal"><a href="#__codelineno-9-12">12</a></span>
-<span class="normal"><a href="#__codelineno-9-13">13</a></span>
-<span class="normal"><a href="#__codelineno-9-14">14</a></span>
-<span class="normal"><a href="#__codelineno-9-15">15</a></span>
-<span class="normal"><a href="#__codelineno-9-16">16</a></span>
-<span class="normal"><a href="#__codelineno-9-17">17</a></span>
-<span class="normal"><a href="#__codelineno-9-18">18</a></span>
-<span class="normal"><a href="#__codelineno-9-19">19</a></span>
-<span class="normal"><a href="#__codelineno-9-20">20</a></span>
-<span class="normal"><a href="#__codelineno-9-21">21</a></span>
-<span class="normal"><a href="#__codelineno-9-22">22</a></span>
-<span class="normal"><a href="#__codelineno-9-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>server<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2"></a>
-<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">        </span>root<span class="w"> </span>/var/www/example.com/public_html/<span class="p">;</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">        </span>index<span class="w"> </span>index.php<span class="w"> </span>index.html<span class="w"> </span>index.htm<span class="w"> </span>index.nginx-debian.html<span class="p">;</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="w">        </span>server_name<span class="w"> </span>example.com<span class="p">;</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6"></a>
-<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="w">        </span>location<span class="w"> </span>/<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="w">                </span>try_files<span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri</span>/<span class="w"> </span><span class="o">=</span><span class="m">404</span><span class="p">;</span>
-<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="w">        </span><span class="o">}</span>
-<a id="__codelineno-9-10" name="__codelineno-9-10"></a>
-<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="w">        </span>location<span class="w"> </span>~<span class="w"> </span><span class="se">\.</span>php$<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">                </span>include<span class="w"> </span>snippets/fastcgi-php.conf<span class="p">;</span>
-<a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">                </span>fastcgi_pass<span class="w"> </span>unix:/var/run/php/php8.3-fpm.sock<span class="p">;</span>
-<a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="w">        </span><span class="o">}</span>
-<a id="__codelineno-9-15" name="__codelineno-9-15"></a>
-<a id="__codelineno-9-16" name="__codelineno-9-16"></a><span class="w">        </span>location<span class="w"> </span>~<span class="w"> </span>/<span class="se">\.</span>ht<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="w">                </span>deny<span class="w"> </span>all<span class="p">;</span>
-<a id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="w">        </span><span class="o">}</span>
-<a id="__codelineno-9-19" name="__codelineno-9-19"></a>
-<a id="__codelineno-9-20" name="__codelineno-9-20"></a>
-<a id="__codelineno-9-21" name="__codelineno-9-21"></a><span class="w">        </span>listen<span class="w"> </span><span class="m">80</span><span class="p">;</span>
-<a id="__codelineno-9-22" name="__codelineno-9-22"></a>
-<a id="__codelineno-9-23" name="__codelineno-9-23"></a><span class="o">}</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div><pre><span></span><code>server<span class="w"> </span><span class="o">{</span>
+
+<span class="w">        </span>root<span class="w"> </span>/var/www/example.com/public_html/<span class="p">;</span>
+<span class="w">        </span>index<span class="w"> </span>index.php<span class="w"> </span>index.html<span class="w"> </span>index.htm<span class="w"> </span>index.nginx-debian.html<span class="p">;</span>
+<span class="w">        </span>server_name<span class="w"> </span>example.com<span class="p">;</span>
+
+<span class="w">        </span>location<span class="w"> </span>/<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span>try_files<span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri</span>/<span class="w"> </span><span class="o">=</span><span class="m">404</span><span class="p">;</span>
+<span class="w">        </span><span class="o">}</span>
+
+<span class="w">        </span>location<span class="w"> </span>~<span class="w"> </span><span class="se">\.</span>php$<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span>include<span class="w"> </span>snippets/fastcgi-php.conf<span class="p">;</span>
+<span class="w">                </span>fastcgi_pass<span class="w"> </span>unix:/var/run/php/php8.3-fpm.sock<span class="p">;</span>
+<span class="w">        </span><span class="o">}</span>
+
+<span class="w">        </span>location<span class="w"> </span>~<span class="w"> </span>/<span class="se">\.</span>ht<span class="w"> </span><span class="o">{</span>
+<span class="w">                </span>deny<span class="w"> </span>all<span class="p">;</span>
+<span class="w">        </span><span class="o">}</span>
+
+
+<span class="w">        </span>listen<span class="w"> </span><span class="m">80</span><span class="p">;</span>
+
+<span class="o">}</span>
 </code></pre></div></td></tr></table></div>
 <p>Finally save and exit.</p>
 <p>Now enable Nginx and PHP fpm to start on boot and run now.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span>
-<span class="normal"><a href="#__codelineno-10-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>nginx<span class="w"> </span>php8.3-fpm
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>php8.3-fpm
-<a id="__codelineno-10-3" name="__codelineno-10-3"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>nginx<span class="w"> </span>php8.3-fpm
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>php8.3-fpm
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
 </code></pre></div></td></tr></table></div>
 <p>Now lets get a certificate for the domain from certbot:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>sudo<span class="w"> </span>certbot<span class="w"> </span>--nginx<span class="w"> </span>--redirect<span class="w"> </span>-d<span class="w"> </span>example.com
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>certbot<span class="w"> </span>--nginx<span class="w"> </span>--redirect<span class="w"> </span>-d<span class="w"> </span>example.com
 </code></pre></div></td></tr></table></div>
 <p>Follow the steps and you'll get a certificate.</p>
 

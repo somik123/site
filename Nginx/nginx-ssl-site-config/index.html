@@ -1502,101 +1502,101 @@
   <h1>Nginx SSL Site Config</h1>
 
 <p>Sample configuration used for most SSL sites.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span>
-<span class="normal"><a href="#__codelineno-0-13">13</a></span>
-<span class="normal"><a href="#__codelineno-0-14">14</a></span>
-<span class="normal"><a href="#__codelineno-0-15">15</a></span>
-<span class="normal"><a href="#__codelineno-0-16">16</a></span>
-<span class="normal"><a href="#__codelineno-0-17">17</a></span>
-<span class="normal"><a href="#__codelineno-0-18">18</a></span>
-<span class="normal"><a href="#__codelineno-0-19">19</a></span>
-<span class="normal"><a href="#__codelineno-0-20">20</a></span>
-<span class="normal"><a href="#__codelineno-0-21">21</a></span>
-<span class="normal"><a href="#__codelineno-0-22">22</a></span>
-<span class="normal"><a href="#__codelineno-0-23">23</a></span>
-<span class="normal"><a href="#__codelineno-0-24">24</a></span>
-<span class="normal"><a href="#__codelineno-0-25">25</a></span>
-<span class="normal"><a href="#__codelineno-0-26">26</a></span>
-<span class="normal"><a href="#__codelineno-0-27">27</a></span>
-<span class="normal"><a href="#__codelineno-0-28">28</a></span>
-<span class="normal"><a href="#__codelineno-0-29">29</a></span>
-<span class="normal"><a href="#__codelineno-0-30">30</a></span>
-<span class="normal"><a href="#__codelineno-0-31">31</a></span>
-<span class="normal"><a href="#__codelineno-0-32">32</a></span>
-<span class="normal"><a href="#__codelineno-0-33">33</a></span>
-<span class="normal"><a href="#__codelineno-0-34">34</a></span>
-<span class="normal"><a href="#__codelineno-0-35">35</a></span>
-<span class="normal"><a href="#__codelineno-0-36">36</a></span>
-<span class="normal"><a href="#__codelineno-0-37">37</a></span>
-<span class="normal"><a href="#__codelineno-0-38">38</a></span>
-<span class="normal"><a href="#__codelineno-0-39">39</a></span>
-<span class="normal"><a href="#__codelineno-0-40">40</a></span>
-<span class="normal"><a href="#__codelineno-0-41">41</a></span>
-<span class="normal"><a href="#__codelineno-0-42">42</a></span>
-<span class="normal"><a href="#__codelineno-0-43">43</a></span>
-<span class="normal"><a href="#__codelineno-0-44">44</a></span>
-<span class="normal"><a href="#__codelineno-0-45">45</a></span>
-<span class="normal"><a href="#__codelineno-0-46">46</a></span>
-<span class="normal"><a href="#__codelineno-0-47">47</a></span>
-<span class="normal"><a href="#__codelineno-0-48">48</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>server<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">        </span>root<span class="w"> </span>/var/www/html<span class="p">;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">        </span>index<span class="w"> </span>index.php<span class="w"> </span>index.html<span class="w"> </span>index.htm<span class="w"> </span>index.nginx-debian.html<span class="p">;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">        </span>server_name<span class="w"> </span>example.com<span class="p">;</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a>
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">        </span>location<span class="w"> </span>/<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">                        </span>try_files<span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri</span>/<span class="w"> </span><span class="o">=</span><span class="m">404</span><span class="p">;</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">        </span><span class="o">}</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">        </span>location<span class="w"> </span>~<span class="w"> </span><span class="se">\.</span>php$<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">               </span>include<span class="w"> </span>snippets/fastcgi-php.conf<span class="p">;</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">        </span><span class="c1">#</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">        </span><span class="c1">#       # With php-fpm (or other unix sockets):</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">               </span>fastcgi_pass<span class="w"> </span>unix:/var/run/php/php7.0-fpm.sock<span class="p">;</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">        </span><span class="c1">#       # With php-cgi (or other tcp sockets):</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">        </span><span class="c1">#       fastcgi_pass 127.0.0.1:9000;</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">        </span><span class="o">}</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="w">        </span>location<span class="w"> </span>~<span class="w"> </span>/<span class="se">\.</span>ht<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="w">                        </span>deny<span class="w"> </span>all<span class="p">;</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="w">        </span><span class="o">}</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="w">    </span>listen<span class="w"> </span><span class="o">[</span>::<span class="o">]</span>:443<span class="w"> </span>ssl<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="w">    </span>listen<span class="w"> </span><span class="m">443</span><span class="w"> </span>ssl<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="w">    </span>ssl_certificate<span class="w"> </span>/etc/letsencrypt/live/example.com/fullchain.pem<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="w">    </span>ssl_certificate_key<span class="w"> </span>/etc/letsencrypt/live/example.com/privkey.pem<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="w">    </span>include<span class="w"> </span>/etc/letsencrypt/options-ssl-nginx.conf<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="w">    </span>ssl_dhparam<span class="w"> </span>/etc/letsencrypt/ssl-dhparams.pem<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="o">}</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a>server<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>example.com<span class="o">)</span><span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="m">301</span><span class="w"> </span>https://<span class="nv">$host$request_uri</span><span class="p">;</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="w">        </span>server_name<span class="w"> </span>example.com<span class="p">;</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="w">    </span>listen<span class="w"> </span><span class="m">80</span><span class="p">;</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="w">    </span>listen<span class="w"> </span><span class="o">[</span>::<span class="o">]</span>:80<span class="w"> </span><span class="p">;</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="m">404</span><span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="o">}</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span></pre></div></td><td class="code"><div><pre><span></span><code>server<span class="w"> </span><span class="o">{</span>
+
+<span class="w">        </span>root<span class="w"> </span>/var/www/html<span class="p">;</span>
+<span class="w">        </span>index<span class="w"> </span>index.php<span class="w"> </span>index.html<span class="w"> </span>index.htm<span class="w"> </span>index.nginx-debian.html<span class="p">;</span>
+<span class="w">        </span>server_name<span class="w"> </span>example.com<span class="p">;</span>
+
+<span class="w">        </span>location<span class="w"> </span>/<span class="w"> </span><span class="o">{</span>
+<span class="w">                        </span>try_files<span class="w"> </span><span class="nv">$uri</span><span class="w"> </span><span class="nv">$uri</span>/<span class="w"> </span><span class="o">=</span><span class="m">404</span><span class="p">;</span>
+<span class="w">        </span><span class="o">}</span>
+
+<span class="w">        </span>location<span class="w"> </span>~<span class="w"> </span><span class="se">\.</span>php$<span class="w"> </span><span class="o">{</span>
+<span class="w">               </span>include<span class="w"> </span>snippets/fastcgi-php.conf<span class="p">;</span>
+<span class="w">        </span><span class="c1">#</span>
+<span class="w">        </span><span class="c1">#       # With php-fpm (or other unix sockets):</span>
+<span class="w">               </span>fastcgi_pass<span class="w"> </span>unix:/var/run/php/php7.0-fpm.sock<span class="p">;</span>
+<span class="w">        </span><span class="c1">#       # With php-cgi (or other tcp sockets):</span>
+<span class="w">        </span><span class="c1">#       fastcgi_pass 127.0.0.1:9000;</span>
+<span class="w">        </span><span class="o">}</span>
+
+
+<span class="w">        </span>location<span class="w"> </span>~<span class="w"> </span>/<span class="se">\.</span>ht<span class="w"> </span><span class="o">{</span>
+<span class="w">                        </span>deny<span class="w"> </span>all<span class="p">;</span>
+<span class="w">        </span><span class="o">}</span>
+
+
+<span class="w">    </span>listen<span class="w"> </span><span class="o">[</span>::<span class="o">]</span>:443<span class="w"> </span>ssl<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
+<span class="w">    </span>listen<span class="w"> </span><span class="m">443</span><span class="w"> </span>ssl<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
+<span class="w">    </span>ssl_certificate<span class="w"> </span>/etc/letsencrypt/live/example.com/fullchain.pem<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
+<span class="w">    </span>ssl_certificate_key<span class="w"> </span>/etc/letsencrypt/live/example.com/privkey.pem<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
+<span class="w">    </span>include<span class="w"> </span>/etc/letsencrypt/options-ssl-nginx.conf<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
+<span class="w">    </span>ssl_dhparam<span class="w"> </span>/etc/letsencrypt/ssl-dhparams.pem<span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
+
+<span class="o">}</span>
+
+server<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">(</span><span class="nv">$host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>example.com<span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="m">301</span><span class="w"> </span>https://<span class="nv">$host$request_uri</span><span class="p">;</span>
+<span class="w">    </span><span class="o">}</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
+
+
+<span class="w">        </span>server_name<span class="w"> </span>example.com<span class="p">;</span>
+
+<span class="w">    </span>listen<span class="w"> </span><span class="m">80</span><span class="p">;</span>
+<span class="w">    </span>listen<span class="w"> </span><span class="o">[</span>::<span class="o">]</span>:80<span class="w"> </span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="m">404</span><span class="p">;</span><span class="w"> </span><span class="c1"># managed by Certbot</span>
+
+
+<span class="o">}</span>
 </code></pre></div></td></tr></table></div>
 
 

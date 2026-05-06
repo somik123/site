@@ -1504,138 +1504,138 @@
 <p>This is a simple guide on how to install and configure Aria2c with WebUI for downloading files on your linux server. </p>
 <p>For the WebUI, we'll go with lighttpd as it is lightweight, however you can install apache or nginx or even run the file directly from your computer.</p>
 <p>Lets start by updating the server, then installing and enabling the lighttpd module as well as a few other modules.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>lighttpd<span class="w"> </span>make<span class="w"> </span>wget<span class="w"> </span>nano<span class="w"> </span>screen<span class="w"> </span>unzip
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>lighttpd.service
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>lighttpd.service
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>lighttpd<span class="w"> </span>make<span class="w"> </span>wget<span class="w"> </span>nano<span class="w"> </span>screen<span class="w"> </span>unzip
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>lighttpd.service
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>lighttpd.service
 </code></pre></div></td></tr></table></div>
 <p>Now lets get the latest static build of Aria2 OpenSSL from the build site: <a href="https://github.com/q3aql/aria2-static-builds/releases">https://github.com/q3aql/aria2-static-builds/releases</a></p>
 <p>You can also get it from our mirror: <a href="https://somik.org/get/7f131253092d89f7744627aa1e0f5f040a638b8176c97be8dda6c14748b85780/aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2">aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2</a></p>
 <p>Now transfer it to your home directory. If you would rather download it directly to your directory, do this (with the link you want). Then extract and install it.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>wget<span class="w"> </span>https://somik.org/get/7f131253092d89f7744627aa1e0f5f040a638b8176c97be8dda6c14748b85780/aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>tar<span class="w"> </span>jxvf<span class="w"> </span>aria2-*.tar.bz2
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="nb">cd</span><span class="w"> </span>aria2-*
-<a id="__codelineno-1-4" name="__codelineno-1-4"></a>sudo<span class="w"> </span>make<span class="w"> </span>install
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>wget<span class="w"> </span>https://somik.org/get/7f131253092d89f7744627aa1e0f5f040a638b8176c97be8dda6c14748b85780/aria2-1.35.0-linux-gnu-64bit-build1.tar.bz2
+tar<span class="w"> </span>jxvf<span class="w"> </span>aria2-*.tar.bz2
+<span class="nb">cd</span><span class="w"> </span>aria2-*
+sudo<span class="w"> </span>make<span class="w"> </span>install
 </code></pre></div></td></tr></table></div>
 <p>Now create a Aria2 downloads directory and configuration file:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/home/somik/Downloads/
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>nano<span class="w"> </span>~/aria2.conf
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/home/somik/Downloads/
+nano<span class="w"> </span>~/aria2.conf
 </code></pre></div></td></tr></table></div>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-3-10">10</a></span>
-<span class="normal"><a href="#__codelineno-3-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nv">dir</span><span class="o">=</span>/home/somik/Downloads/
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>max-concurrent-downloads<span class="o">=</span><span class="m">10</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>seed-ratio<span class="o">=</span><span class="m">1</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a>max-connection-per-server<span class="o">=</span><span class="m">16</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5"></a>min-split-size<span class="o">=</span>50M
-<a id="__codelineno-3-6" name="__codelineno-3-6"></a>rpc-save-upload-metadata
-<a id="__codelineno-3-7" name="__codelineno-3-7"></a>enable-rpc<span class="o">=</span><span class="nb">true</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8"></a>rpc-listen-all<span class="o">=</span><span class="nb">true</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9"></a>rpc-secret<span class="o">=</span>AUTHENTICATION_KEY_GOES_HERE
-<a id="__codelineno-3-10" name="__codelineno-3-10"></a>rpc-listen-port<span class="o">=</span><span class="m">6800</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11"></a>check-certificate<span class="o">=</span><span class="nb">false</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nv">dir</span><span class="o">=</span>/home/somik/Downloads/
+max-concurrent-downloads<span class="o">=</span><span class="m">10</span>
+seed-ratio<span class="o">=</span><span class="m">1</span>
+max-connection-per-server<span class="o">=</span><span class="m">16</span>
+min-split-size<span class="o">=</span>50M
+rpc-save-upload-metadata
+enable-rpc<span class="o">=</span><span class="nb">true</span>
+rpc-listen-all<span class="o">=</span><span class="nb">true</span>
+rpc-secret<span class="o">=</span>AUTHENTICATION_KEY_GOES_HERE
+rpc-listen-port<span class="o">=</span><span class="m">6800</span>
+check-certificate<span class="o">=</span><span class="nb">false</span>
 </code></pre></div></td></tr></table></div>
 <p>Here you can set the default downloads directory, authentication token, and various other values. Be sure to set "<em>check-certficate</em>" to <strong>false</strong> if you are using Letsencrypt as it does not recognize Letsencrypt as of now.</p>
 <p>Finally create a startup script for aria:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>touch<span class="w"> </span>~/start_aria2.sh
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>~/start_aria2.sh
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a>nano<span class="w"> </span>~/start_aria2.sh
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>touch<span class="w"> </span>~/start_aria2.sh
+sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>~/start_aria2.sh
+nano<span class="w"> </span>~/start_aria2.sh
 </code></pre></div></td></tr></table></div>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="ch">#!/bin/bash</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>screen<span class="w"> </span>-dmS<span class="w"> </span>scr_00<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;aria2c --conf-path=/home/somik/aria2.conf&quot;</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/bash</span>
+screen<span class="w"> </span>-dmS<span class="w"> </span>scr_00<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;aria2c --conf-path=/home/somik/aria2.conf&quot;</span>
 </code></pre></div></td></tr></table></div>
 <p>Finally add it to cron so it starts on boot:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>crontab<span class="w"> </span>-e
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>crontab<span class="w"> </span>-e
 </code></pre></div></td></tr></table></div>
 <p>And append:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>@reboot<span class="w"> </span>/home/somik/start_aria2.sh
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>@reboot<span class="w"> </span>/home/somik/start_aria2.sh
 </code></pre></div></td></tr></table></div>
 <p>Now, lets get the WebUI setup. Download the WebUI from: <a href="https://github.com/ziahamza/webui-aria2/">https://github.com/ziahamza/webui-aria2/</a> </p>
 <p>You can also get it from our mirror: <a href="https://somik.org/get/9c40a639b16c599da78c88a675940f40eddb5108511c7a72f391580f783b9941/aria2c-webui.zip">aria2c-webui.zip</a></p>
 <p>Upload it to your <em>/var/www/html</em> folder:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
-<span class="normal"><a href="#__codelineno-8-2">2</a></span>
-<span class="normal"><a href="#__codelineno-8-3">3</a></span>
-<span class="normal"><a href="#__codelineno-8-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="nb">cd</span><span class="w"> </span>/var/www/html
-<a id="__codelineno-8-2" name="__codelineno-8-2"></a>sudo<span class="w"> </span>wget<span class="w"> </span>https://somik.org/get/9c40a639b16c599da78c88a675940f40eddb5108511c7a72f391580f783b9941/aria2c-webui.zip
-<a id="__codelineno-8-3" name="__codelineno-8-3"></a>unzip<span class="w"> </span>aria2*
-<a id="__codelineno-8-4" name="__codelineno-8-4"></a>sudo<span class="w"> </span>chown<span class="w"> </span>-hR<span class="w"> </span>www-data:www-data<span class="w"> </span>/var/www/html
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/var/www/html
+sudo<span class="w"> </span>wget<span class="w"> </span>https://somik.org/get/9c40a639b16c599da78c88a675940f40eddb5108511c7a72f391580f783b9941/aria2c-webui.zip
+unzip<span class="w"> </span>aria2*
+sudo<span class="w"> </span>chown<span class="w"> </span>-hR<span class="w"> </span>www-data:www-data<span class="w"> </span>/var/www/html
 </code></pre></div></td></tr></table></div>
 <p>Edit the app.js and add your authentication token for easy access.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/var/www/html/app.js
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/var/www/html/app.js
 </code></pre></div></td></tr></table></div>
 <p>Find the line 342, which should say something like "<em>(c = p &amp;&amp; p.auth &amp;&amp; p.auth.token ? p.auth.token : null),</em>":</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-10-10">10</a></span>
-<span class="normal"><a href="#__codelineno-10-11">11</a></span>
-<span class="normal"><a href="#__codelineno-10-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="p">...</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="p">...</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">g</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">u</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">                    </span><span class="p">(</span><span class="nx">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="mf">1</span><span class="p">),</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">                    </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">u</span><span class="p">[</span><span class="mf">0</span><span class="p">]),</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="w">                    </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">auth</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">token</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">token</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">),</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="w">                    </span><span class="nx">e</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">                    </span><span class="ow">void</span><span class="w"> </span><span class="p">(</span><span class="nx">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="p">))</span>
-<a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="w">                  </span><span class="p">);</span>
-<a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="p">...</span>
-<a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="p">...</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">...</span>
+<span class="p">...</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">g</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">u</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">                    </span><span class="p">(</span><span class="nx">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="mf">1</span><span class="p">),</span>
+<span class="w">                    </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">u</span><span class="p">[</span><span class="mf">0</span><span class="p">]),</span>
+<span class="w">                    </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">p</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">auth</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">token</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">auth</span><span class="p">.</span><span class="nx">token</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">),</span>
+<span class="w">                    </span><span class="nx">e</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span>
+<span class="w">                    </span><span class="ow">void</span><span class="w"> </span><span class="p">(</span><span class="nx">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="p">))</span>
+<span class="w">                  </span><span class="p">);</span>
+<span class="p">...</span>
+<span class="p">...</span>
 </code></pre></div></td></tr></table></div>
 <p>And replace it with your authentication key in double quotes:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-11-10">10</a></span>
-<span class="normal"><a href="#__codelineno-11-11">11</a></span>
-<span class="normal"><a href="#__codelineno-11-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="p">...</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="p">...</span>
-<a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">               </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">g</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">u</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">                    </span><span class="p">(</span><span class="nx">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="mf">1</span><span class="p">),</span>
-<a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">                    </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">u</span><span class="p">[</span><span class="mf">0</span><span class="p">]),</span>
-<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">                    </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;AUTHENTICATION_KEY_GOES_HERE&quot;</span><span class="p">),</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">                    </span><span class="nx">e</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span>
-<a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">                    </span><span class="ow">void</span><span class="w"> </span><span class="p">(</span><span class="nx">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="p">))</span>
-<a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">                  </span><span class="p">);</span>
-<a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="p">...</span>
-<a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="p">...</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="p">...</span>
+<span class="p">...</span>
+<span class="w">               </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">g</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">u</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+<span class="w">                  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
+<span class="w">                    </span><span class="p">(</span><span class="nx">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="mf">1</span><span class="p">),</span>
+<span class="w">                    </span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">u</span><span class="p">[</span><span class="mf">0</span><span class="p">]),</span>
+<span class="w">                    </span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;AUTHENTICATION_KEY_GOES_HERE&quot;</span><span class="p">),</span>
+<span class="w">                    </span><span class="nx">e</span><span class="p">.</span><span class="nx">init</span><span class="p">(</span><span class="nx">p</span><span class="p">),</span>
+<span class="w">                    </span><span class="ow">void</span><span class="w"> </span><span class="p">(</span><span class="nx">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">setTimeout</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span><span class="w"> </span><span class="nx">t</span><span class="p">))</span>
+<span class="w">                  </span><span class="p">);</span>
+<span class="p">...</span>
+<span class="p">...</span>
 </code></pre></div></td></tr></table></div>
 <p>Now save and exit. Finally restart your server:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>sudo<span class="w"> </span>reboot
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>reboot
 </code></pre></div></td></tr></table></div>
 <p>That's it. Now you can access Aria2 and its WebUI from your server.</p>
 

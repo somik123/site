@@ -1504,130 +1504,130 @@
 <p>When you have servers with IP addresses or running on different port then usual 80 and 443, you can hide it using a Nginx reverse proxy. From outside, it'll look just like a regular website with a normal domain or subdomain name, while Nginx will redirect the query to your actual server running behind it. It is usefull for using 1 static IP for multiple servers or for using a distributed load network.</p>
 <p>This requires a VPS or server with open ports and fixed IP address.</p>
 <p>Start by installing nginx, nano and certbot on the server (ubuntu in our example). The certbot will be used to get SSL certificates from LetsEncrypt for the domains you access through proxy.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>nginx<span class="w"> </span>nano<span class="w"> </span>python-certbot-nginx
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>nginx<span class="w"> </span>nano<span class="w"> </span>python-certbot-nginx
 </code></pre></div></td></tr></table></div>
 <p>Add the proxy configuration to Nginx:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/nginx/proxy.conf
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/nginx/proxy.conf
 </code></pre></div></td></tr></table></div>
 <p>Add the following content:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span>
-<span class="normal"><a href="#__codelineno-2-6">6</a></span>
-<span class="normal"><a href="#__codelineno-2-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>proxy_set_header<span class="w"> </span>X-Real-IP<span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2"></a>proxy_set_header<span class="w"> </span>X-Forwarded-For<span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3"></a>proxy_set_header<span class="w"> </span>X-Forwarded-Proto<span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4"></a>proxy_http_version<span class="w"> </span><span class="m">1</span>.1<span class="p">;</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5"></a>proxy_set_header<span class="w"> </span>Upgrade<span class="w"> </span><span class="nv">$http_upgrade</span><span class="p">;</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6"></a>proxy_set_header<span class="w"> </span>Connection<span class="w"> </span><span class="s2">&quot;upgrade&quot;</span><span class="p">;</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7"></a>proxy_read_timeout<span class="w"> </span>900s<span class="p">;</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code>proxy_set_header<span class="w"> </span>X-Real-IP<span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+proxy_set_header<span class="w"> </span>X-Forwarded-For<span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+proxy_set_header<span class="w"> </span>X-Forwarded-Proto<span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+proxy_http_version<span class="w"> </span><span class="m">1</span>.1<span class="p">;</span>
+proxy_set_header<span class="w"> </span>Upgrade<span class="w"> </span><span class="nv">$http_upgrade</span><span class="p">;</span>
+proxy_set_header<span class="w"> </span>Connection<span class="w"> </span><span class="s2">&quot;upgrade&quot;</span><span class="p">;</span>
+proxy_read_timeout<span class="w"> </span>900s<span class="p">;</span>
 </code></pre></div></td></tr></table></div>
 <p>Exit and save by pressing <strong>Ctrl + x</strong>, followed by <strong>Y</strong> and <strong>Enter</strong></p>
 <p>Create the semi-automation script on your server and give it permission to execute:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>sudo<span class="w"> </span>touch<span class="w"> </span>/root/add_server.sh
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/root/add_server.sh
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/root/add_server.sh
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>touch<span class="w"> </span>/root/add_server.sh
+sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/root/add_server.sh
+sudo<span class="w"> </span>nano<span class="w"> </span>/root/add_server.sh
 </code></pre></div></td></tr></table></div>
 <p>Add the following content:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span>
-<span class="normal"><a href="#__codelineno-4-21">21</a></span>
-<span class="normal"><a href="#__codelineno-4-22">22</a></span>
-<span class="normal"><a href="#__codelineno-4-23">23</a></span>
-<span class="normal"><a href="#__codelineno-4-24">24</a></span>
-<span class="normal"><a href="#__codelineno-4-25">25</a></span>
-<span class="normal"><a href="#__codelineno-4-26">26</a></span>
-<span class="normal"><a href="#__codelineno-4-27">27</a></span>
-<span class="normal"><a href="#__codelineno-4-28">28</a></span>
-<span class="normal"><a href="#__codelineno-4-29">29</a></span>
-<span class="normal"><a href="#__codelineno-4-30">30</a></span>
-<span class="normal"><a href="#__codelineno-4-31">31</a></span>
-<span class="normal"><a href="#__codelineno-4-32">32</a></span>
-<span class="normal"><a href="#__codelineno-4-33">33</a></span>
-<span class="normal"><a href="#__codelineno-4-34">34</a></span>
-<span class="normal"><a href="#__codelineno-4-35">35</a></span>
-<span class="normal"><a href="#__codelineno-4-36">36</a></span>
-<span class="normal"><a href="#__codelineno-4-37">37</a></span>
-<span class="normal"><a href="#__codelineno-4-38">38</a></span>
-<span class="normal"><a href="#__codelineno-4-39">39</a></span>
-<span class="normal"><a href="#__codelineno-4-40">40</a></span>
-<span class="normal"><a href="#__codelineno-4-41">41</a></span>
-<span class="normal"><a href="#__codelineno-4-42">42</a></span>
-<span class="normal"><a href="#__codelineno-4-43">43</a></span>
-<span class="normal"><a href="#__codelineno-4-44">44</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="ch">#!/bin/bash</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Enter the domain name (without www): &#39;</span><span class="w"> </span>DOMAIN
-<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Enter the full forwarded URL: &#39;</span><span class="w"> </span>FORDED_URL
-<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Enter the forwarded Hostname: &#39;</span><span class="w"> </span>FORDED_HOST
-<a id="__codelineno-4-6" name="__codelineno-4-6"></a>
-<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Adding domain </span><span class="nv">$DOMAIN</span><span class="s2"> to Nginx configuration&quot;</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8"></a>
-<a id="__codelineno-4-9" name="__codelineno-4-9"></a>cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; /etc/nginx/sites-available/$DOMAIN.conf</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="s">server {</span>
-<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="s">    server_name $DOMAIN;</span>
-<a id="__codelineno-4-12" name="__codelineno-4-12"></a>
-<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="s">    access_log /var/log/nginx/access.log;</span>
-<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="s">    error_log /var/log/nginx/error.log;</span>
-<a id="__codelineno-4-15" name="__codelineno-4-15"></a>
-<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="s">    location /.well-known {</span>
-<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="s">        root /var/www/ssl/$DOMAIN/;</span>
-<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="s">    }</span>
-<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="s">    location / {</span>
-<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="s">        include proxy.conf;</span>
-<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="s">        proxy_pass $FORDED_URL;</span>
-<a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="s">        proxy_set_header Host $FORDED_HOST;</span>
-<a id="__codelineno-4-23" name="__codelineno-4-23"></a>
-<a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="s">    }</span>
-<a id="__codelineno-4-25" name="__codelineno-4-25"></a>
-<a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="s">    listen 80;</span>
-<a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="s">}</span>
-<a id="__codelineno-4-28" name="__codelineno-4-28"></a>
-<a id="__codelineno-4-29" name="__codelineno-4-29"></a><span class="s">EOF</span>
-<a id="__codelineno-4-30" name="__codelineno-4-30"></a>
-<a id="__codelineno-4-31" name="__codelineno-4-31"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Enabling domain&quot;</span>
-<a id="__codelineno-4-32" name="__codelineno-4-32"></a>ln<span class="w"> </span>-s<span class="w"> </span>/etc/nginx/sites-available/<span class="nv">$DOMAIN</span>.conf<span class="w"> </span>/etc/nginx/sites-enabled/<span class="nv">$DOMAIN</span>.conf
-<a id="__codelineno-4-33" name="__codelineno-4-33"></a>
-<a id="__codelineno-4-34" name="__codelineno-4-34"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creating SSL directory&quot;</span>
-<a id="__codelineno-4-35" name="__codelineno-4-35"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/www/ssl/<span class="nv">$DOMAIN</span>/
-<a id="__codelineno-4-36" name="__codelineno-4-36"></a>
-<a id="__codelineno-4-37" name="__codelineno-4-37"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Restarting Nginx&quot;</span>
-<a id="__codelineno-4-38" name="__codelineno-4-38"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
-<a id="__codelineno-4-39" name="__codelineno-4-39"></a>
-<a id="__codelineno-4-40" name="__codelineno-4-40"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Obtain certificate from LetsEncrypt&quot;</span>
-<a id="__codelineno-4-41" name="__codelineno-4-41"></a>certbot<span class="w"> </span>--nginx<span class="w"> </span>--redirect<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
-<a id="__codelineno-4-42" name="__codelineno-4-42"></a>
-<a id="__codelineno-4-43" name="__codelineno-4-43"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Restarting Nginx&quot;</span>
-<a id="__codelineno-4-44" name="__codelineno-4-44"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Enter the domain name (without www): &#39;</span><span class="w"> </span>DOMAIN
+<span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Enter the full forwarded URL: &#39;</span><span class="w"> </span>FORDED_URL
+<span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Enter the forwarded Hostname: &#39;</span><span class="w"> </span>FORDED_HOST
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Adding domain </span><span class="nv">$DOMAIN</span><span class="s2"> to Nginx configuration&quot;</span>
+
+cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt; /etc/nginx/sites-available/$DOMAIN.conf</span>
+<span class="s">server {</span>
+<span class="s">    server_name $DOMAIN;</span>
+
+<span class="s">    access_log /var/log/nginx/access.log;</span>
+<span class="s">    error_log /var/log/nginx/error.log;</span>
+
+<span class="s">    location /.well-known {</span>
+<span class="s">        root /var/www/ssl/$DOMAIN/;</span>
+<span class="s">    }</span>
+<span class="s">    location / {</span>
+<span class="s">        include proxy.conf;</span>
+<span class="s">        proxy_pass $FORDED_URL;</span>
+<span class="s">        proxy_set_header Host $FORDED_HOST;</span>
+
+<span class="s">    }</span>
+
+<span class="s">    listen 80;</span>
+<span class="s">}</span>
+
+<span class="s">EOF</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Enabling domain&quot;</span>
+ln<span class="w"> </span>-s<span class="w"> </span>/etc/nginx/sites-available/<span class="nv">$DOMAIN</span>.conf<span class="w"> </span>/etc/nginx/sites-enabled/<span class="nv">$DOMAIN</span>.conf
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creating SSL directory&quot;</span>
+mkdir<span class="w"> </span>-p<span class="w"> </span>/var/www/ssl/<span class="nv">$DOMAIN</span>/
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Restarting Nginx&quot;</span>
+systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Obtain certificate from LetsEncrypt&quot;</span>
+certbot<span class="w"> </span>--nginx<span class="w"> </span>--redirect<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Restarting Nginx&quot;</span>
+systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
 </code></pre></div></td></tr></table></div>
 <p>Exit and save by pressing <strong>Ctrl + x</strong>, followed by <strong>Y</strong> and <strong>Enter</strong></p>
 <p>Finally run the script and follow instructions:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sh<span class="w"> </span>/root/add_server.sh
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sh<span class="w"> </span>/root/add_server.sh
 </code></pre></div></td></tr></table></div>
 
 

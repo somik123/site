@@ -1504,62 +1504,62 @@
 <p>When the local server is behind a firewall with blocked ports or has dynamic IP or basically unreachable from the internet, it is possible to access the server using this method.</p>
 <p>This requires a VPS or server with open ports and fixed IP address.</p>
 <p>Login to remote server (ubuntu in our example) and append to file using vi or nano:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>GatewayPorts<span class="w"> </span>yes
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>GatewayPorts<span class="w"> </span>yes
 </code></pre></div></td></tr></table></div>
 <p>Then login to local server and install AutoSSH and SSH:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
-<a id="__codelineno-1-2" name="__codelineno-1-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
-<a id="__codelineno-1-3" name="__codelineno-1-3"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>autossh<span class="w"> </span>ssh
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>upgrade
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>autossh<span class="w"> </span>ssh
 </code></pre></div></td></tr></table></div>
 <p>Then generate a SSH key pair for your server:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>ssh-keygen
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ssh-keygen
 </code></pre></div></td></tr></table></div>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>Generating<span class="w"> </span>public/private<span class="w"> </span>rsa<span class="w"> </span>key<span class="w"> </span>pair.
-<a id="__codelineno-3-2" name="__codelineno-3-2"></a>Enter<span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span>which<span class="w"> </span>to<span class="w"> </span>save<span class="w"> </span>the<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>/root/.ssh/id_rsa<span class="o">)</span>:<span class="w"> </span>*/root/.ssh/nopwd*
-<a id="__codelineno-3-3" name="__codelineno-3-3"></a>Enter<span class="w"> </span>passphrase<span class="w"> </span><span class="o">(</span>empty<span class="w"> </span><span class="k">for</span><span class="w"> </span>no<span class="w"> </span>passphrase<span class="o">)</span>:<span class="w"> </span>*leave<span class="w"> </span>empty*
-<a id="__codelineno-3-4" name="__codelineno-3-4"></a>Enter<span class="w"> </span>same<span class="w"> </span>passphrase<span class="w"> </span>again:<span class="w"> </span>*leave<span class="w"> </span>empty*
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code>Generating<span class="w"> </span>public/private<span class="w"> </span>rsa<span class="w"> </span>key<span class="w"> </span>pair.
+Enter<span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span>which<span class="w"> </span>to<span class="w"> </span>save<span class="w"> </span>the<span class="w"> </span>key<span class="w"> </span><span class="o">(</span>/root/.ssh/id_rsa<span class="o">)</span>:<span class="w"> </span>*/root/.ssh/nopwd*
+Enter<span class="w"> </span>passphrase<span class="w"> </span><span class="o">(</span>empty<span class="w"> </span><span class="k">for</span><span class="w"> </span>no<span class="w"> </span>passphrase<span class="o">)</span>:<span class="w"> </span>*leave<span class="w"> </span>empty*
+Enter<span class="w"> </span>same<span class="w"> </span>passphrase<span class="w"> </span>again:<span class="w"> </span>*leave<span class="w"> </span>empty*
 </code></pre></div></td></tr></table></div>
 <p>Note that for bottom part, -p 2222 means ssh is running on port 2222 for "remote" server.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>ssh-copy-id<span class="w"> </span>-i<span class="w"> </span>.ssh/nopwd.pub<span class="w"> </span>-p<span class="w"> </span><span class="m">2222</span><span class="w"> </span>root@remote.server.com
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ssh-copy-id<span class="w"> </span>-i<span class="w"> </span>.ssh/nopwd.pub<span class="w"> </span>-p<span class="w"> </span><span class="m">2222</span><span class="w"> </span>root@remote.server.com
 </code></pre></div></td></tr></table></div>
 <p>Create a connection file on local server and grant it permission to execute, and finally open it for editing:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>sudo<span class="w"> </span>touch<span class="w"> </span>/root/start_conn.sh
-<a id="__codelineno-5-2" name="__codelineno-5-2"></a>sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/root/start_conn.sh
-<a id="__codelineno-5-3" name="__codelineno-5-3"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/root/start_conn.sh
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>touch<span class="w"> </span>/root/start_conn.sh
+sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/root/start_conn.sh
+sudo<span class="w"> </span>nano<span class="w"> </span>/root/start_conn.sh
 </code></pre></div></td></tr></table></div>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span>
-<span class="normal"><a href="#__codelineno-6-5">5</a></span>
-<span class="normal"><a href="#__codelineno-6-6">6</a></span>
-<span class="normal"><a href="#__codelineno-6-7">7</a></span>
-<span class="normal"><a href="#__codelineno-6-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="ch">#!/bin/sh</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2"></a>autossh<span class="w"> </span>-M<span class="w"> </span><span class="m">10984</span><span class="w"> </span>-N<span class="w"> </span>-f<span class="w"> </span>-i<span class="w"> </span>/root/.ssh/nopwd<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3"></a>-o<span class="w"> </span><span class="s2">&quot;PubkeyAuthentication=yes&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;PasswordAuthentication=no&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;ServerAliveInterval 60&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4"></a>-R<span class="w"> </span><span class="m">8080</span>:192.168.1.50:80<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5"></a>-R<span class="w"> </span><span class="m">8443</span>:192.168.1.50:443<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6"></a>-R<span class="w"> </span><span class="m">9001</span>:192.168.1.50:10000<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7"></a>-R<span class="w"> </span><span class="m">9022</span>:192.168.1.50:22<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8"></a>root@remote.server.com<span class="w"> </span>-p<span class="w"> </span><span class="m">2222</span><span class="w"> </span><span class="p">&amp;</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/sh</span>
+autossh<span class="w"> </span>-M<span class="w"> </span><span class="m">10984</span><span class="w"> </span>-N<span class="w"> </span>-f<span class="w"> </span>-i<span class="w"> </span>/root/.ssh/nopwd<span class="w"> </span><span class="se">\</span>
+-o<span class="w"> </span><span class="s2">&quot;PubkeyAuthentication=yes&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;PasswordAuthentication=no&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;ServerAliveInterval 60&quot;</span><span class="w"> </span><span class="se">\</span>
+-R<span class="w"> </span><span class="m">8080</span>:192.168.1.50:80<span class="w"> </span><span class="se">\</span>
+-R<span class="w"> </span><span class="m">8443</span>:192.168.1.50:443<span class="w"> </span><span class="se">\</span>
+-R<span class="w"> </span><span class="m">9001</span>:192.168.1.50:10000<span class="w"> </span><span class="se">\</span>
+-R<span class="w"> </span><span class="m">9022</span>:192.168.1.50:22<span class="w"> </span><span class="se">\</span>
+root@remote.server.com<span class="w"> </span>-p<span class="w"> </span><span class="m">2222</span><span class="w"> </span><span class="p">&amp;</span>
 </code></pre></div></td></tr></table></div>
 <p>Exit and save by pressing <strong>Ctrl + x</strong>, followed by <strong>Y</strong> and <strong>Enter</strong></p>
 <p>Note that for above example, the line <em>-R 8080:192.168.1.50:80</em> means remote port 8080 will connect to local port 80. If no http client is running on remote server, it is possible to forward port 80 from remote to port 80 on local.</p>
 <p>Otherwise, it is also possible to run a reverse proxy such as nginx proxy or apache proxy to forward specific domains to the correct port.</p>
 <p>Finally initiate the connection on boot-up via cron:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>crontabs<span class="w"> </span>-e
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>crontabs<span class="w"> </span>-e
 </code></pre></div></td></tr></table></div>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>@reboot<span class="w"> </span>/root/start_conn.sh
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>@reboot<span class="w"> </span>/root/start_conn.sh
 </code></pre></div></td></tr></table></div>
 <p>And reboot the server:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>sudo<span class="w"> </span>reboot
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>sudo<span class="w"> </span>reboot
 </code></pre></div></td></tr></table></div>
 
 

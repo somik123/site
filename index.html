@@ -1877,49 +1877,49 @@
 
 <p>These is a collection of most basic linux commands. Some require installations, others come pre-installed with the system.</p>
 <h3 id="show-current-location">Show current location:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>pwd
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>pwd
 </code></pre></div></td></tr></table></div>
 <h3 id="show-folder-size-on-disk">Show folder size on disk:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>du -hs /home/somik/dir/
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>du -hs /home/somik/dir/
 </code></pre></div></td></tr></table></div>
 <h3 id="mirror-full-websites-using-wget">Mirror full websites using wget:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>wget -e robots=off -m -k https://www.domain.com/
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>wget -e robots=off -m -k https://www.domain.com/
 </code></pre></div></td></tr></table></div>
 <h3 id="download-everything-2-folders-deep-on-website-using-wget">Download everything 2 folders deep on website using wget:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>wget -e robots=off -m -E -nH -np --cut-dirs=2 http://www.domain.com/folder1/folder2/
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>wget -e robots=off -m -E -nH -np --cut-dirs=2 http://www.domain.com/folder1/folder2/
 </code></pre></div></td></tr></table></div>
 <h3 id="delete-a-folder">Delete a folder:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>rm -rf /home/somik/dir/
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>rm -rf /home/somik/dir/
 </code></pre></div></td></tr></table></div>
 <h3 id="change-ownership-of-folder">Change ownership of folder:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>chown -hR www-data:www-data /var/www/html/
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>chown -hR www-data:www-data /var/www/html/
 </code></pre></div></td></tr></table></div>
 <h3 id="rar-a-file-must-have-rar-installed-on-server">RAR a file (must have RAR installed on server):</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>rar a -m0 file.rar &quot;folder1&quot; &quot;folder2&quot; &quot;file3&quot;
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>rar a -m0 file.rar &quot;folder1&quot; &quot;folder2&quot; &quot;file3&quot;
 </code></pre></div></td></tr></table></div>
 <h3 id="unrar-a-file-must-have-rar-installed-on-server">UnRAR a file (must have RAR installed on server):</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>unrar x &quot;file.rar&quot;
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>unrar x &quot;file.rar&quot;
 </code></pre></div></td></tr></table></div>
 <h3 id="tar-a-file-on-server">tar a file on server:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>tar -vcf archive.tar &#39;folder 1&#39; &#39;folder 2&#39; &#39;file 3&#39;
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>tar -vcf archive.tar &#39;folder 1&#39; &#39;folder 2&#39; &#39;file 3&#39;
 </code></pre></div></td></tr></table></div>
 <h3 id="targz-a-file-on-server">tar.gz a file on server:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>tar -vzcf archive.tar.gz &#39;folder 1&#39; &#39;folder 2&#39; &#39;file 3&#39;
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>tar -vzcf archive.tar.gz &#39;folder 1&#39; &#39;folder 2&#39; &#39;file 3&#39;
 </code></pre></div></td></tr></table></div>
 <h3 id="extract-tar-file">Extract tar file:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>tar -xvf archive.tar
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>tar -xvf archive.tar
 </code></pre></div></td></tr></table></div>
 <h3 id="extract-targz-file">Extract tar.gz file:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>tar -zxvf archive.tar.gz
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>tar -zxvf archive.tar.gz
 </code></pre></div></td></tr></table></div>
 <h3 id="create-a-symbolic-link">Create a symbolic link:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>ln -s /home/somik/folder1 /var/www/folder2
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ln -s /home/somik/folder1 /var/www/folder2
 </code></pre></div></td></tr></table></div>
 <h3 id="view-file-properties">View file properties:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>ls -l
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ls -l
 </code></pre></div></td></tr></table></div>
 <h3 id="check-server-usage-by-user">Check server usage by user:</h3>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>ps aux --sort=uid
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>ps aux --sort=uid
 </code></pre></div></td></tr></table></div>
 
 

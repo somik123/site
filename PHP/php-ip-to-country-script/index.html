@@ -1504,233 +1504,233 @@
 <p>This is a simple script to translate IP to country. It is usefull when you want to know where your traffic is coming from or perform specific actions to traffic from specific countries.</p>
 <p>Do take note that users using proxies or VPN can circumvent this and give a false country.</p>
 <p>The free database is downloaded from ip2location and is stored as a sqlite database so your PHP must be installed with sqlite support.</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">  1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">  2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">  3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">  4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">  5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">  6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">  7</a></span>
-<span class="normal"><a href="#__codelineno-0-8">  8</a></span>
-<span class="normal"><a href="#__codelineno-0-9">  9</a></span>
-<span class="normal"><a href="#__codelineno-0-10"> 10</a></span>
-<span class="normal"><a href="#__codelineno-0-11"> 11</a></span>
-<span class="normal"><a href="#__codelineno-0-12"> 12</a></span>
-<span class="normal"><a href="#__codelineno-0-13"> 13</a></span>
-<span class="normal"><a href="#__codelineno-0-14"> 14</a></span>
-<span class="normal"><a href="#__codelineno-0-15"> 15</a></span>
-<span class="normal"><a href="#__codelineno-0-16"> 16</a></span>
-<span class="normal"><a href="#__codelineno-0-17"> 17</a></span>
-<span class="normal"><a href="#__codelineno-0-18"> 18</a></span>
-<span class="normal"><a href="#__codelineno-0-19"> 19</a></span>
-<span class="normal"><a href="#__codelineno-0-20"> 20</a></span>
-<span class="normal"><a href="#__codelineno-0-21"> 21</a></span>
-<span class="normal"><a href="#__codelineno-0-22"> 22</a></span>
-<span class="normal"><a href="#__codelineno-0-23"> 23</a></span>
-<span class="normal"><a href="#__codelineno-0-24"> 24</a></span>
-<span class="normal"><a href="#__codelineno-0-25"> 25</a></span>
-<span class="normal"><a href="#__codelineno-0-26"> 26</a></span>
-<span class="normal"><a href="#__codelineno-0-27"> 27</a></span>
-<span class="normal"><a href="#__codelineno-0-28"> 28</a></span>
-<span class="normal"><a href="#__codelineno-0-29"> 29</a></span>
-<span class="normal"><a href="#__codelineno-0-30"> 30</a></span>
-<span class="normal"><a href="#__codelineno-0-31"> 31</a></span>
-<span class="normal"><a href="#__codelineno-0-32"> 32</a></span>
-<span class="normal"><a href="#__codelineno-0-33"> 33</a></span>
-<span class="normal"><a href="#__codelineno-0-34"> 34</a></span>
-<span class="normal"><a href="#__codelineno-0-35"> 35</a></span>
-<span class="normal"><a href="#__codelineno-0-36"> 36</a></span>
-<span class="normal"><a href="#__codelineno-0-37"> 37</a></span>
-<span class="normal"><a href="#__codelineno-0-38"> 38</a></span>
-<span class="normal"><a href="#__codelineno-0-39"> 39</a></span>
-<span class="normal"><a href="#__codelineno-0-40"> 40</a></span>
-<span class="normal"><a href="#__codelineno-0-41"> 41</a></span>
-<span class="normal"><a href="#__codelineno-0-42"> 42</a></span>
-<span class="normal"><a href="#__codelineno-0-43"> 43</a></span>
-<span class="normal"><a href="#__codelineno-0-44"> 44</a></span>
-<span class="normal"><a href="#__codelineno-0-45"> 45</a></span>
-<span class="normal"><a href="#__codelineno-0-46"> 46</a></span>
-<span class="normal"><a href="#__codelineno-0-47"> 47</a></span>
-<span class="normal"><a href="#__codelineno-0-48"> 48</a></span>
-<span class="normal"><a href="#__codelineno-0-49"> 49</a></span>
-<span class="normal"><a href="#__codelineno-0-50"> 50</a></span>
-<span class="normal"><a href="#__codelineno-0-51"> 51</a></span>
-<span class="normal"><a href="#__codelineno-0-52"> 52</a></span>
-<span class="normal"><a href="#__codelineno-0-53"> 53</a></span>
-<span class="normal"><a href="#__codelineno-0-54"> 54</a></span>
-<span class="normal"><a href="#__codelineno-0-55"> 55</a></span>
-<span class="normal"><a href="#__codelineno-0-56"> 56</a></span>
-<span class="normal"><a href="#__codelineno-0-57"> 57</a></span>
-<span class="normal"><a href="#__codelineno-0-58"> 58</a></span>
-<span class="normal"><a href="#__codelineno-0-59"> 59</a></span>
-<span class="normal"><a href="#__codelineno-0-60"> 60</a></span>
-<span class="normal"><a href="#__codelineno-0-61"> 61</a></span>
-<span class="normal"><a href="#__codelineno-0-62"> 62</a></span>
-<span class="normal"><a href="#__codelineno-0-63"> 63</a></span>
-<span class="normal"><a href="#__codelineno-0-64"> 64</a></span>
-<span class="normal"><a href="#__codelineno-0-65"> 65</a></span>
-<span class="normal"><a href="#__codelineno-0-66"> 66</a></span>
-<span class="normal"><a href="#__codelineno-0-67"> 67</a></span>
-<span class="normal"><a href="#__codelineno-0-68"> 68</a></span>
-<span class="normal"><a href="#__codelineno-0-69"> 69</a></span>
-<span class="normal"><a href="#__codelineno-0-70"> 70</a></span>
-<span class="normal"><a href="#__codelineno-0-71"> 71</a></span>
-<span class="normal"><a href="#__codelineno-0-72"> 72</a></span>
-<span class="normal"><a href="#__codelineno-0-73"> 73</a></span>
-<span class="normal"><a href="#__codelineno-0-74"> 74</a></span>
-<span class="normal"><a href="#__codelineno-0-75"> 75</a></span>
-<span class="normal"><a href="#__codelineno-0-76"> 76</a></span>
-<span class="normal"><a href="#__codelineno-0-77"> 77</a></span>
-<span class="normal"><a href="#__codelineno-0-78"> 78</a></span>
-<span class="normal"><a href="#__codelineno-0-79"> 79</a></span>
-<span class="normal"><a href="#__codelineno-0-80"> 80</a></span>
-<span class="normal"><a href="#__codelineno-0-81"> 81</a></span>
-<span class="normal"><a href="#__codelineno-0-82"> 82</a></span>
-<span class="normal"><a href="#__codelineno-0-83"> 83</a></span>
-<span class="normal"><a href="#__codelineno-0-84"> 84</a></span>
-<span class="normal"><a href="#__codelineno-0-85"> 85</a></span>
-<span class="normal"><a href="#__codelineno-0-86"> 86</a></span>
-<span class="normal"><a href="#__codelineno-0-87"> 87</a></span>
-<span class="normal"><a href="#__codelineno-0-88"> 88</a></span>
-<span class="normal"><a href="#__codelineno-0-89"> 89</a></span>
-<span class="normal"><a href="#__codelineno-0-90"> 90</a></span>
-<span class="normal"><a href="#__codelineno-0-91"> 91</a></span>
-<span class="normal"><a href="#__codelineno-0-92"> 92</a></span>
-<span class="normal"><a href="#__codelineno-0-93"> 93</a></span>
-<span class="normal"><a href="#__codelineno-0-94"> 94</a></span>
-<span class="normal"><a href="#__codelineno-0-95"> 95</a></span>
-<span class="normal"><a href="#__codelineno-0-96"> 96</a></span>
-<span class="normal"><a href="#__codelineno-0-97"> 97</a></span>
-<span class="normal"><a href="#__codelineno-0-98"> 98</a></span>
-<span class="normal"><a href="#__codelineno-0-99"> 99</a></span>
-<span class="normal"><a href="#__codelineno-0-100">100</a></span>
-<span class="normal"><a href="#__codelineno-0-101">101</a></span>
-<span class="normal"><a href="#__codelineno-0-102">102</a></span>
-<span class="normal"><a href="#__codelineno-0-103">103</a></span>
-<span class="normal"><a href="#__codelineno-0-104">104</a></span>
-<span class="normal"><a href="#__codelineno-0-105">105</a></span>
-<span class="normal"><a href="#__codelineno-0-106">106</a></span>
-<span class="normal"><a href="#__codelineno-0-107">107</a></span>
-<span class="normal"><a href="#__codelineno-0-108">108</a></span>
-<span class="normal"><a href="#__codelineno-0-109">109</a></span>
-<span class="normal"><a href="#__codelineno-0-110">110</a></span>
-<span class="normal"><a href="#__codelineno-0-111">111</a></span>
-<span class="normal"><a href="#__codelineno-0-112">112</a></span>
-<span class="normal"><a href="#__codelineno-0-113">113</a></span>
-<span class="normal"><a href="#__codelineno-0-114">114</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="cp">&lt;?php</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="sd">/**</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="sd">* Author: Somik Khan</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="sd">* @copyright 2019</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="sd">* Permissions: Editing or non-commercial usage</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="sd">* Prohibition: Sale or commercial usage.</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="sd">* Updated script: https://somik.org/2019/10/19/php-ip-to-country-script/</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="sd">*/</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">class</span> <span class="nc">ip2country_lite</span> <span class="p">{</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a>    <span class="c1">// Actual DB file</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="k">var</span> <span class="nv">$db_file</span> <span class="o">=</span> <span class="s2">&quot;./db/ip2location.sqlite&quot;</span><span class="p">;</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a>    <span class="c1">// Temporary file for IP database zip</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a>    <span class="k">var</span> <span class="nv">$tmp_zip</span> <span class="o">=</span> <span class="s2">&quot;./db/tmp.zip&quot;</span><span class="p">;</span>    
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a>    <span class="c1">// Link to ip2loc download</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a>    <span class="k">var</span> <span class="nv">$link</span> <span class="o">=</span> <span class="s2">&quot;https://download.ip2location.com/lite/IP2LOCATION-LITE-DB1.CSV.ZIP&quot;</span><span class="p">;</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a>    <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a>        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">file_exists</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">)){</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a>            <span class="nv">$db_path</span> <span class="o">=</span> <span class="nb">basename</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">);</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a>            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">file_exists</span><span class="p">(</span><span class="nv">$db_path</span><span class="p">)){</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a>                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">mkdir</span><span class="p">(</span><span class="nv">$db_path</span><span class="p">,</span><span class="mo">0755</span><span class="p">,</span><span class="k">TRUE</span><span class="p">)){</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a>                    <span class="k">die</span><span class="p">(</span><span class="s2">&quot;Cannot create </span><span class="se">\&quot;</span><span class="s2">db</span><span class="se">\&quot;</span><span class="s2"> directory. Please create manually and ensure it is writable by php.&quot;</span><span class="p">);</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a>                <span class="p">}</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a>                <span class="k">else</span><span class="p">{</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a>                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a>                <span class="p">}</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a>            <span class="p">}</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a>            <span class="k">else</span><span class="p">{</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a>                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a>            <span class="p">}</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a>        <span class="p">}</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a>    <span class="p">}</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a>    <span class="k">function</span> <span class="nf">update</span><span class="p">(){</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a>        <span class="c1">// Get the CSV.ZIP from ip2loc</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a>        <span class="nv">$zip_contents</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">link</span><span class="p">);</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a>        <span class="nb">file_put_contents</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tmp_zip</span><span class="p">,</span> <span class="nv">$zip_contents</span><span class="p">);</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a>        <span class="c1">// Load the CSV into variable</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a>        <span class="nv">$csv_data</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="s2">&quot;zip://</span><span class="si">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tmp_zip</span><span class="si">}</span><span class="s2">#IP2LOCATION-LITE-DB1.CSV&quot;</span><span class="p">);</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a>        <span class="c1">// Delete the temp file</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a>        <span class="nb">unlink</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tmp_zip</span><span class="p">);</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a>        <span class="c1">// Process the CSV into array. the format is &quot;18939904&quot;,&quot;19005439&quot;,&quot;JP&quot;,&quot;Japan&quot;</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a>        <span class="nb">preg_match_all</span><span class="p">(</span><span class="s1">&#39;#&quot;(\d*?)&quot;,&quot;(\d*?)&quot;,&quot;(.*?)&quot;,&quot;(.*?)&quot;#&#39;</span><span class="p">,</span><span class="nv">$csv_data</span><span class="p">,</span><span class="nv">$arr_data</span><span class="p">);</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a>        <span class="c1">// Count the number of array items</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a>        <span class="nv">$count</span> <span class="o">=</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$arr_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a>        <span class="c1">// Remove old DB file</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a>        <span class="o">@</span><span class="nb">unlink</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">);</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a>        <span class="c1">// Create a new DB file for writing</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a>        <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SQLite3</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">,</span> <span class="nx">SQLITE3_OPEN_CREATE</span> <span class="o">|</span> <span class="nx">SQLITE3_OPEN_READWRITE</span><span class="p">);</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a>        <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">busyTimeout</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a>        <span class="c1">// Create the table structures</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>        <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE IF NOT EXISTS &quot;data&quot; (</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="s1">                        &quot;start&quot; INTEGER,</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="s1">                        &quot;end&quot; INTEGER,</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="s1">                        &quot;country2&quot; VARCHAR,</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="s1">                        &quot;country&quot; VARCHAR</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="s1">                    )&#39;</span><span class="p">);</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>        <span class="c1">// Prepare DB insert statemetns but dont write to disk yet</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>        <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;BEGIN&#39;</span><span class="p">);</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a>        <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nv">$count</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">){</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>            <span class="c1">// Add the contents into DB still in memory</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>            <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;INSERT INTO &quot;data&quot; (&quot;start&quot;, &quot;end&quot;, &quot;country2&quot;, &quot;country&quot;)</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="s1">                        VALUES (&#39;</span><span class="o">.</span><span class="nv">$arr_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="nv">$arr_data</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;, &quot;&#39;</span><span class="o">.</span><span class="nv">$arr_data</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;&quot;, &quot;&#39;</span><span class="o">.</span><span class="nv">$arr_data</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;&quot; )&#39;</span><span class="p">);</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>        <span class="p">}</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>        <span class="c1">// Write changes to DB in disk</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>        <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;COMMIT&#39;</span><span class="p">);</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>        <span class="c1">// Close the DB and complete.</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>        <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>        <span class="k">echo</span> <span class="s2">&quot;Updated&quot;</span><span class="p">;</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="p">}</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>    <span class="k">function</span> <span class="nf">getCountry</span><span class="p">(</span><span class="nv">$ip</span><span class="p">){</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a>        <span class="k">if</span><span class="p">(</span><span class="nv">$ip</span> <span class="o">&amp;&amp;</span> <span class="nb">file_exists</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">)){</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>            <span class="c1">// Check the IP is provided</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a>            <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/&quot;</span><span class="p">,</span><span class="nv">$ip</span><span class="p">,</span><span class="nv">$parts</span><span class="p">)){</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a>                <span class="c1">// Convert IP to number by multiplying</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a>                <span class="nv">$ip_num</span> <span class="o">=</span> <span class="p">(</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="nv">$parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="o">+</span> <span class="p">(</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="nv">$parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span> <span class="o">+</span> <span class="p">(</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nv">$parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">)</span> <span class="o">+</span> <span class="p">(</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="nv">$parts</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="p">);</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>                <span class="c1">// Load the database and find the IP number</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a>                <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SQLite3</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">,</span> <span class="nx">SQLITE3_OPEN_READONLY</span><span class="p">);</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a>                <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">busyTimeout</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>                <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">querySingle</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM &quot;data&quot; WHERE &quot;start&quot; &lt; &#39;</span><span class="o">.</span><span class="nv">$ip_num</span><span class="o">.</span><span class="s1">&#39; AND &quot;end&quot; &gt; &#39;</span><span class="o">.</span><span class="nv">$ip_num</span><span class="o">.</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>                <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a>                <span class="c1">// Output the country</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a>                <span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span> <span class="k">array</span><span class="p">(</span><span class="nv">$ip</span><span class="p">,</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">],</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;country2&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">);</span>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a>            <span class="p">}</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a>        <span class="p">}</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>    <span class="p">}</span>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="p">}</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="c1">// ----------</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="c1">// Usage</span>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="c1">// ----------</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="nv">$ip</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">];</span>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="k">if</span><span class="p">(</span><span class="nv">$ip</span><span class="p">){</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a>    <span class="nv">$ip2c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ip2country_lite</span><span class="p">;</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a>    <span class="nv">$ip2c</span><span class="o">-&gt;</span><span class="na">getCountry</span><span class="p">(</span><span class="nv">$ip</span><span class="p">);</span>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a><span class="p">}</span>
-<a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="k">elseif</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;update&#39;</span><span class="p">])){</span>
-<a id="__codelineno-0-112" name="__codelineno-0-112"></a>    <span class="nv">$ip2c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ip2country_lite</span><span class="p">;</span>
-<a id="__codelineno-0-113" name="__codelineno-0-113"></a>    <span class="nv">$ip2c</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
-<a id="__codelineno-0-114" name="__codelineno-0-114"></a><span class="p">}</span>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">  1</span>
+<span class="normal">  2</span>
+<span class="normal">  3</span>
+<span class="normal">  4</span>
+<span class="normal">  5</span>
+<span class="normal">  6</span>
+<span class="normal">  7</span>
+<span class="normal">  8</span>
+<span class="normal">  9</span>
+<span class="normal"> 10</span>
+<span class="normal"> 11</span>
+<span class="normal"> 12</span>
+<span class="normal"> 13</span>
+<span class="normal"> 14</span>
+<span class="normal"> 15</span>
+<span class="normal"> 16</span>
+<span class="normal"> 17</span>
+<span class="normal"> 18</span>
+<span class="normal"> 19</span>
+<span class="normal"> 20</span>
+<span class="normal"> 21</span>
+<span class="normal"> 22</span>
+<span class="normal"> 23</span>
+<span class="normal"> 24</span>
+<span class="normal"> 25</span>
+<span class="normal"> 26</span>
+<span class="normal"> 27</span>
+<span class="normal"> 28</span>
+<span class="normal"> 29</span>
+<span class="normal"> 30</span>
+<span class="normal"> 31</span>
+<span class="normal"> 32</span>
+<span class="normal"> 33</span>
+<span class="normal"> 34</span>
+<span class="normal"> 35</span>
+<span class="normal"> 36</span>
+<span class="normal"> 37</span>
+<span class="normal"> 38</span>
+<span class="normal"> 39</span>
+<span class="normal"> 40</span>
+<span class="normal"> 41</span>
+<span class="normal"> 42</span>
+<span class="normal"> 43</span>
+<span class="normal"> 44</span>
+<span class="normal"> 45</span>
+<span class="normal"> 46</span>
+<span class="normal"> 47</span>
+<span class="normal"> 48</span>
+<span class="normal"> 49</span>
+<span class="normal"> 50</span>
+<span class="normal"> 51</span>
+<span class="normal"> 52</span>
+<span class="normal"> 53</span>
+<span class="normal"> 54</span>
+<span class="normal"> 55</span>
+<span class="normal"> 56</span>
+<span class="normal"> 57</span>
+<span class="normal"> 58</span>
+<span class="normal"> 59</span>
+<span class="normal"> 60</span>
+<span class="normal"> 61</span>
+<span class="normal"> 62</span>
+<span class="normal"> 63</span>
+<span class="normal"> 64</span>
+<span class="normal"> 65</span>
+<span class="normal"> 66</span>
+<span class="normal"> 67</span>
+<span class="normal"> 68</span>
+<span class="normal"> 69</span>
+<span class="normal"> 70</span>
+<span class="normal"> 71</span>
+<span class="normal"> 72</span>
+<span class="normal"> 73</span>
+<span class="normal"> 74</span>
+<span class="normal"> 75</span>
+<span class="normal"> 76</span>
+<span class="normal"> 77</span>
+<span class="normal"> 78</span>
+<span class="normal"> 79</span>
+<span class="normal"> 80</span>
+<span class="normal"> 81</span>
+<span class="normal"> 82</span>
+<span class="normal"> 83</span>
+<span class="normal"> 84</span>
+<span class="normal"> 85</span>
+<span class="normal"> 86</span>
+<span class="normal"> 87</span>
+<span class="normal"> 88</span>
+<span class="normal"> 89</span>
+<span class="normal"> 90</span>
+<span class="normal"> 91</span>
+<span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cp">&lt;?php</span>
+
+<span class="sd">/**</span>
+<span class="sd">* Author: Somik Khan</span>
+<span class="sd">* @copyright 2019</span>
+<span class="sd">* Permissions: Editing or non-commercial usage</span>
+<span class="sd">* Prohibition: Sale or commercial usage.</span>
+<span class="sd">* Updated script: https://somik.org/2019/10/19/php-ip-to-country-script/</span>
+<span class="sd">*/</span>
+
+<span class="k">class</span> <span class="nc">ip2country_lite</span> <span class="p">{</span>
+    <span class="c1">// Actual DB file</span>
+    <span class="k">var</span> <span class="nv">$db_file</span> <span class="o">=</span> <span class="s2">&quot;./db/ip2location.sqlite&quot;</span><span class="p">;</span>
+
+    <span class="c1">// Temporary file for IP database zip</span>
+    <span class="k">var</span> <span class="nv">$tmp_zip</span> <span class="o">=</span> <span class="s2">&quot;./db/tmp.zip&quot;</span><span class="p">;</span>    
+
+    <span class="c1">// Link to ip2loc download</span>
+    <span class="k">var</span> <span class="nv">$link</span> <span class="o">=</span> <span class="s2">&quot;https://download.ip2location.com/lite/IP2LOCATION-LITE-DB1.CSV.ZIP&quot;</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">file_exists</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">)){</span>
+            <span class="nv">$db_path</span> <span class="o">=</span> <span class="nb">basename</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">file_exists</span><span class="p">(</span><span class="nv">$db_path</span><span class="p">)){</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nb">mkdir</span><span class="p">(</span><span class="nv">$db_path</span><span class="p">,</span><span class="mo">0755</span><span class="p">,</span><span class="k">TRUE</span><span class="p">)){</span>
+                    <span class="k">die</span><span class="p">(</span><span class="s2">&quot;Cannot create </span><span class="se">\&quot;</span><span class="s2">db</span><span class="se">\&quot;</span><span class="s2"> directory. Please create manually and ensure it is writable by php.&quot;</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">else</span><span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="nf">update</span><span class="p">(){</span>
+        <span class="c1">// Get the CSV.ZIP from ip2loc</span>
+        <span class="nv">$zip_contents</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">link</span><span class="p">);</span>
+        <span class="nb">file_put_contents</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tmp_zip</span><span class="p">,</span> <span class="nv">$zip_contents</span><span class="p">);</span>
+        <span class="c1">// Load the CSV into variable</span>
+        <span class="nv">$csv_data</span> <span class="o">=</span> <span class="nb">file_get_contents</span><span class="p">(</span><span class="s2">&quot;zip://</span><span class="si">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tmp_zip</span><span class="si">}</span><span class="s2">#IP2LOCATION-LITE-DB1.CSV&quot;</span><span class="p">);</span>
+        <span class="c1">// Delete the temp file</span>
+        <span class="nb">unlink</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tmp_zip</span><span class="p">);</span>
+
+        <span class="c1">// Process the CSV into array. the format is &quot;18939904&quot;,&quot;19005439&quot;,&quot;JP&quot;,&quot;Japan&quot;</span>
+        <span class="nb">preg_match_all</span><span class="p">(</span><span class="s1">&#39;#&quot;(\d*?)&quot;,&quot;(\d*?)&quot;,&quot;(.*?)&quot;,&quot;(.*?)&quot;#&#39;</span><span class="p">,</span><span class="nv">$csv_data</span><span class="p">,</span><span class="nv">$arr_data</span><span class="p">);</span>
+
+        <span class="c1">// Count the number of array items</span>
+        <span class="nv">$count</span> <span class="o">=</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$arr_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="c1">// Remove old DB file</span>
+        <span class="o">@</span><span class="nb">unlink</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">);</span>
+        <span class="c1">// Create a new DB file for writing</span>
+        <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SQLite3</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">,</span> <span class="nx">SQLITE3_OPEN_CREATE</span> <span class="o">|</span> <span class="nx">SQLITE3_OPEN_READWRITE</span><span class="p">);</span>
+        <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">busyTimeout</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span>
+
+        <span class="c1">// Create the table structures</span>
+        <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;CREATE TABLE IF NOT EXISTS &quot;data&quot; (</span>
+<span class="s1">                        &quot;start&quot; INTEGER,</span>
+<span class="s1">                        &quot;end&quot; INTEGER,</span>
+<span class="s1">                        &quot;country2&quot; VARCHAR,</span>
+<span class="s1">                        &quot;country&quot; VARCHAR</span>
+<span class="s1">                    )&#39;</span><span class="p">);</span>
+
+        <span class="c1">// Prepare DB insert statemetns but dont write to disk yet</span>
+        <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;BEGIN&#39;</span><span class="p">);</span>
+        <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nv">$count</span><span class="p">;</span><span class="nv">$i</span><span class="o">++</span><span class="p">){</span>
+            <span class="c1">// Add the contents into DB still in memory</span>
+            <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="s1">&#39;INSERT INTO &quot;data&quot; (&quot;start&quot;, &quot;end&quot;, &quot;country2&quot;, &quot;country&quot;)</span>
+<span class="s1">                        VALUES (&#39;</span><span class="o">.</span><span class="nv">$arr_data</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="nv">$arr_data</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;, &quot;&#39;</span><span class="o">.</span><span class="nv">$arr_data</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;&quot;, &quot;&#39;</span><span class="o">.</span><span class="nv">$arr_data</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;&quot; )&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="c1">// Write changes to DB in disk</span>
+        <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;COMMIT&#39;</span><span class="p">);</span>
+        <span class="c1">// Close the DB and complete.</span>
+        <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span>
+
+        <span class="k">echo</span> <span class="s2">&quot;Updated&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">function</span> <span class="nf">getCountry</span><span class="p">(</span><span class="nv">$ip</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$ip</span> <span class="o">&amp;&amp;</span> <span class="nb">file_exists</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">)){</span>
+            <span class="c1">// Check the IP is provided</span>
+            <span class="k">if</span><span class="p">(</span><span class="nb">preg_match</span><span class="p">(</span><span class="s2">&quot;/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/&quot;</span><span class="p">,</span><span class="nv">$ip</span><span class="p">,</span><span class="nv">$parts</span><span class="p">)){</span>
+                <span class="c1">// Convert IP to number by multiplying</span>
+                <span class="nv">$ip_num</span> <span class="o">=</span> <span class="p">(</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="nv">$parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="o">+</span> <span class="p">(</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="nv">$parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span> <span class="o">+</span> <span class="p">(</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="nv">$parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="p">)</span> <span class="o">+</span> <span class="p">(</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="nv">$parts</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="p">);</span>
+
+                <span class="c1">// Load the database and find the IP number</span>
+                <span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SQLite3</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db_file</span><span class="p">,</span> <span class="nx">SQLITE3_OPEN_READONLY</span><span class="p">);</span>
+                <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">busyTimeout</span><span class="p">(</span><span class="mi">5000</span><span class="p">);</span>
+                <span class="nv">$row</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">querySingle</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM &quot;data&quot; WHERE &quot;start&quot; &lt; &#39;</span><span class="o">.</span><span class="nv">$ip_num</span><span class="o">.</span><span class="s1">&#39; AND &quot;end&quot; &gt; &#39;</span><span class="o">.</span><span class="nv">$ip_num</span><span class="o">.</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+                <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">();</span>
+
+                <span class="c1">// Output the country</span>
+                <span class="k">echo</span> <span class="nb">json_encode</span><span class="p">(</span> <span class="k">array</span><span class="p">(</span><span class="nv">$ip</span><span class="p">,</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;country&#39;</span><span class="p">],</span> <span class="nv">$row</span><span class="p">[</span><span class="s1">&#39;country2&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="c1">// ----------</span>
+<span class="c1">// Usage</span>
+<span class="c1">// ----------</span>
+
+<span class="nv">$ip</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;ip&#39;</span><span class="p">];</span>
+<span class="k">if</span><span class="p">(</span><span class="nv">$ip</span><span class="p">){</span>
+    <span class="nv">$ip2c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ip2country_lite</span><span class="p">;</span>
+    <span class="nv">$ip2c</span><span class="o">-&gt;</span><span class="na">getCountry</span><span class="p">(</span><span class="nv">$ip</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">elseif</span><span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">&#39;update&#39;</span><span class="p">])){</span>
+    <span class="nv">$ip2c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ip2country_lite</span><span class="p">;</span>
+    <span class="nv">$ip2c</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
+<span class="p">}</span>
 </code></pre></div></td></tr></table></div>
 
 
