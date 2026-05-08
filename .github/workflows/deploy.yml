@@ -31,3 +31,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./site
+
+      - name: Trigger server deploy
+        run: |
+          curl -fsS -X POST "${{ secrets.DEPLOY_WEBHOOK_URL }}" \
+            -H "Authorization: Bearer ${{ secrets.DEPLOY_SECRET }}"
+

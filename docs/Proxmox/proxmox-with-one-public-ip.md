@@ -335,81 +335,83 @@ Like this, the NAT will be applied at each restart.
 Here is the **/root/dnat.sh** file that I personally use:
 
 ```bash
-sleep 60
+sleep 5
+
+# Define public IPs for IPv4 and IPv6
+PUB4="123.45.67.89"
+PUB6="1234:5678:9abc:de::1"
+
 
 # SSH IPv4
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10122 -j DNAT --to-destination 10.0.0.101:22
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10222 -j DNAT --to-destination 10.0.0.102:22
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10322 -j DNAT --to-destination 10.0.0.103:22
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10422 -j DNAT --to-destination 10.0.0.104:22
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10522 -j DNAT --to-destination 10.0.0.105:22
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10622 -j DNAT --to-destination 10.0.0.106:22
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10722 -j DNAT --to-destination 10.0.0.107:22
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10822 -j DNAT --to-destination 10.0.0.108:22
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10922 -j DNAT --to-destination 10.0.0.109:22
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 11022 -j DNAT --to-destination 10.0.0.110:22
+iptables -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 22101 -j DNAT --to-destination 10.0.0.101:22
+iptables -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 22102 -j DNAT --to-destination 10.0.0.102:22
+iptables -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 22103 -j DNAT --to-destination 10.0.0.103:22
+iptables -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 22104 -j DNAT --to-destination 10.0.0.104:22
+iptables -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 22105 -j DNAT --to-destination 10.0.0.105:22
+iptables -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 22106 -j DNAT --to-destination 10.0.0.106:22
+iptables -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 22107 -j DNAT --to-destination 10.0.0.107:22
+iptables -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 22108 -j DNAT --to-destination 10.0.0.108:22
+iptables -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 22109 -j DNAT --to-destination 10.0.0.109:22
+iptables -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 22110 -j DNAT --to-destination 10.0.0.110:22
+
 
 # SSH IPv6
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10122 -j DNAT --to-destination [fd12:34:56:78::101]:22
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10222 -j DNAT --to-destination [fd12:34:56:78::102]:22
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10322 -j DNAT --to-destination [fd12:34:56:78::103]:22
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10422 -j DNAT --to-destination [fd12:34:56:78::104]:22
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10522 -j DNAT --to-destination [fd12:34:56:78::105]:22
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10622 -j DNAT --to-destination [fd12:34:56:78::106]:22
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10722 -j DNAT --to-destination [fd12:34:56:78::107]:22
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10822 -j DNAT --to-destination [fd12:34:56:78::108]:22
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10922 -j DNAT --to-destination [fd12:34:56:78::109]:22
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 11022 -j DNAT --to-destination [fd12:34:56:78::110]:22
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 22101 -j DNAT --to-destination [fd12:34:56:78::101]:22
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 22102 -j DNAT --to-destination [fd12:34:56:78::102]:22
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 22103 -j DNAT --to-destination [fd12:34:56:78::103]:22
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 22104 -j DNAT --to-destination [fd12:34:56:78::104]:22
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 22105 -j DNAT --to-destination [fd12:34:56:78::105]:22
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 22106 -j DNAT --to-destination [fd12:34:56:78::106]:22
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 22107 -j DNAT --to-destination [fd12:34:56:78::107]:22
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 22108 -j DNAT --to-destination [fd12:34:56:78::108]:22
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 22109 -j DNAT --to-destination [fd12:34:56:78::109]:22
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 22110 -j DNAT --to-destination [fd12:34:56:78::110]:22
 
 
-
-# Reverse proxy
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 80 -j DNAT --to-destination 10.0.0.101:80
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 81 -j DNAT --to-destination 10.0.0.101:81
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 443 -j DNAT --to-destination 10.0.0.101:443
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp -m tcp --dport 80 -j DNAT --to-destination [fd12:34:56:78::101]:80
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp -m tcp --dport 81 -j DNAT --to-destination [fd12:34:56:78::101]:81
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp -m tcp --dport 443 -j DNAT --to-destination [fd12:34:56:78::101]:443
-
+# Reverse proxy HTTP/HTTPS & nginx proxy manager
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 80  -j DNAT --to-destination 10.0.0.101:80
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 81  -j DNAT --to-destination 10.0.0.101:81
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 443 -j DNAT --to-destination 10.0.0.101:443
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 80  -j DNAT --to-destination [fd12:34:56:78::101]:80
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 81  -j DNAT --to-destination [fd12:34:56:78::101]:81
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 443 -j DNAT --to-destination [fd12:34:56:78::101]:443
 
 
 # Portainer
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 9443 -j DNAT --to-destination 10.0.0.101:9443
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp -m tcp --dport 9443 -j DNAT --to-destination [fd12:34:56:78::101]:9443
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 9443 -j DNAT --to-destination 10.0.0.101:9443
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 9443 -j DNAT --to-destination [fd12:34:56:78::101]:9443
 
 
+# Mail/DNS/Webmin
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 25    -j DNAT --to-destination 10.0.0.102:25 # SMTP
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 53    -j DNAT --to-destination 10.0.0.102:53 # DNS
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p udp --dport 53    -j DNAT --to-destination 10.0.0.102:53 # DNS
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 143   -j DNAT --to-destination 10.0.0.102:143 # IMAP
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 465   -j DNAT --to-destination 10.0.0.102:465 # SMTP over SSL
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 587   -j DNAT --to-destination 10.0.0.102:587 # SMTP submission
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 853   -j DNAT --to-destination 10.0.0.102:853 # DNS over TLS
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 993   -j DNAT --to-destination 10.0.0.102:993 # IMAP over SSL
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 995   -j DNAT --to-destination 10.0.0.102:995 # POP3 over SSL
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 10000 -j DNAT --to-destination 10.0.0.102:10000 # Virtualmin
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p tcp --dport 20000 -j DNAT --to-destination 10.0.0.102:20000 # Webmin
 
-# IPv4 Webhost + Mailserver + DNS + Virtualmin + Webmin
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 25 -j DNAT --to-destination 10.0.0.102:25 # SMTP
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 53 -j DNAT --to-destination 10.0.0.102:53 # DNS
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 143 -j DNAT --to-destination 10.0.0.102:143 # IMAP
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 465 -j DNAT --to-destination 10.0.0.102:465 # SMTP over SSL
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 587 -j DNAT --to-destination 10.0.0.102:587 # SMTP submission
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 853 -j DNAT --to-destination 10.0.0.102:853 # DNS over TLS
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 993 -j DNAT --to-destination 10.0.0.102:993 # IMAP over SSL
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 995 -j DNAT --to-destination 10.0.0.102:995 # POP3 over SSL
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10000 -j DNAT --to-destination 10.0.0.102:10000 # Virtualmin
-iptables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 20000 -j DNAT --to-destination 10.0.0.102:20000 # Webmin
-
-# IPv6 Webhost + Mailserver + DNS + Virtualmin + Webmin
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 25 -j DNAT --to-destination [fd12:34:56:78::102]:25 # SMTP
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 53 -j DNAT --to-destination [fd12:34:56:78::102]:53 # DNS
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 143 -j DNAT --to-destination [fd12:34:56:78::102]:143 # IMAP
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 465 -j DNAT --to-destination [fd12:34:56:78::102]:465 # SMTP over SSL
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 587 -j DNAT --to-destination [fd12:34:56:78::102]:587 # SMTP submission
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 853 -j DNAT --to-destination [fd12:34:56:78::102]:853 # DNS over TLS
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 993 -j DNAT --to-destination [fd12:34:56:78::102]:993 # IMAP over SSL
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 995 -j DNAT --to-destination [fd12:34:56:78::102]:995 # POP3 over SSL
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 10000 -j DNAT --to-destination [fd12:34:56:78::102]:10000 # Virtualmin
-ip6tables -t nat -A PREROUTING -i vmbr0 -p tcp --dport 20000 -j DNAT --to-destination [fd12:34:56:78::102]:20000 # Webmin
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 25    -j DNAT --to-destination [fd12:34:56:78::102]:25 # SMTP
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 53    -j DNAT --to-destination [fd12:34:56:78::102]:53 # DNS
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p udp --dport 53    -j DNAT --to-destination [fd12:34:56:78::102]:53 # DNS
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 143   -j DNAT --to-destination [fd12:34:56:78::102]:143 # IMAP
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 465   -j DNAT --to-destination [fd12:34:56:78::102]:465 # SMTP over SSL
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 587   -j DNAT --to-destination [fd12:34:56:78::102]:587 # SMTP submission
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 853   -j DNAT --to-destination [fd12:34:56:78::102]:853 # DNS over TLS
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 993   -j DNAT --to-destination [fd12:34:56:78::102]:993 # IMAP over SSL
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 995   -j DNAT --to-destination [fd12:34:56:78::102]:995 # POP3 over SSL
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 10000 -j DNAT --to-destination [fd12:34:56:78::102]:10000 # Virtualmin
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p tcp --dport 20000 -j DNAT --to-destination [fd12:34:56:78::102]:20000 # Webmin
 
 
-
-# VPN
-iptables -t nat -A PREROUTING -i vmbr0 -p udp --dport 2194 -j DNAT --to-destination 10.0.0.103:2194
-ip6tables -t nat -A PREROUTING -i vmbr0 -p udp -m udp --dport 2194 -j DNAT --to-destination [fd12:34:56:78::103]:2194
+# VPN access
+iptables  -t nat -A PREROUTING -i vmbr0 -d "$PUB4" -p udp --dport 2194 -j DNAT --to-destination 10.0.0.103:2194
+ip6tables -t nat -A PREROUTING -i vmbr0 -d "$PUB6" -p udp --dport 2194 -j DNAT --to-destination [fd12:34:56:78::103]:2194
 ```
-
 
 
 The complete proxmox host interface file looks like this:
