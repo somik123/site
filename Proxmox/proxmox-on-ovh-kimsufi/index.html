@@ -2520,8 +2520,10 @@ proxy<span class="w"> </span>vmbr0<span class="w"> </span><span class="o">{</spa
 <p>That's all changes needed from proxmox.</p>
 <h3 id="add-ipv6-only-vm-or-lxc-container">Add IPv6 only VM or LXC container:</h3>
 <p>Create a VM or LXC container as normal, using <code>vmbr0</code> as network bridge. Then when setting up IPv6 for the VM/LXC, use the following settings:</p>
-<p>IP: 1234:5678:9abc<img alt="🇩🇪" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e9-1f1ea.svg" title=":de:" />:xxx/64
-Gateway: 1234:5678:9abc<img alt="🇩🇪" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f1e9-1f1ea.svg" title=":de:" />:1</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>IP:<span class="w"> </span><span class="m">1234</span>:5678:9abc:de::xxx/64
+Gateway:<span class="w"> </span><span class="m">1234</span>:5678:9abc:de::1
+</code></pre></div></td></tr></table></div>
 <blockquote>
 <p><strong>Note:</strong><br> 
   We are using our proxmox node's IPv6 address as gateway on <code>vmbr0</code> which is the default network bridge.<br>
