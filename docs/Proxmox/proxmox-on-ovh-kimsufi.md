@@ -19,8 +19,9 @@ IPv4 network: 123.45.67.89/24
 IPv6 network: 1234:5678:9abc:de::1/128 # (officially /128, really /64)
 ```
 
-The thing is, the IPv6 assigned is still /64 but the rest of the IPs are not directly accessible by the VMs and containers. A quick way to check this is the following script:
-https://gist.github.com/loayai/8eb1fa456246202a4deece7780725da6
+The thing is, the IPv6 assigned is still /64 but the rest of the IPs are not directly accessible by the VMs and containers. A quick way to check this is the following script: [Open in github](https://gist.github.com/loayai/8eb1fa456246202a4deece7780725da6)
+
+
 
 <details>
 <summary>Click to expand code</summary>
